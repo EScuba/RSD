@@ -1,7 +1,0 @@
-<script type="text/javascript">document.write(unescape("%3Ciframe id=\"fb_iframe\" src=\"HAWGSContact.php" + window.location.search + "\" width=\"100%\" height=\"567\"allowtransparency=\"true\" scrolling=\"no\" frameborder=\"0\"%3E&lt;a href=\"HAWGSContact.php\" title=\"HAWGSContact\"&gt;Check out my CoffeeCup Form&lt;/a&gt;%3C/iframe%3E"));</script>
-<noscript>
-  <iframe height="567" style="border:none; background:transparent; overflow:hidden; width:100%;"
-  id="fb_iframe" src="HAWGSContact/HAWGSContact.html">
-    <a href="HAWGSContact.php" title="HAWGSContact">Check out my CoffeeCup Form</a>
-  </iframe>
-</noscript>
