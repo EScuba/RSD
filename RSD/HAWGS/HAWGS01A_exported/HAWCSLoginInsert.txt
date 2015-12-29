@@ -1,0 +1,7 @@
+<script type="text/javascript">document.write(unescape("%3Ciframe id=\"fb_iframe\" src=\"HAWCSLogin.php" + window.location.search + "\" width=\"100%\" height=\"356\"allowtransparency=\"true\" scrolling=\"no\" frameborder=\"0\"%3E&lt;a href=\"HAWCSLogin.php\" title=\"HAWCSLogin\"&gt;Check out my CoffeeCup Form&lt;/a&gt;%3C/iframe%3E"));</script>
+<noscript>
+  <iframe height="356" style="border:none; background:transparent; overflow:hidden; width:100%;"
+  id="fb_iframe" src="HAWCSLogin/HAWCSLogin.html">
+    <a href="HAWCSLogin.php" title="HAWCSLogin">Check out my CoffeeCup Form</a>
+  </iframe>
+</noscript>
