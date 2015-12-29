@@ -1,0 +1,34 @@
+<html>
+<head>
+	
+<script type="text/javascript">
+var currentEnabled = null;
+function enableElement(elem) {
+if (currentEnabled) {
+currentEnabled.disabled = true;
+}
+elem.disabled = false;
+currentEnabled = elem;
+}
+</script>
+
+</head>
+
+<body>
+	
+<form action="">
+<input type="text" name="inp1" disabled="disabled">
+<input type="radio" name="sel" value="1"
+onclick="enableElement(this.form.elements['inp1']);">
+<br>
+<input type="text" name="inp2" disabled="disabled">
+<input type="radio" name="sel" value="2"
+onclick="enableElement(this.form.elements['inp2']);">
+<br>
+<input type="text" name="inp3" disabled="disabled">
+<input type="radio" name="sel" value="3"
+onclick="enableElement(this.form.elements['inp3']);">
+</form>
+
+</body>
+</html>
