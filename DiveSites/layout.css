@@ -1,0 +1,53 @@
+#main {width:980px; margin:0 auto; background:url(images/main-bg.jpg) no-repeat right top; position:relative;}
+
+#header {height:527px;}
+#header, #content, #footer { font-size:0.75em;}
+
+.col-1, .col-2, .col-3 { float:left;}
+
+
+/*======= index.html =======*/
+#page1 #content .col-1 {width:458px; margin-right:28px;}
+#page1 #content .col-2 { width:321px;}
+
+/*======= index-1.html =======*/
+#page2 #content .col-1 {width:458px; margin-right:28px;}
+#page2 #content .col-1 .col-1 { width:239px; margin-right:0;}
+#page2 #content .col-1 .col-2 { width:188px;}
+#page2 #content .col-2 { width:321px;}
+#page2 #content .col-2 .col-1 { width:128px; margin-right:0;}
+#page2 #content .col-2 .col-2 { width:190px;}
+
+/*======= index-2.html =======*/
+#page3 #content .col-1 {width:458px; margin-right:28px;}
+#page3 #content .col-2 { width:321px;}
+#page3 #content .col-2 .col-1 { width:140px; margin-right:35px;}
+#page3 #content .col-2 .col-2 { width:140px;}
+
+/*======= index-3.html =======*/
+#page4 #content .col-1 {width:458px; margin-right:28px;}
+#page4 #content .col-1 .col-1 { width:190px; margin-right:45px;}
+#page4 #content .col-1 .col-2 { width:190px;}
+#page4 #content .col-2 { width:321px;}
+
+/*======= index-4.html =======*/
+#page5 #content .col-1 {width:458px; margin-right:28px;}
+#page5 #content .col-1 .col-1 { width:239px; margin-right:0;}
+#page5 #content .col-1 .col-2 { width:188px;}
+#page5 #content .col-2 { width:321px;}
+#page5 #content .col-2 .col-1 { width:128px; margin-right:0;}
+#page5 #content .col-2 .col-2 { width:190px;}
+
+/*======= Membership2.php =======*/
+#page6 #content .col-1a {width:800px; margin-left:1px;}
+
+/*======= TroveLog =======*/
+#page7 #content .col-1 {width:458px; margin-right:28px;}
+#page7 #content .col-2 { width:321px;}
+
+
+
+/*=========================*/
+
+
+#footer {height:40px;}
