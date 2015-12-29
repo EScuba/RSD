@@ -1,0 +1,52 @@
+ 
+ <html>
+ <head>
+ 	
+ 	
+ <script type="text/javascript">
+ 	
+ function loadspecialties()	{
+ 	var specialtyselect = document.getElementById("item_16_select_1");
+ 
+ 	var specnames= new Array('spec1','spec2','spec3');
+ 	for (var i =0;i < specnames.length;i++)
+ 	 {
+ 	 	
+ 	 	 alert('here: ' + specnames[i]);
+ 	 }	
+ 	
+ 		
+ 	}
+ </script>
+ 
+</head>
+ 
+ 
+<body onload="loadspecialties();">
+
+<form> 
+ 
+ <h4>Specialties</h4>
+ <select name="specialties[]" id="item16_select_1" multiple data-hint="">
+            <option id="item16_0_option" value="Drysuit">
+              Drysuit
+            </option>
+            <option id="item16_1_option" value="Navigation">
+              Navigation
+            </option>
+            <option id="item16_2_option" value="Search and Recovery">
+              Search and Recovery
+            </option>
+            <option id="item16_3_option" value="Deep">
+              Deep
+            </option>
+            <option id="item16_4_option" value="Night">
+              Night
+            </option>
+ </select>
+ 
+ </form>
+ 
+ </body>
+ 
+ </html>
