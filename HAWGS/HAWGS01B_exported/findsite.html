@@ -1,20 +1,26 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-    <head>
+<!DOCTYPE html>
+<html>
 
-// <meta name="viewport" content="width=device-width, initial-scale=.70, maximum-scale=2, user-scalable=yes;">   
-// This line sets it so that the user can scale the image
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <title>findsite</title>
+  <link rel="stylesheet" href="css/coffeegrinder.min.css">
+  <link rel="stylesheet" href="css/wireframe-theme.min.css">
+  <script>document.createElement( "picture" );</script>
+  <script src="js/picturefill.min.js" class="picturefill" async="async"></script>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Creepster%7COswald">
 
+  <style type="text/css">     
+    select {
+        width:200px;
+    }
+</style>
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Dive Site Search</title>
-
-
-
-AIzaSyCRCIipacvl0PMGdIGho8_9KbnK-LUQvNo
-
-
- <script language="JavaScript" src="http://www.geoplugin.net/javascript.gp" type="text/javascript"></script>
+<script language="JavaScript" src="http://www.geoplugin.net/javascript.gp" type="text/javascript"></script>
 
  <script src="http://maps.google.com/maps?file=api&v=3&sensor=false&key=ABQIAAAAjCu_FRQaxB0N9Jd0blE2BBQzob6ZaE7k61kfhGt0WQEegfs1dBTW12JniKrRexVpHw3r5BCFsooeoA" type="text/javascript"></script>
             
@@ -40,7 +46,7 @@ AIzaSyCRCIipacvl0PMGdIGho8_9KbnK-LUQvNo
  
  
       var radius = 200;
-     var searchUrl = 'phpsqlsearch_genxmlDS.php?lat=' + geoplugin_latitude() + '&lng=' + geoplugin_longitude() + '&radius=' + radius;
+     var searchUrl = 'DiveSites/phpsqlsearch_genxmlDS.php?lat=' + geoplugin_latitude() + '&lng=' + geoplugin_longitude() + '&radius=' + radius;
 //      alert('here: '+searchUrl);
      GDownloadUrl(searchUrl, function(data) {
        var xml = GXml.parse(data);
@@ -123,7 +129,7 @@ AIzaSyCRCIipacvl0PMGdIGho8_9KbnK-LUQvNo
 
    function searchLocationsNear(center) {
      var radius = document.getElementById('radiusSelect').value;
-     var searchUrl = 'phpsqlsearch_genxmlDS.php?lat=' + center.lat() + '&lng=' + center.lng() + '&radius=' + radius;
+     var searchUrl = 'DiveSites/phpsqlsearch_genxmlDS.php?lat=' + center.lat() + '&lng=' + center.lng() + '&radius=' + radius;
  ///    alert('here: '+searchUrl);
      GDownloadUrl(searchUrl, function(data) {
        var xml = GXml.parse(data);
@@ -185,7 +191,7 @@ AIzaSyCRCIipacvl0PMGdIGho8_9KbnK-LUQvNo
        {
       // Create our "tiny" marker icon
            var blueIconP = new GIcon(G_DEFAULT_ICON);
-           blueIconP.image = "blue_MarkerP.png";
+           blueIconP.image = "DiveSites/blue_MarkerP.png";
        // Set up our GMarkerOptions object
            markerOptions = { icon:blueIconP,animation:"google.maps.Animation.BOUNCE" };
         }
@@ -193,7 +199,7 @@ AIzaSyCRCIipacvl0PMGdIGho8_9KbnK-LUQvNo
        	{
        		// Create our "tiny" marker icon
            var redIconP = new GIcon(G_DEFAULT_ICON);
-           redIconP.image = "red_MarkerD.png";
+           redIconP.image = "DiveSites/red_MarkerD.png";
            redIconP.iconSize = new GSize(41,25);
            redIconP.iconAnchor = new GPoint(21,25);
            redIconP.infoWindowAnchor = new GPoint (19,12);
@@ -264,20 +270,147 @@ AIzaSyCRCIipacvl0PMGdIGho8_9KbnK-LUQvNo
     //]]>
   </script>
 
+<style>
+	  .map-display{
+	    position: relative;
+	    padding-bottom: 100%;
+	    height:0;
+	    overflow:hidden;
+	  }
+	  
+	  .map-display table {
+	  	  position:absolute;
+	  	  top:0;
+	  	  left:0;
+	  	  width: 100%;
+	  	  height:100%;
+	  }
 
-
-
-
-
+ #map{
+	  	position:absolute;
+	  	  top:0;
+	  	  left:200;
+                  max-width:300;
+	  	  max-width:400;
+	  	  width: 100%;
+	  	  height: 100%;
+                  overflow: hidden;
+	  	
+	  	
+	  }	
+	  
+</style>	  
+	  	    
 
 
 </head>
-<body onload="load()" onunload="GUnload()" >
+
+<body class="grid-1">
+  <div class="row">
+    <div class="coffee-span-22 coffee-offset-1 column-1">
+      <h1 class="heading-1"><span class="heading-text-2">H.A.W.G.S.</span>
+      </h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="coffee-span-22 coffee-offset-1 column-2">
+      <div class="subgrid">
+        <div class="row">
+          <div class="coffee-span-24 mobile-button"><span class="glyph mobile-icon"><i class="coffeecup-icons-menu3"></i></span>
+            <span class="text-element menu-label">MENU</span>
+          </div>
+          <div class="coffee-span-24 menu" id="menu">
+            <div class="container pulldown">
+              <a class="link-text first-level-button" href="index.html">HOME</a>
+              <ul class="link-list submenu">
+                <li class="list-item-link submenu-li w200"><a href="#">SubMENU BUTTON</a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+              </ul>
+            </div>
+            <div class="container pulldown">
+              <a class="link-text first-level-button" href="#">LOGIN</a>
+              <ul class="link-list submenu">
+                <li class="list-item-link submenu-li w200"><a href="login.html">MEMBERS<br></a>
+                </li>
+                <li class="list-item-link submenu-li" id="Registration"><a href="registration.html">Registration<br></a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+              </ul>
+            </div>
+            <div class="container pulldown">
+              <a class="link-text first-level-button" href="#">DIVE SITES</a>
+              <ul class="link-list submenu">
+                <li class="list-item-link submenu-li w200" id="FindSite"><a href="findsite.html">FIND A Dive site<br></a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+              </ul>
+            </div>
+            <div class="container pulldown">
+              <a class="link-text first-level-button" href="#">BUDDIES</a>
+              <ul class="link-list submenu">
+                <li class="list-item-link submenu-li w200"><a href="#">SubMENU BUTTON</a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+              </ul>
+            </div>
+            <div class="container pulldown">
+              <a class="link-text first-level-button" href="contact.html">CONTACT</a>
+              <ul class="link-list submenu">
+                <li class="list-item-link submenu-li w200"><a href="#">SubMENU BUTTON</a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+              </ul>
+            </div>
+            <div class="container pulldown">
+              <a class="link-text first-level-button" href="about.html">ABOUT</a>
+              <ul class="link-list submenu">
+                <li class="list-item-link submenu-li w200"><a href="#">SubMENU BUTTON</a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="coffee-span-22 coffee-offset-1 column-3">
+      <div class="html-element"><body onload="load()" onunload="GUnload()" >
 
 
         
    <br/>
-   Location /Postal Code: <input type="text" id="addressInput"/>
+   Location /Postal Code: <input type="text" id="addressInput" value="Calgary, Alberta,Canada"/>
     <br/><br/>  
     Radius: <select id="radiusSelect">
       <option value="50" >50</option>
@@ -304,8 +437,11 @@ AIzaSyCRCIipacvl0PMGdIGho8_9KbnK-LUQvNo
 
 
   
-  <br /><div style="width:450px; font-family:Arial, 
-sans-serif; font-size:11px; border:1px solid black">
+  <br />
+  
+<div class="map-display">
+	  
+
 
 
 <table border="1"> 
@@ -316,24 +452,28 @@ sans-serif; font-size:11px; border:1px solid black">
         	<div id="sidebar" style="overflow: auto; height: 400px; font-size: 11px; color: #000"></div>
 
         </td>
-        <td> <div id="map" style="overflow: hidden; width:300px; height:400px">
+        <td> <div id="map" >
         	
         	</div> </td>
       </tr> 
     </tbody>
   </table>
 
-  
+
+</div>  
  
 </div>
-</body>
 
-<footer>
-	
-	<script type="text/javascript" language="JavaScript">
+
+</body></div>
+    </div>
+  </div>
+  <script src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" language="JavaScript">
   		 document.getElementById("addressInput").value=geoplugin_city()+","+geoplugin_region()+","+geoplugin_countryName();
   	</script>
-  	  
- </footer> 	  
+  	    
+
+</body>
 
 </html>

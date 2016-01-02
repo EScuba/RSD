@@ -75,6 +75,8 @@ body > .row > [class*='coffee-span-'].column-1 {
 }
 
 body.grid-1 {
+  max-width: none;
+  max-height: 3000px;
   background-image: url(../Stones-in-water.jpg);
 }
 
@@ -87,7 +89,20 @@ body > .row > [class*='coffee-span-'].column-4 {
 }
 
 body > .row > [class*='coffee-span-'].column-3 {
-  background-color: #deb6de;
+  max-height: 600px;
+  background-color: #ebddeb;
+}
+
+body > .row.row-1 {
+  max-height: none;
+}
+
+body > .row > [class*='coffee-span-'].column-5 {
+  background-color: #ebd3eb;
+}
+
+body > .row > [class*='coffee-span-'].column-6 {
+  background-color: #c9a1c9;
 }
 
 .subgrid > .row > [class*='coffee-span-'].menu {
@@ -127,6 +142,15 @@ span.glyph.mobile-icon {
   float: right;
   width: auto;
   line-height: 1;
+}
+
+.row > [class*='coffee-span-'] .html-element.html-element-1 {
+  max-width: 600px;
+}
+
+.row > [class*='coffee-span-'] .html-element.html-element-2 {
+  max-width: 1085px;
+  max-height: 400px;
 }
 
 @media screen and (max-width: 768px) {

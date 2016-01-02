@@ -11,7 +11,7 @@
 
 
 
-AIzaSyCRCIipacvl0PMGdIGho8_9KbnK-LUQvNo
+
 
 
  <script language="JavaScript" src="http://www.geoplugin.net/javascript.gp" type="text/javascript"></script>
@@ -40,7 +40,7 @@ AIzaSyCRCIipacvl0PMGdIGho8_9KbnK-LUQvNo
  
  
       var radius = 200;
-     var searchUrl = 'phpsqlsearch_genxmlDS.php?lat=' + geoplugin_latitude() + '&lng=' + geoplugin_longitude() + '&radius=' + radius;
+     var searchUrl = 'DiveSites/phpsqlsearch_genxmlDS.php?lat=' + geoplugin_latitude() + '&lng=' + geoplugin_longitude() + '&radius=' + radius;
 //      alert('here: '+searchUrl);
      GDownloadUrl(searchUrl, function(data) {
        var xml = GXml.parse(data);
@@ -123,7 +123,7 @@ AIzaSyCRCIipacvl0PMGdIGho8_9KbnK-LUQvNo
 
    function searchLocationsNear(center) {
      var radius = document.getElementById('radiusSelect').value;
-     var searchUrl = 'phpsqlsearch_genxmlDS.php?lat=' + center.lat() + '&lng=' + center.lng() + '&radius=' + radius;
+     var searchUrl = 'DiveSites/phpsqlsearch_genxmlDS.php?lat=' + center.lat() + '&lng=' + center.lng() + '&radius=' + radius;
  ///    alert('here: '+searchUrl);
      GDownloadUrl(searchUrl, function(data) {
        var xml = GXml.parse(data);
@@ -185,7 +185,7 @@ AIzaSyCRCIipacvl0PMGdIGho8_9KbnK-LUQvNo
        {
       // Create our "tiny" marker icon
            var blueIconP = new GIcon(G_DEFAULT_ICON);
-           blueIconP.image = "blue_MarkerP.png";
+           blueIconP.image = "DiveSites/blue_MarkerP.png";
        // Set up our GMarkerOptions object
            markerOptions = { icon:blueIconP,animation:"google.maps.Animation.BOUNCE" };
         }
@@ -193,7 +193,7 @@ AIzaSyCRCIipacvl0PMGdIGho8_9KbnK-LUQvNo
        	{
        		// Create our "tiny" marker icon
            var redIconP = new GIcon(G_DEFAULT_ICON);
-           redIconP.image = "red_MarkerD.png";
+           redIconP.image = "DiveSites/red_MarkerD.png";
            redIconP.iconSize = new GSize(41,25);
            redIconP.iconAnchor = new GPoint(21,25);
            redIconP.infoWindowAnchor = new GPoint (19,12);
@@ -265,7 +265,35 @@ AIzaSyCRCIipacvl0PMGdIGho8_9KbnK-LUQvNo
   </script>
 
 
-
+<style>
+	  .map-display{
+	    position: relative;
+	    padding-bottom: 75%;
+	    height:0;
+	    overflow:hidden;
+	  }
+	  
+	  .map-display table{
+	  	  position:absolute;
+	  	  top:0;
+	  	  left:0;
+	  	  width: 100%;
+	  	  height:100%;
+	  }
+	  
+	  #map{
+	  	position:absolute;
+	  	  top:0;
+	  	  left:200;
+	  	  width: 100%;
+	  	  height:100%;
+	  	
+	  	
+	  }	
+	  
+</style>	  
+	  	    
+	    
 
 
 
@@ -277,7 +305,7 @@ AIzaSyCRCIipacvl0PMGdIGho8_9KbnK-LUQvNo
 
         
    <br/>
-   Location /Postal Code: <input type="text" id="addressInput"/>
+   Location /Postal Code: <input type="text" id="addressInput" value="Calgary, Alberta,Canada"/>
     <br/><br/>  
     Radius: <select id="radiusSelect">
       <option value="50" >50</option>
@@ -304,8 +332,11 @@ AIzaSyCRCIipacvl0PMGdIGho8_9KbnK-LUQvNo
 
 
   
-  <br /><div style="width:450px; font-family:Arial, 
-sans-serif; font-size:11px; border:1px solid black">
+  <br />
+  
+<div class="map-display">
+	  
+/* <div style="width:450px; font-family:Arial,  sans-serif; font-size:11px; border:1px solid black">
 
 
 <table border="1"> 
@@ -316,16 +347,16 @@ sans-serif; font-size:11px; border:1px solid black">
         	<div id="sidebar" style="overflow: auto; height: 400px; font-size: 11px; color: #000"></div>
 
         </td>
-        <td> <div id="map" style="overflow: hidden; width:300px; height:400px">
-        	
-        	</div> </td>
+        <td> <div id="map" style="overflow: hidden; width:300px; height:400px"></div> </td>
       </tr> 
     </tbody>
   </table>
 
-  
+</div>  
  
 </div>
+
+
 </body>
 
 <footer>
