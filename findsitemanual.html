@@ -80,8 +80,7 @@ function processLocation(){
      
      geocoder.geocode({address:address}, function(results, status) {
      	
- // add the check that resulting address search was ok 
- // also add what happens if the user decides to enter long,lat or system has long lats
+ // add the check that resulting address search was ok
      	
      	  var latitude = results[0].geometry.location.lat();
         var longitude = results[0].geometry.location.lng();
