@@ -78,7 +78,6 @@ while ($row = @mysql_fetch_assoc($result)){
 
 // convert to actual names required
 $DiveSiteDifficulty=$row['DiveSiteDifficulty'];
-$Difficulty='';
 if(strlen($DiveSiteDifficulty) != 0)
  {
  	  for($i=0;$i < strlen($DiveSiteDifficulty);$i++)

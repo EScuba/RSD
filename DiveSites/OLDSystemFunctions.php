@@ -10,12 +10,12 @@
 
 
 
-$username="kenspon";
-$user="kenspon";
-$password="Forget01";
-$database="divesites";
-$db="divesites";
-$serverhost="divesites.kenspon.com";
+$username="kenpon";
+$user="kenpon";
+$password="@notherP@ssw0rd";
+$database="aquatreasurequest";
+$db="aquatreasurequest";
+$serverhost="mysql.aquatreasurequest.com";
 
 
 
