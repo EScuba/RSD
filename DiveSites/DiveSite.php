@@ -8,7 +8,7 @@ $CallingProgram="index.php";
 
 
 
-#----------------- load the array for use with radi/check buttons ----------------------------------------
+#----------------- load the array for use with radio/check buttons ----------------------------------------
 #------------------caution - changing the order of the items in these arrays will cause data errors -----------------
 #------------------these arrays are needed for any program that accesses the database
 #------------------all fields for radio/check buttons are stored as a string of 1 and 0 to indicate which options apply to the information in question
@@ -32,7 +32,11 @@ $siteFacilitiesArray=array("Washrooms","Picnic Shelters","Picnic Tables","Conces
 
 #------------- for future use -----------------------------------------------------------------
 
-$siteProvinceArray=array("Alberta","British Columbia","Saskatchewan","Manitoba","Ontario","Quebec","Prince Edward Island","New Brunswick","Nova Scotia","Newfoundland","Northwest Territories","Yukon","Nunavut");
+$siteProvinceArray=array("Alberta","British Columbia","Saskatchewan","Manitoba","Ontario","Quebec","Prince Edward Island","New Brunswick","Nova Scotia","Newfoundland","Northwest Territories","Yukon","Nunavut",
+"Alabama","Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois","Indiana", "Iowa", "Kansas", "Kentucky", 
+"Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana","Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", 
+"North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania","Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", 
+"Wisconsin", "Wyoming");
 $siteCountryArray=array("Canada","United States");
 $SiteCityArray=array("Calgary","Red Deer","Banff","Edmonton","Lethbridge","Medecine Hat","Waterton","Jasper","Pincher Creek","Hinton");
 
@@ -61,6 +65,147 @@ $SiteCityArray=array("Calgary","Red Deer","Banff","Edmonton","Lethbridge","Medec
 
 
 # exec("mysqldump -h mysql.aquatreasurequest.com -ukenpon -p@notherP@ssw0rd aquatreasurequest >aqdump.sql");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#-------------------------Get a Desired Record -------------------------
+
+function GetLoadDesiredRecord()
+ { 
+global $db, $user, $serverhost, $password, $Add, $Edit, $Delete, $Search, $Start, $Expiry;
+
+global $NumDiveSiteRecords,$DiveSiteId,$DiveSiteStatus,$DiveSiteEnteredBy,$DiveSiteDateEntered;
+global $DiveSiteCity,$DiveSiteProvince,$DiveSiteCountry,$DiveSiteName,$DiveSiteMajorName;
+global $DiveSiteMinorName,$DiveSiteRating,$DiveSiteElevation,$DiveSiteElevationUnits,$DiveSiteWater;
+global $DiveSiteDepthMin,$DiveSiteDepthMax,$DiveSiteDepthUnits,$DiveSiteBottomComposition;
+global $DiveSiteHazards,$DiveSiteHazardsNotes,$DiveSiteType,$DiveSiteLevel,$DiveSiteDifficulty;
+global $DiveSiteTideTable,$DiveSiteBestDiveMonths,$DiveSiteTimeRestrictions,$DiveSitePermitRequired;
+global $DiveSiteWinterTemp,$DiveSiteSummerTemp,$DiveSiteFallTemp,$DiveSiteSpringTemp,$DiveSiteTempUnits;
+global $DiveSiteVisibilityMinimum,$DiveSiteVisibilityMaximum,$DiveSiteVisibilityUnits,$DiveSiteFacilities;
+global $DiveSiteFacilitiesNotes,$DiveSiteRecommendationNotes,$DiveSiteNotes,$DiveSiteExactLat;
+global $DiveSiteExactLong,$DiveSiteShoreLat,$DiveSiteShoreLong,$DiveSiteShoreNotes,$DiveSiteWebPage;
+global $DiveSiteBackground,$DiveSiteEAPId;
+global $DesiredRecord;
+
+$connection = mysql_connect($serverhost,$user,$password) or die('ERROR!!  Cannot connect to MySql');
+$rs = mysql_select_db($db,$connection)    or die('ERROR!! Cannot connect to divesite database - at get load');
+$sql="select * from DiveSite where(DiveSiteId = '".strip_tags(addslashes($DesiredRecord))."') order by DiveSiteId";
+# echo('sql: '.$sql);
+$result = mysql_query($sql,$connection) or die("ERROR!! DiveSite Get Load Select * failure");
+$NumDiveSiteDesired = mysql_num_rows($result);
+# echo('<br> NUM: '.$NumDiveSiteDesired);
+mysql_close($connection);
+if($NumDiveSiteDesired>0)
+{
+$rowdata=mysql_fetch_row($result);
+$DiveSiteId=$rowdata[0];
+$DiveSiteStatus=$rowdata[1];
+$DiveSiteEnteredBy=$rowdata[2];
+$DiveSiteDateEntered=$rowdata[3];
+$DiveSiteCity=$rowdata[4];
+$DiveSiteProvince=$rowdata[5];
+$DiveSiteCountry=$rowdata[6];
+$DiveSiteName=$rowdata[7];
+$DiveSiteMajorName=$rowdata[8];
+$DiveSiteMinorName=$rowdata[9];
+$DiveSiteRating=$rowdata[10];
+$DiveSiteElevation=$rowdata[11];
+$DiveSiteElevationUnits=$rowdata[12];
+$DiveSiteWater=$rowdata[13];
+$DiveSiteDepthMin=$rowdata[14];
+$DiveSiteDepthMax=$rowdata[15];
+$DiveSiteDepthUnits=$rowdata[16];
+$DiveSiteBottomComposition=$rowdata[17];
+$DiveSiteHazards=$rowdata[18];
+$DiveSiteHazardsNotes=$rowdata[19];
+$DiveSiteType=$rowdata[20];
+$DiveSiteLevel=$rowdata[21];
+$DiveSiteDifficulty=$rowdata[22];
+$DiveSiteTideTable=$rowdata[23];
+$DiveSiteBestDiveMonths=$rowdata[24];
+$DiveSiteTimeRestrictions=$rowdata[25];
+$DiveSitePermitRequired=$rowdata[26];
+$DiveSiteWinterTemp=$rowdata[27];
+$DiveSiteSummerTemp=$rowdata[28];
+$DiveSiteFallTemp=$rowdata[29];
+$DiveSiteSpringTemp=$rowdata[30];
+$DiveSiteTempUnits=$rowdata[31];
+$DiveSiteVisibilityMinimum=$rowdata[32];
+$DiveSiteVisibilityMaximum=$rowdata[33];
+$DiveSiteVisibilityUnits=$rowdata[34];
+$DiveSiteFacilities=$rowdata[35];
+$DiveSiteFacilitiesNotes=$rowdata[36];
+$DiveSiteRecommendationNotes=$rowdata[37];
+$DiveSiteNotes=$rowdata[38];
+$DiveSiteExactLat=$rowdata[39];
+$DiveSiteExactLong=$rowdata[40];
+$DiveSiteShoreLat=$rowdata[41];
+$DiveSiteShoreLong=$rowdata[42];
+$DiveSiteShoreNotes=$rowdata[43];
+$DiveSiteWebPage=$rowdata[44];
+$DiveSiteBackground=$rowdata[45];
+$DiveSiteEAPId=$rowdata[46];
+
+}
+PutVariablesIntoSession();
+return;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1138,6 +1283,7 @@ global $siteMonthsArray, $postSiteMonthsArray;
 global $siteTempUnitsArray, $postSiteTempUnitsArray;
 global $postSiteVisibilityUnitsArray;
 global $siteFacilitiesArray,$postSiteFacilitiesArray;
+global $siteProvinceArray,$siteCountryArray;
 
 
 echo stripslashes("
@@ -1179,12 +1325,65 @@ echo stripslashes("<th valign='top' align ='left' scope='row'>City&nbsp;&nbsp;&n
 echo ("<td><input type ='text' NAME='DiveSiteCity' VALUE='$DiveSiteCity'  SIZE='30' MAXLENGTH='30'  tabindex=5 id ='DiveSiteCity' 
    onBlur=\"if(isBlank(this.form.DiveSiteCity.value)) {alert('DiveSiteCity cannot be blank');this.form.DiveSiteCity.style.background='Yellow';}else{this.form.DiveSiteCity.style.background='White';}\"><br></td>");
 echo stripslashes("<th valign='top' align ='left' scope='row'>Province&nbsp;</th>");
-echo ("<td><input type ='text' NAME='DiveSiteProvince' VALUE='$DiveSiteProvince'  SIZE='15' MAXLENGTH='15'  tabindex=6 id ='DiveSiteProvince' 
-   onBlur=\"if(isBlank(this.form.DiveSiteProvince.value)) {alert('DiveSiteProvince cannot be blank');this.form.DiveSiteProvince.style.background='Yellow';}else{this.form.DiveSiteProvince.style.background='White';}\"><br></td>");
+
+
+
+$array_length = count($siteProvinceArray);
+echo('<td>');
+echo('<select name="DiveSiteProvince" tabindex=6 id="DiveSiteProvince" VALUE="$DiveSiteProvince">');
+for ($i=0;$i<$array_length;$i++)
+    {
+    	if($Mode=='ADD')
+    	 {
+           if($siteProvinceArray == 'Alberta'){$selopt="selected";}else{$selopt="";}  
+       }
+       else
+       {
+       	   if($DiveSiteProvince == $siteProvinceArray[$i]){$selopt="selected";}else{$selopt="";}  
+       }      	
+echo ('<option value="'.$siteProvinceArray[$i].'" '.$selopt.'>'.$siteProvinceArray[$i].'</option>');
+    }
+echo('</select>');
+echo('</td>');
+
+
+
+
+
+#echo ("<td><input type ='text' NAME='DiveSiteProvince' VALUE='$DiveSiteProvince'  SIZE='15' MAXLENGTH='15'  tabindex=6 id ='DiveSiteProvince' 
+#   onBlur=\"if(isBlank(this.form.DiveSiteProvince.value)) {alert('DiveSiteProvince cannot be #blank');this.form.DiveSiteProvince.style.background='Yellow';}else{this.form.DiveSiteProvince.style.background='White';}\"><br></td>");
+
 echo stripslashes("<th valign='top' align ='left' scope='row'>Country</th>
 ");
-echo ("<td><input type ='text' NAME='DiveSiteCountry' VALUE='$DiveSiteCountry'  SIZE='15' MAXLENGTH='15'  tabindex=7 id ='DiveSiteCountry' 
-   onBlur=\"if(isBlank(this.form.DiveSiteCountry.value)) {alert('DiveSiteCountry cannot be blank');this.form.DiveSiteCountry.style.background='Yellow';}else{this.form.DiveSiteCountry.style.background='White';}\"><br></td>");
+
+
+$array_length = count($siteCountryArray);
+echo('<td>');
+echo('<select name="DiveSiteCountry" tabindex=6 id="DiveSiteProvince" VALUE="$DiveSiteCountry">');
+for ($i=0;$i<$array_length;$i++)
+    {
+    	if($Mode=='ADD')
+    	 {
+           if($siteCountryArray == 'Alberta'){$selopt="selected";}else{$selopt="";}  
+       }
+       else
+       {
+       	   if($DiveSiteCountry == $siteCountryArray[$i]){$selopt="selected";}else{$selopt="";}  
+       }      	
+echo ('<option value="'.$siteCountryArray[$i].'" '.$selopt.'>'.$siteCountryArray[$i].'</option>');
+    }
+echo('</select>');
+echo('</td>');
+
+
+
+
+
+
+
+
+#echo ("<td><input type ='text' NAME='DiveSiteCountry' VALUE='$DiveSiteCountry'  SIZE='15' MAXLENGTH='15'  tabindex=7 id ='DiveSiteCountry' 
+#   onBlur=\"if(isBlank(this.form.DiveSiteCountry.value)) {alert('DiveSiteCountry cannot be #blank');this.form.DiveSiteCountry.style.background='Yellow';}else{this.form.DiveSiteCountry.style.background='White';}\"><br></td>");
 echo stripslashes("</tr>");
 echo("</tr></table></td>");
 
@@ -2296,6 +2495,16 @@ echo stripslashes("
 <FORM NAME='DiveSiteDisplay' action='DiveSite.php' method='POST'>
 <TABLE  align='center' border='1'><tr><td>
 <TABLE cellspacing='5'>
+<tr>
+<td colspan =2 align='center'>
+
+<input type ='SUBMIT' NAME='display_button' Value = 'Return'>
+<input type ='SUBMIT' NAME='display_button' Value = 'Edit'>
+<input type ='SUBMIT' NAME='display_button' Value = 'Delete'>
+</td>
+</td>
+</tr>
+
 <tr style='outline: thin solid'><th bgcolor='#faa0f2' colspan=\"8\">Where is the Site?</th></tr>
 
 
@@ -3338,14 +3547,13 @@ echo stripslashes("</tr>
 <tr></tr><tr></tr><tr></tr>
 <tr>
 <td colspan =2 align='center'>
-<input type ='SUBMIT' NAME='display_button' Value = 'Back'>
-<input type ='SUBMIT' NAME='display_button' Value = 'Logout'>
-<input type ='SUBMIT' NAME='display_button' Value = 'Add'>
+
+
+
+<input type ='SUBMIT' NAME='display_button' Value = 'Return'>
 <input type ='SUBMIT' NAME='display_button' Value = 'Edit'>
-<input type ='SUBMIT' NAME='display_button' Value = 'Next'>
-<input type ='SUBMIT' NAME='display_button' Value = 'Previous'>
 <input type ='SUBMIT' NAME='display_button' Value = 'Delete'>
-<input type ='SUBMIT' NAME='display_button' Value = 'List Records'>
+</td>
 </td>
 </tr>
 </TABLE>
@@ -3990,6 +4198,78 @@ $NumDiveSiteRecords = mysql_num_rows($result);
 mysql_close($connection);
 return;
 }
+
+#------------------------------List Menu of Records in Database ---------------------
+
+function ListMenu()
+ { 
+global $user, $serverhost,$db,$password;
+$_SESSION['DiveSiteId']='00000000';
+$connection = mysql_connect($serverhost,$user,$password) or die('ERROR!!  Cannot connect to MySql');
+$rs = mysql_select_db($db,$connection)    or die('ERROR!! Cannot connect to aquatreasurequest database');
+$sql="select * from DiveSite order by DiveSiteStatus";
+$result = mysql_query($sql,$connection) or die("ERROR!! DiveSite GetNumRecs failure");
+$NumDiveSiteRecords = mysql_num_rows($result);
+mysql_close($connection);
+echo "<form name='ListMenu' action='DiveSite.php' method ='POST'>";
+echo"<table align='center' border = '1' cellspacing ='3'>";
+echo "<input type='hidden' name='check' id='check'>";
+
+echo "<tr><td colspan='10' align='center'>
+
+<input type ='SUBMIT' NAME='display_button' Value = 'Add'>";
+echo "</td></tr>";
+
+
+echo "<tr>";
+echo "<td align='center' ><b>DiveSiteId</b></td>";
+echo "<td align='center' ><b>DiveSiteStatus</b></td>";
+
+echo "<td align='center' ><b>DiveEntered</b></td>";
+#echo "<td align='center' ><b>DiveSiteDateEntered</b></td>";
+
+echo "<td align='center' ><b>Location</b></td>";
+#echo "<td align='center' ><b>DiveSiteProvince</b></td>";
+#echo "<td align='center' ><b>DiveSiteCountry</b></td>";
+
+echo "<td align='center' ><b>Dive SiteName </b></td>";
+#echo "<td align='center' ><b>DiveSiteMajorName</b></td>";
+#echo "<td align='center' ><b>DiveSiteMinorName</b></td>";
+echo '</tr>';
+ for($i=1;$i<=$NumDiveSiteRecords;$i++)
+{
+$rowdata=mysql_fetch_row($result);
+echo "<tr>";
+echo "<td align='center'><input type=radio id='SelectRecord' NAME='SelectRecord' VALUE='".$rowdata[0]."' onClick=\"document.forms.ListMenu.display_button.value = 'Display';document.forms.ListMenu.check.value = 'Display';document.forms.ListMenu.submit();\" >&nbsp; </td>";
+echo "<td align='left'>".$rowdata[1]."&nbsp;</td>";
+
+echo "<td align='center'>".$rowdata[2]."&nbsp;<br>".$rowdata[3]."</td>";
+#echo "<td align='left'>".$rowdata[3]."&nbsp; </td>";
+
+echo "<td align='center'>".$rowdata[4]."&nbsp;<br>".$rowdata[5]."<br>".$rowdata[6]."</td>";
+#echo "<td align='left'>".$rowdata[5]."&nbsp; </td>";
+#echo "<td align='left'>".$rowdata[6]."&nbsp; </td>";
+
+echo "<td align='center'>".$rowdata[7]."&nbsp;<br>".$rowdata[8]."<br>".$rowdata[9]."</td>";
+#echo "<td align='left'>".$rowdata[8]."&nbsp; </td>";
+#echo "<td align='left'>".$rowdata[9]."&nbsp; </td>";
+echo "</tr>";
+}
+echo "<tr><td colspan='10' align='center'>
+
+<input type ='SUBMIT' NAME='display_button' Value = 'Add'>";
+echo "</td></tr>";
+echo '</table>';
+echo '</form>';
+return;
+}
+
+
+
+
+
+
+
 #------------------------------Screen Report of Records in Database ---------------------
 
 function ListRecords()
@@ -4429,8 +4709,16 @@ echo "<body bgcolor ='".$BackgroundColor."' onLoad=\"parent.showframe.location.h
    { 
      CurrentNumberRecords();
      GetVariablesFromSession();
+     
+      if($_POST['check']!='Display')
+      {$Action=$_POST['display_button'];}
+     else
+      {$Action=$_POST['check'];}  
+      
+#   echo('AT MENU: '.$Action.' '.$_POST['SelectRecord'].'<br>');
    
-   $Action=$_POST['display_button'];
+ # $Action=$_POST['display_button'];
+   
       switch($Action)
          {
              case 'Add':
@@ -4438,13 +4726,25 @@ echo "<body bgcolor ='".$BackgroundColor."' onLoad=\"parent.showframe.location.h
                InitializeVariables();
                AddForm();
                break;
+               
+             case 'Display':
+             
+#               echo('at display');
+             
+               $DesiredRecord=$_POST['SelectRecord'];
+               GetLoadDesiredRecord();
+               DisplayForm();
+               break;            
 
              case 'Edit':
-              
+              $DesiredRecord=$_POST['SelectRecord']; 
+               GetLoadDesiredRecord();
                EditForm();
                break;  
 
              case 'Delete':
+              $DesiredRecord=$_POST['SelectRecord'];
+               GetLoadDesiredRecord();
                Db_Delete();
                InitializeProgram();
                DisplayForm();
@@ -4477,18 +4777,18 @@ echo "<body bgcolor ='".$BackgroundColor."' onLoad=\"parent.showframe.location.h
                
                GetPostVariables();    #--- At end of this - we have the data ready for database processing
                AddForm();
-               exit();
+              
                
-               if(ValidUniqueCode())
-                 {  
+#               if(ValidUniqueCode())
+#                 {  
                    Db_Add();
                    DisplayForm();
-                 }
-               else
-                 {
-                   $_SESSION['SystemMessage']='Code already on file!! Choose another.';
-                   AddForm();
-                 }      
+#                 }
+#               else
+#                 {
+#                   $_SESSION['SystemMessage']='Code already on file!! Choose another.';
+#                   AddForm();
+#                 }      
                
                break;
     
@@ -4511,8 +4811,8 @@ echo "<body bgcolor ='".$BackgroundColor."' onLoad=\"parent.showframe.location.h
 
 
             default:
-              
-               DisplayForm();
+               ListMenu();
+             #  DisplayForm();
                break;   
          }  
 
@@ -4520,8 +4820,8 @@ echo "<body bgcolor ='".$BackgroundColor."' onLoad=\"parent.showframe.location.h
    else
    {
         InitializeProgram();
-        DisplayForm();
-       
+ #       DisplayForm();
+         ListMenu();
    }
 echo"
 </body>

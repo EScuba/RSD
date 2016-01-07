@@ -19,7 +19,7 @@ require_once('SystemFunctions.php');
   { 
       header('Location: index.php');
   } 
-$db="aquatreasurequest";
+
 $table="DiveSitePOI";
 $CallingProgram="index.php";
 #-------------------------Get a Desired Record -------------------------

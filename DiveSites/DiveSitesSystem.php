@@ -1,7 +1,7 @@
 <?php /**/ ?><?php
 session_start();
 require_once('SystemFunctions.php');
-
+$SESSION['DiveSiteId']='00000000';
 
 echo('
 <html>

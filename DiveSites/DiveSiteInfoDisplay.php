@@ -34,6 +34,7 @@ echo('<html>');
 echo('<body bgcolor="CYAN">');
 
 DisplayDiveSiteGeneral();
+
 DisplayDesiredMaps();
 DisplayDesiredPictures();
 
@@ -1211,7 +1212,12 @@ $NumDiveSiteMapRecordsDesired = mysql_num_rows($result);
 mysql_close($connection);
 if($NumDiveSiteMapRecordsDesired>0)
 {
-$rowdata=mysql_fetch_row($result);
+echo('<table align="center" border = "1">');
+echo('<tr><th colspan ="3">Dive Site Map</th></tr>');
+echo('<tr><th>Dive Site Map Date</th><th>Dive Site Maps</th><th>Dive Site Map Notes</th></tr>');
+ while ($rowdata = mysql_fetch_row($result))
+ {
+
 $DiveSiteMapId=$rowdata[0];
 $DiveSiteId=$rowdata[1];
 $DiveSiteMapEnteredBy=$rowdata[2];
@@ -1226,18 +1232,22 @@ $DiveSiteExactLat=$rowdata[10];
 $DiveSiteExactLong=$rowdata[11];
 $DiveSiteMapFileInfo=$rowdata[12];
 $DiveSiteMapNotes=$rowdata[13];
+
+
+
+
+echo('<tr><td align="center">'.$DiveSiteMapDateEntered.'<br><br>by<br><br>'.$DiveSiteMapEnteredBy.'</td><td><img src="'.$DiveSiteMapFileInfo.'" alt="'.$DiveSiteMapFileInfo.'" ></td><td>&nbsp;'.$DiveSiteMapNotes.'</td>');
 }
-
-echo('<table align="center" border = "1">');
-echo('<tr><th colspan ="3">Dive Site Map</th></tr>');
-echo('<tr><th>Dive Site Map Date</th><th>Dive Site Maps</th><th>Dive Site Map Notes</th></tr>');
-
-echo('<tr><td align="center">'.$DiveSiteMapDateEntered.'<br><br>by<br><br>'.$DiveSiteMapEnteredBy.'</td><td><img src="'.$DiveSiteMapFileInfo.'" alt="PICTURE" ></td><td>'.$DiveSiteMapNotes.'</td></td>');
-
 
 echo('</table>');
 
-
+}
+else
+{
+	
+	echo('<center><h4>No maps on file!</h4></center>');
+	
+}	
 
 
 return;
@@ -1264,7 +1274,9 @@ $NumDiveSitePixRecordsDesired = mysql_num_rows($result);
 mysql_close($connection);
 if($NumDiveSitePixRecordsDesired>0)
 {
-	
+	echo('<table align="center" border="1">');
+	echo('<tr><th colspan ="3">Dive Site Pictures</th></tr>');
+  echo('<tr><th>Dive Site Picture Date</th><th>Dive Site Picture</th><th>Dive Site Picture Notes</th></tr>');
 while ($rowdata = mysql_fetch_row($result))
 
 {
@@ -1294,18 +1306,24 @@ $DiveSitePixNotes=$rowdata[16];
 
 #echo('here: '.$DiveSitePixPictureURLFileInfo.'<br>');
 
-echo('<table align="center" border="1">');
-echo('<tr><th colspan ="3">Dive Site Pictures</th></tr>');
-echo('<tr><th>Dive Site Picture Date</th><th>Dive Site Picture</th><th>Dive Site Picture Notes</th></tr>');
-echo('<tr><td align="center">'.$DiveSitePixDateEntered.'<br><br>by<br><br>'.$DiveSitePixEnteredBy.'</td><td><img src="DiveSiteImages/'.$DiveSitePixPictureURLFileInfo.'" alt="PICTURE" ></td><td>'.$DiveSitePixNotes.'</td></td>');
 
 
+echo('<tr><td align="center">'.$DiveSitePixDateEntered.'<br><br>by<br><br>'.$DiveSitePixEnteredBy.'</td><td><img src="'.$DiveSitePixPictureURLFileInfo.'" height="10%" alt="'.$DiveSitePixPictureURLFileInfo.'" ></td><td>&nbsp;'.$DiveSitePixNotes.'</td>');
+
+
+
+
+}
 echo('</table>');
 
 }
+else
+{
+	
+	echo('<center><h4>No pictures on file!</h4></center>');
+	
+}	
 
-
-}
 
 return;
 }
@@ -1527,12 +1545,23 @@ echo stripslashes("</tr>
 ");
 echo ("<td><input type ='text' NAME='DiveSiteExactLong' VALUE='$DiveSiteExactLong'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='12' id ='DiveSiteExactLong' 
    onBlur=\"if(isBlank(this.form.DiveSiteExactLong.value)) {alert('DiveSiteExactLong cannot be blank');this.form.DiveSiteExactLong.style.background='Yellow';}else{this.form.DiveSiteExactLong.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th valign='top' align ='left' scope='row'>DiveSiteMapFileInfo</th>
+echo stripslashes("</tr>");
+if($Mode='ADD')
+{
+echo("<tr><th valign='top' align ='left' scope='row'>DiveSiteMapFileInfo</th>
 <td><input type='file' NAME='DiveSiteMapFileInfo'  VALUE='$DiveSiteMapFileInfo'  SIZE='150' MAXLENGTH='150'  tabindex='13' id ='DiveSiteMapFileInfo' 
    onBlur=\"if(isBlank(this.form.DiveSiteMapFileInfo.value)) {alert('DiveSiteMapFileInfo cannot be blank');this.form.DiveSiteMapFileInfo.style.background='Yellow';}else{this.form.DiveSiteMapFileInfo.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th valign='top' align ='left' scope='row'>DiveSiteMapNotes</th>
+echo stripslashes("</tr>");
+}
+else
+{
+echo("<tr><th valign='top' align ='left' scope='row'>DiveSiteMapFileInfo</th>
+<td><input type='file' NAME='DiveSiteMapFileInfo'  READONLY VALUE='$DiveSiteMapFileInfo'  SIZE='150' MAXLENGTH='150'  tabindex='13' id ='DiveSiteMapFileInfo' 
+   onBlur=\"if(isBlank(this.form.DiveSiteMapFileInfo.value)) {alert('DiveSiteMapFileInfo cannot be blank');this.form.DiveSiteMapFileInfo.style.background='Yellow';}else{this.form.DiveSiteMapFileInfo.style.background='White';}\"><br /></td>");
+echo stripslashes("</tr>");	
+}	
+
+echo("<tr><th valign='top' align ='left' scope='row'>DiveSiteMapNotes</th>
 <td><TEXTAREA NAME='DiveSiteMapNotes' COLS=100 ROW=3 TABINDEX='14'>$DiveSiteMapNotes</TEXTAREA></td>");
 echo stripslashes("</tr>
 <tr></tr><tr></tr><tr></tr>

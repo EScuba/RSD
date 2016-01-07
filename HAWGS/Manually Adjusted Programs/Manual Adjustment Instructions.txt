@@ -1,0 +1,3 @@
+1. findsitemanul.html: originally generated, but manually modified to handle the google maps and interactive table. - program name is findsite.html
+2. to make system open up in a new page - need to add the target = '_blank' for the text links.
+

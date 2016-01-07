@@ -16,20 +16,23 @@
 
 
 
+   <-- changed script load to get grid routines  -->  
+   
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCRCIipacvl0PMGdIGho8_9KbnK-LUQvNo"></script>
+  <script type="text/javascript" src="v3_ll_grat.js"></script>                                                                              
 
-
-
-
-
+ 
 
 
 <script>
 	
 
   var map;
-  var bounds;
+  var bounds; 
+  var grid;              // added to handle grid
 
- 
+
+
 
 function initialize()
 {
@@ -42,28 +45,31 @@ function initialize()
    map.setCenter(center); 
      
  });   
-   bounds = new google.maps.LatLngBounds();
+   bounds = new google.maps.LatLngBounds(); 
+   
+  
    searchLocations('Calgary, Alberta',200);
         
   
   
 }
 
-function loadScript()
-{
- 
-  var script = document.createElement("script");
-  script.type = "text/javascript";
-  script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyCRCIipacvl0PMGdIGho8_9KbnK-LUQvNo&callback=initialize";	
-  document.body.appendChild(script);
-  
-
-  
-   
-}
 
 
-
+//function loadScript()    **** was the original loading function ****                                                                                                                 
+//{                                                                                                                                        
+//                                                                                                                                         
+//  var script = document.createElement("script");                                                                                         
+//  script.type = "text/javascript";                                                                                                       
+//  script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyCRCIipacvl0PMGdIGho8_9KbnK-LUQvNo&callback=initialize";                 
+//                                                                                                                                         
+//                                                                                                                                         
+//  document.body.appendChild(script);                                                                                                                                                                                                         
+//                                                                                                                                         
+//                                                                                                                                         
+//                                                                                                                                         
+//} 
+                                                                                                                                       
 function processLocation(){
 	   var address = document.getElementById('addressInput').value;
 	  
@@ -99,7 +105,7 @@ function processLocation(){
      function searchLocationsNear(latitude,longitude,radius) {
 //     alert('got to searchLocationsNear');
      var searchUrl = 'http://www.kenspon.com/HAWGS/DiveSites/SIteList/phpsqlsearch_genxmlDS.php?lat=' + latitude + '&lng=' + longitude + '&radius=' + radius;
-     alert('here: '+searchUrl);
+//     alert('here: '+searchUrl);
     
      var req = new XMLHttpRequest(); 
 //     alert('After req'); 
@@ -269,12 +275,7 @@ function putMarker(latitude,longitude,markerImage,markerInfo,majorLocation){
         
 }   
    
-   
-   
-   
-   
-
-
+  
 function init(latitude,longitude,zoomFactor) {
         var latlng = new google.maps.LatLng(latitude,longitude);
 
@@ -285,6 +286,10 @@ function init(latitude,longitude,zoomFactor) {
           
         };
         map = new google.maps.Map(document.getElementById("googleMap"),myOptions);
+ 
+ //       grid = new Graticule(map, true);         turns grid on and off
+       
+ 
 
 
 
@@ -305,14 +310,14 @@ function init(latitude,longitude,zoomFactor) {
 
 
 
-window.onload =loadScript;
-
+window.onload =initialize;
+// originally window.onload = loadscript;
   
 
 
 </script>
 
-
+ 
 
 
 

@@ -1,0 +1,119 @@
+SiteElevationUnits[]
+SiteDepthUnits[]
+SiteTempUnits[]
+SiteVisibilityUnits[]
+SiteWaterType[]
+
+SiteType[]
+SiteRating[]
+SiteLevel[]
+SiteDifficulty[]
+SiteBottomComposition[]
+SiteHazard[]
+SiteMonths[]
+DiveFacility[]
+
+
+
+
+$tabcount=17;
+	$numPossibleElements = count($unitArray);
+	
+	
+	
+if(isset($postElevUnitArray))
+ {
+ 	$numElementsPosted=count($postElevUnitArray);
+ 
+ 	for($i=0;$i < $numPossibleElements;$i++)
+ 	  {
+ 	  	  
+ 	  	
+ 	  	for($j=0;$j < $numElementsPosted; $j++)
+ 	  	  {
+ 	  	  	$tabcount++;
+ 	  	  	
+ 	  	   if($postElevUnitArray[$j] == $unitArray[$i])
+ 	  	     {
+ 	  	     	
+ 	  	     	echo stripslashes("<td><input type= 'radio' name='SiteElevationUnits[]' value='".$unitArray[$i]."' checked tabindex=".$tabcount.">".$unitArray[$i]."</td>");
+ 	  	     }
+ 	  	     else
+ 	  	     {
+ 	  	     	
+ 	  	     echo stripslashes("<td><input type= 'radio' name='SiteElevationUnits[]' value='".$unitArray[$i]."'tabindex=".$tabcount.">".$unitArray[$i]."</td>");
+ 	  	     	
+ 	  	     }		
+ 	  	  	
+ 	  	  }	
+ 	  	
+ 	  }	
+ 	}
+ 	
+ else
+ { 
+ 	  	
+ 	  	for($i=0;$i < $numPossibleElements;$i++)
+ 	     {
+ 	     	 
+ 	     	 $tabcount++;
+ 	       if($unitArray[$i] == 'FEET') {$state='checked';} else {$state='';}
+          
+          echo stripslashes("<td><input type= 'radio' name='SiteElevationUnits[]' value='".$unitArray[$i]."'tabindex=".$tabcount." ".$state.">".$unitArray[$i]."</td>");
+
+       }
+}
+
+
+
+
+$tabcount=19;
+	$numPossibleElements = count($siteTypeArray);
+	
+	
+	
+if(isset($postSiteTypeArray))
+ {
+ 	$numElementsPosted=count($postSiteTypeArray);
+ 
+ 	for($i=0;$i < $numPossibleElements;$i++)
+ 	  {
+ 	  	  $processArray[$i]='0';               #create marking array
+ 	  }	
+ 	  
+ 	for($i=0;$i < $numPossibleElements;$i++)
+ 	  {
+ 	  	
+ 	  	for($j=0;$j < $numElementsPosted; $j++)
+ 	  	{
+ 	  		if($postSiteTypeArray[$j] == $siteTypeArray[$i]) {$processArray[$i]='1';}
+ 	  		
+ 	  	}	
+ 	  	
+ 	  }	
+ 	 for($i=0;$i < $numPossibleElements;$i++)
+ 	  {
+ 	  	$tabcount++;
+ 	  	if($processArray[$i]=='1'){$state='checked';} else {$state='';}
+ 	  	 echo stripslashes("<td><input type= 'checkbox' name='SiteType[]' value='".$siteTypeArray[$i]."'tabindex=".$tabcount." ".$state.">".$siteTypeArray[$i]."</td>");  	
+ 	  }	
+ 	  
+ 	 } 
+ 	  
+ else
+ { 
+ 	  	
+ 	  	for($i=0;$i < $numPossibleElements;$i++)
+ 	     {
+ 	     	 
+ 	     	 $tabcount++;
+ 	       if($siteTypeArray[$i] == 'SHORE') {$state='checked';} else {$state='';}
+          
+          echo stripslashes("<td><input type= 'checkbox' name='SiteType[]' value='".$siteTypeArray[$i]."'tabindex=".$tabcount." ".$state.">".$siteTypeArray[$i]."</td>");
+
+       }
+}
+
+
+
+

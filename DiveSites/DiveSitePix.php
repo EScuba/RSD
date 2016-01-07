@@ -14,12 +14,23 @@ require_once('SystemFunctions.php');
  $Start=$_SESSION['Start'];
 
  $Expiry=$_SESSION['Expiry'];
-
+ 
+ if($_SESSION['DiveSiteId'] =='00000000')
+  {
+  	 header("Location: EmptyFrame.php");
+  	exit();
+  }
  if(($_POST['display_button']=='Back')||($_POST['display_button']=='Logout'))
   { 
       header('Location: index.php');
   } 
-$db="aquatreasurequest";
+
+
+# --------- entering the program - can I get the associated session vars -----------------------------
+$testSiteId= $_SESSION['DiveSiteId'];
+
+
+
 $table="DiveSitePix";
 $CallingProgram="index.php";
 #-------------------------Get a Desired Record -------------------------
@@ -149,6 +160,33 @@ $DiveSitePixNotes=$_SESSION['DiveSitePixNotes'];
 return;
 }
 
+#-----------------------Transfer Common Session Variables to Screen variables---------------------
+
+function GetCommonVariablesFromSession()
+ { 
+global $db, $user, $serverhost, $password, $Add, $Edit, $Delete, $Search, $Start, $Expiry;
+global $NumDiveSitePixRecords,$DiveSitePixId,$DiveSiteId,$DiveSitePixEnteredBy,$DiveSitePixDateEntered;
+global $DiveSiteCity,$DiveSiteProvince,$DiveSiteCountry,$DiveSiteName,$DiveSiteMajorName;
+global $DiveSiteMinorName,$DiveSiteExactLat,$DiveSiteExactLong,$DiveSitePixTitle,$DIveSitePixType;
+global $DiveSitePixNoteKeywords,$DiveSitePixPictureURLFileInfo,$DiveSitePixNotes;
+
+
+$DiveSiteId=$_SESSION['DiveSiteId'];
+
+$DiveSiteCity=$_SESSION['DiveSiteCity'];
+$DiveSiteProvince=$_SESSION['DiveSiteProvince'];
+$DiveSiteCountry=$_SESSION['DiveSiteCountry'];
+$DiveSiteName=$_SESSION['DiveSiteName'];
+$DiveSiteMajorName=$_SESSION['DiveSiteMajorName'];
+$DiveSiteMinorName=$_SESSION['DiveSiteMinorName'];
+$DiveSiteExactLat=$_SESSION['DiveSiteExactLat'];
+$DiveSiteExactLong=$_SESSION['DiveSiteExactLong'];
+
+return;
+}
+
+
+
 #----------------------------Get Last Database Record-----------------------------------------
 function GetLastRecord($conn,$result)
  { 
@@ -269,12 +307,25 @@ echo ("<td><input type ='text' NAME='DIveSitePixType' VALUE='$DIveSitePixType'  
 echo stripslashes("</tr>
 <tr><th valign='top' align ='left' scope='row'>DiveSitePixNoteKeywords</th>
 <td><TEXTAREA NAME='DiveSitePixNoteKeywords' COLS=100 ROW=3 TABINDEX='15'>$DiveSitePixNoteKeywords</TEXTAREA></td>");
-echo stripslashes("</tr>
-<tr><th valign='top' align ='left' scope='row'>DiveSitePixPictureURLFileInfo</th>
+echo stripslashes("</tr>");
+if($Mode="ADD")
+ {
+echo("<tr><th valign='top' align ='left' scope='row'>DiveSitePixPictureURLFileInfo</th>
 <td><input type='file' NAME='DiveSitePixPictureURLFileInfo'  VALUE='$DiveSitePixPictureURLFileInfo'  SIZE='150' MAXLENGTH='150'  tabindex='16' id ='DiveSitePixPictureURLFileInfo' 
    onBlur=\"if(isBlank(this.form.DiveSitePixPictureURLFileInfo.value)) {alert('DiveSitePixPictureURLFileInfo cannot be blank');this.form.DiveSitePixPictureURLFileInfo.style.background='Yellow';}else{this.form.DiveSitePixPictureURLFileInfo.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th valign='top' align ='left' scope='row'>DiveSitePixNotes</th>
+echo stripslashes("</tr>");
+}
+else
+{
+echo("<tr><th valign='top' align ='left' scope='row'>DiveSitePixPictureURLFileInfo</th>
+<td><input type='text' NAME='DiveSitePixPictureURLFileInfo'  READONLY VALUE='$DiveSitePixPictureURLFileInfo'  SIZE='150' MAXLENGTH='150'  tabindex='16' id ='DiveSitePixPictureURLFileInfo' 
+   onBlur=\"if(isBlank(this.form.DiveSitePixPictureURLFileInfo.value)) {alert('DiveSitePixPictureURLFileInfo cannot be blank');this.form.DiveSitePixPictureURLFileInfo.style.background='Yellow';}else{this.form.DiveSitePixPictureURLFileInfo.style.background='White';}\"><br /></td>");
+echo stripslashes("</tr>");
+}	
+	
+	
+
+echo("<tr><th valign='top' align ='left' scope='row'>DiveSitePixNotes</th>
 <td><TEXTAREA NAME='DiveSitePixNotes' COLS=100 ROW=3 TABINDEX='17'>$DiveSitePixNotes</TEXTAREA></td>");
 echo stripslashes("</tr>
 <tr></tr><tr></tr><tr></tr>
@@ -291,7 +342,7 @@ global $DiveSitePixNoteKeywords,$DiveSitePixPictureURLFileInfo,$DiveSitePixNotes
 global $Mode;
 $Mode='ADD';
 echo stripslashes("
-<FORM NAME='DiveSitePixEntry' action='DiveSitePix.php' method='POST'>");
+<FORM NAME='DiveSitePixEntry' action='DiveSitePix.php' method='POST' enctype='multipart/form-data'>");
 CommonForm();
 echo stripslashes("
 <td colspan =2 align='center'>
@@ -319,7 +370,7 @@ global $DiveSitePixNoteKeywords,$DiveSitePixPictureURLFileInfo,$DiveSitePixNotes
 global $Mode;
 $Mode='EDIT';
 echo stripslashes("
-<FORM NAME='DiveSitePixEdit' action='DiveSitePix.php' method='POST'>");
+<FORM NAME='DiveSitePixEdit' action='DiveSitePix.php' method='POST'enctype='multipart/form-data'>");
 CommonForm();
 echo stripslashes("
 <td colspan =2 align='center'>
@@ -512,7 +563,7 @@ echo stripslashes("</tr>
 <td><TEXTAREA NAME='DiveSitePixNoteKeywords' READONLY COLS=100 ROW=3 TABINDEX='15'>$DiveSitePixNoteKeywords</TEXTAREA></td>");
 echo stripslashes("</tr>
 <tr><th align ='left' valign='top' scope='row'>DiveSitePixPictureURLFileInfo</th>
-<td><input type='file'READONLY NAME='DiveSitePixPictureURLFileInfo'  VALUE='$DiveSitePixPictureURLFileInfo'  SIZE='150' MAXLENGTH='150'  tabindex='16' id ='DiveSitePixPictureURLFileInfo'><br /></td>");
+<td><input type='text'READONLY NAME='DiveSitePixPictureURLFileInfo'  VALUE='$DiveSitePixPictureURLFileInfo'  SIZE='150' MAXLENGTH='150'  tabindex='16' id ='DiveSitePixPictureURLFileInfo'><br /></td>");
 echo stripslashes("</tr>
 <tr><th align ='left' valign='top' scope='row'>DiveSitePixNotes</th>
 <td><TEXTAREA NAME='DiveSitePixNotes' READONLY COLS=100 ROW=3 TABINDEX='17'>$DiveSitePixNotes</TEXTAREA></td>");
@@ -804,9 +855,86 @@ $sql=$sql."'".strip_tags(addslashes($DiveSitePixNoteKeywords))."',";
 $sql=$sql."'".strip_tags(addslashes($DiveSitePixPictureURLFileInfo))."',";
 $sql=$sql."'".strip_tags(addslashes($DiveSitePixNotes))."')";
 $result = mysql_query($sql,$connection) or die("ERROR!! DiveSitePix ADD failure");
+
+
+#-------------------- record has been added 
 $DiveSitePixId=mysql_insert_id($connection);
-PutVariablesIntoSession();
 mysql_close($connection);
+
+#$DiveSitePixId='9999';  # fake id to test
+
+#------------ now to move the file with the name properly set ---------------------------------
+echo('Pix ID is: '.$DiveSitePixId.'<br>');
+echo('Pix File name: '.$DiveSitePixURLFileInfo.'<br>');
+
+
+
+
+
+$target_dir = "DiveSiteImages/";
+$target_name=$DiveSiteName.'_'.str_pad($DiveSitePixId, 8, '0', STR_PAD_LEFT);
+echo('target name is: '.$target_name.'<br>');
+$target_file = $target_dir . basename($_FILES["DiveSitePixPictureURLFileInfo"]["name"]);
+echo('target file is: '.$target_file.'<br>');
+
+$uploadOk = 1;
+$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+// Check if image file is a actual image or fake image
+if(isset($_POST["submit"])) {
+    $check = getimagesize($_FILES["DiveSitePixPictureURLFileInfo"]["tmp_name"]);
+    if($check !== false) {
+        echo "File is an image - " . $check["mime"] . ".";
+        $uploadOk = 1;
+    } else {
+        echo "File is not an image.";
+        $uploadOk = 0;
+    }
+}
+// Check if file already exists
+if (file_exists($target_file)) {
+    echo "Sorry, file already exists.";
+    $uploadOk = 0;
+}
+// Check file size
+if ($_FILES["fileToUpload"]["size"] > 10000000) {
+    echo "Sorry, your file is too large.";
+    $uploadOk = 0;
+}
+// Allow certain file formats
+
+if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+&& $imageFileType != "gif" && $imageFileType != "JPG" && $imageFileType != "PNG" && $imageFileType != "JPEG"
+&& $imageFileType != "GIF") {
+    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+    $uploadOk = 0;
+}
+// Check if $uploadOk is set to 0 by an error
+if ($uploadOk == 0) {
+    echo "Sorry, your file was not uploaded.";
+// if everything is ok, try to upload file
+} else {
+	
+	     $target_file=$target_dir.$target_name.'.'.$imageFileType;
+	     $target_file= preg_replace('/\s+/', '_', $target_file);
+	     
+    if (move_uploaded_file($_FILES["DiveSitePixPictureURLFileInfo"]["tmp_name"], $target_file)) {
+        echo "The file ". basename( $_FILES["DiveSitePixPictureURLFileInfo"]["name"]). " has been uploaded as ".$target_file;
+        
+        
+        
+        
+        
+    } else {
+        echo "Sorry, there was an error uploading your file.";
+    }
+}
+
+
+$DiveSitePixPictureURLFileInfo=$target_file;
+PutVariablesIntoSession();
+Db_Update();
+
+
 return;
 }
 #----------------------------Database Delete Function------------------------------------
@@ -907,9 +1035,10 @@ return;
 function ListMenu()
  { 
 global $user, $serverhost,$db,$password;
+global $DiveSiteId;
 $connection = mysql_connect($serverhost,$user,$password) or die('ERROR!!  Cannot connect to MySql');
 $rs = mysql_select_db($db,$connection)    or die('ERROR!! Cannot connect to aquatreasurequest database');
-$sql="select * from DiveSitePix order by DiveSiteId";
+$sql="select * from DiveSitePix where(DiveSiteId = '".strip_tags(addslashes($DiveSiteId))."') order by DiveSitePixId";
 $result = mysql_query($sql,$connection) or die("ERROR!! DiveSitePix GetNumRecs failure");
 $NumDiveSitePixRecords = mysql_num_rows($result);
 mysql_close($connection);
@@ -919,21 +1048,25 @@ echo "<input type='hidden' name='check' id='check'>";
 echo "<tr>";
 echo "<td align='center' ><b>DiveSitePixId</b></td>";
 echo "<td align='center' ><b>DiveSiteId</b></td>";
-echo "<td align='center' ><b>DiveSitePixEnteredBy</b></td>";
-echo "<td align='center' ><b>DiveSitePixDateEntered</b></td>";
-echo "<td align='center' ><b>DiveSiteCity</b></td>";
-echo "<td align='center' ><b>DiveSiteProvince</b></td>";
-echo "<td align='center' ><b>DiveSiteCountry</b></td>";
-echo "<td align='center' ><b>DiveSiteName</b></td>";
-echo "<td align='center' ><b>DiveSiteMajorName</b></td>";
-echo "<td align='center' ><b>DiveSiteMinorName</b></td>";
-echo "<td align='center' ><b>DiveSiteExactLat</b></td>";
-echo "<td align='center' ><b>DiveSiteExactLong</b></td>";
-echo "<td align='center' ><b>DiveSitePixTitle</b></td>";
-echo "<td align='center' ><b>DIveSitePixType</b></td>";
-echo "<td align='center' ><b>DiveSitePixNoteKeywords</b></td>";
-echo "<td align='center' ><b>DiveSitePixPictureURLFileInfo</b></td>";
-echo "<td align='center' ><b>DiveSitePixNotes</b></td>";
+
+echo "<td align='center' ><b>Picture Entered</b></td>";
+#echo "<td align='center' ><b>DiveSitePixDateEntered</b></td>";
+
+#echo "<td align='center' ><b>DiveSiteCity</b></td>";
+#echo "<td align='center' ><b>DiveSiteProvince</b></td>";
+#echo "<td align='center' ><b>DiveSiteCountry</b></td>";
+#echo "<td align='center' ><b>DiveSiteName</b></td>";
+#echo "<td align='center' ><b>DiveSiteMajorName</b></td>";
+#echo "<td align='center' ><b>DiveSiteMinorName</b></td>";
+#echo "<td align='center' ><b>DiveSiteExactLat</b></td>";
+#echo "<td align='center' ><b>DiveSiteExactLong</b></td>";
+
+echo "<td align='center' ><b>Title</b></td>";
+#echo "<td align='center' ><b>DIveSitePixType</b></td>";
+
+echo "<td align='center' ><b>Keywords</b></td>";
+echo "<td align='center' ><b>Picture</b></td>";
+echo "<td align='center' ><b>Comments</b></td>";
 echo '</tr>';
  for($i=1;$i<=$NumDiveSitePixRecords;$i++)
 {
@@ -941,26 +1074,32 @@ $rowdata=mysql_fetch_row($result);
 echo "<tr>";
 echo "<td align='center'><input type=radio id='SelectRecord' NAME='SelectRecord' VALUE='".$rowdata[0]."' onClick=\"document.forms.ListMenu.display_button.value = 'Display';document.forms.ListMenu.check.value = 'Display';document.forms.ListMenu.submit();\" >&nbsp; </td>";
 echo "<td align='left'>".$rowdata[1]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[2]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[3]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[4]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[5]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[6]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[7]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[8]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[9]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[10]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[11]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[12]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[13]."&nbsp; </td>";
+
+echo "<td align='center'>".$rowdata[2]."&nbsp;<br>".$rowdata[3]."</td>";
+#echo "<td align='left'>".$rowdata[3]."&nbsp; </td>";
+
+#echo "<td align='left'>".$rowdata[4]."&nbsp; </td>";
+#echo "<td align='left'>".$rowdata[5]."&nbsp; </td>";
+#echo "<td align='left'>".$rowdata[6]."&nbsp; </td>";
+#echo "<td align='left'>".$rowdata[7]."&nbsp; </td>";
+#echo "<td align='left'>".$rowdata[8]."&nbsp; </td>";
+#echo "<td align='left'>".$rowdata[9]."&nbsp; </td>";
+#echo "<td align='left'>".$rowdata[10]."&nbsp; </td>";
+#echo "<td align='left'>".$rowdata[11]."&nbsp; </td>";
+
+echo "<td align='center'>".$rowdata[12]."&nbsp;<br>".$rowdata[13]." </td>";
+#echo "<td align='left'>".$rowdata[13]."&nbsp; </td>";
+
 echo "<td align='left'>".$rowdata[14]."&nbsp; </td>";
-echo "<td align='center'><img src=\"../DiveSiteImages/".$rowdata[15]."\" height=\"10%\" ALT=\"".$rowdata[15]."\"></td>";
+
+echo "<td align='center'><img src=".$rowdata[15]." height=\"3%\" ALT=\"".$rowdata[15]."\"></td>";
 #echo "<td align='left'>".$rowdata[15]."&nbsp; </td>";
+
 echo "<td align='left'>".$rowdata[16]."&nbsp; </td>";
 echo "</tr>";
 }
 echo "<tr><td colspan='17' align='center'>
-<input type ='SUBMIT' NAME='display_button' Value = 'Back'>
+
 <input type ='SUBMIT' NAME='display_button' Value = 'Add'>";
 echo "</td></tr>";
 echo '</table>';
@@ -984,8 +1123,9 @@ $NumDiveSitePixRecords = mysql_num_rows($result);
 if($NumDiveSitePixRecords==0)
 {InitializeVariables();}
 else
-{GetLastRecord($connection,$result);}
-PutVariablesIntoSession();
+#{GetLastRecord($connection,$result);}
+{}
+#PutVariablesIntoSession();
 mysql_close($connection);
 return;
 }
@@ -1288,6 +1428,7 @@ echo "<body bgcolor ='".$BackgroundColor."'>";
              case 'Add':
                
                InitializeVariables();
+               GetCommonVariablesFromSession();
                AddForm();
                break;
 
@@ -1340,6 +1481,12 @@ echo "<body bgcolor ='".$BackgroundColor."'>";
   
            case 'Submit Add':
                GetPostVariables();
+               
+               
+               Db_Add();
+               ListMenu();
+               exit();
+               
                if(ValidUniqueCode())
                  {  
                    Db_Add();
@@ -1381,6 +1528,7 @@ echo "<body bgcolor ='".$BackgroundColor."'>";
    else
    {
         InitializeProgram();
+        GetCommonVariablesFromSession();
         ListMenu();
        
    }

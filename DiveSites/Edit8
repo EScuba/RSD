@@ -1,0 +1,82 @@
+http://www.kenspon.com/HAWGS/DiveSites/DiveSitesSystem.php
+
+findsite.html
+
+<tr><th valign='top' align ='left' scope='row'>Water Information</th>
+<td colspan='7'>
+<table border='1'>
+<tr><th valign='top' align ='left' scope='row' tabindex=36>Type</th>
+    <td>
+    <table>
+     <tr><td><input type= 'radio' name='SiteWaterType[]' value='FRESH'tabindex=37>FRESH</td>
+     <td><input type= 'radio' name='SiteWaterType[]' value='SALT'tabindex=38>SALT</td>
+     <td><input type= 'radio' name='SiteWaterType[]' value='BRACKISH'tabindex=39>BRACKISH</td>
+     </tr>
+    </table>
+    </td>
+</tr>
+
+
+<tr><td></td><td colspan='7'><TABLE>
+  <tr><th valign='top' align ='left' scope='row'>Min Depth</th>
+
+      <td><input type ='text' NAME='DiveSiteDepthMin' VALUE=''  SIZE='11' MAXLENGTH='11'  tabindex=40 id ='DiveSiteDepthMin' 
+           onBlur="if(isBlank(this.form.DiveSiteDepthMin.value)) {alert('DiveSiteDepthMin cannot be blank');this.form.DiveSiteDepthMin.style.background='Yellow';}else{this.form.DiveSiteDepthMin.style.background='White';}"><br>
+      </td>
+
+           <td></td>
+
+      <th valign='top' align ='left' scope='row'>Max Depth</th>
+      
+      <td><input type ='text' NAME='DiveSiteDepthMax' VALUE=''  SIZE='11' MAXLENGTH='11'  tabindex=41 id ='DiveSiteDepthMax' 
+          onBlur="if(isBlank(this.form.DiveSiteDepthMax.value)) {alert('DiveSiteDepthMax cannot be blank');this.form.DiveSiteDepthMax.style.background='Yellow';}else{this.form.DiveSiteDepthMax.style.background='White';}"><br>
+      </td>
+
+             <td>
+                 <table><tr>
+                        <td><input type= 'radio' name='SiteDepthUnits[]' value='FEET' checked tabindex=42>feet</td>
+                        <td><input type= 'radio' name='SiteDepthUnits[]' value='METERS' tabindex=43>meters</td>
+                 </tr></table>
+             </td>
+  </tr>
+</table>
+</td></tr>
+
+
+
+<tr><th valign='top' align ='left' scope='row'>Applicable Tide Tables</th><td><input type ='text' NAME='DiveSiteTideTable' VALUE=''  SIZE='80' MAXLENGTH='80'  tabindex=44 id ='DiveSiteTideTable' 
+   onBlur="if(isBlank(this.form.DiveSiteTideTable.value)) {alert('DiveSiteTideTable cannot be blank');this.form.DiveSiteTideTable.style.background='Yellow';}else{this.form.DiveSiteTideTable.style.background='White';}"><br></td></tr><tr>
+   
+   
+   
+   GetCheckBoxRecords($NumDiveSiteFacilitiesRecordsDesired,$DiveSiteFacilitiesIdArray,$DiveSiteFacilitiesRankArray,$DiveSiteFacilitiesDescriptionArray,'DiveSiteFacilities',$DiveSiteFacilityNames);
+
+PutCheckVariablesIntoSession($DiveSiteFacilityNames,$DiveSiteFacilitiesIdArray,$DiveSiteFacilitiesRankArray,$DiveSiteFacilitiesDescriptionArray);
+$DisplayColumns=5; $colcount=0;
+echo('<td><table>');
+echo('<tr>');
+for($i=0;$i < $NumDiveSiteFacilitiesRecordsDesired;$i++)
+{
+	$tindex=88+i;
+	echo('<td><input type="checkbox" name="DiveFacility[]" tabindex="'.$tindex.'" value ="'.$DiveSiteFacilitiesDescriptionArray[$i].'" onclick="enableElement(this.form.elements[\'DiveSiteFacilitiesNotes\'],this.form.elements[\'DiveFacility[]\']);" />'.$DiveSiteFacilitiesDescriptionArray[$i].'</td>');
+	
+	$colcount++;
+	if($colcount==$DisplayColumns)
+	 {
+	 	 echo('</tr><tr>');$colcount=0;
+	 }	 
+}
+if($colcount !=0)
+ {
+	 	 echo('</tr>');$colcount=0;
+ }	
+ 
+ 
+ #echo('<tr><td><input type="text" name="DiveSiteFacilitiesNotes" disabled="disabled"></td></tr>');
+ echo('</table></td>');
+
+
+
+
+#echo ("<td><input type ='text' NAME='DiveSiteFacilities' VALUE='$DiveSiteFacilities'  SIZE='50' MAXLENGTH='50'  tabindex=38 id ='DiveSiteFacilities' 
+#   onBlur=\"if(isBlank(this.form.DiveSiteFacilities.value)) {alert('DiveSiteFacilities cannot be blank');this.form.DiveSiteFacilities.style.background='Yellow';}else{this.form.DiveSiteFacilities.style.background='White';}\"><br></td>");
