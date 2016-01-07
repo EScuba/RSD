@@ -1312,9 +1312,9 @@ echo stripslashes("<th valign='top' align ='left' scope='row'>Date Entered&nbsp;
 <td colspan='3'><input type ='text' NAME='DiveSiteDateEntered' VALUE='$DiveSiteDateEntered'  SIZE='11' MAXLENGTH='11'  tabindex=4 id ='DiveSiteDateEntered' 
    onBlur=\"if(isBlank(this.form.DiveSiteDateEntered.value)) {alert('DiveSiteDateEntered cannot be blank');this.form.DiveSiteDateEntered.style.background='Yellow';}else{this.form.DiveSiteDateEntered.style.background='White';}\">");
 if($Mode=='EDIT')
-{echo '<A HREF="#" onClick="cal.select(document.forms[\'DiveSiteEdit\'].DiveSiteDateEntered,\'anchor\',\'NNN-dd-yyyy\');return false;" NAME="anchor" ID="anchor">Calendar</A>';}
+{echo '<A HREF="#" onClick="cal.select(document.forms[\'DiveSiteEdit\'].DiveSiteDateEntered,\'anchor\',\'yyyy-MM-dd\');return false;" NAME="anchor" ID="anchor">Calendar</A>';}
 else 
-{echo '<A HREF="#" onClick="cal.select(document.forms[\'DiveSiteEntry\'].DiveSiteDateEntered,\'anchor\',\'NNN-dd-yyyy\');return false;" NAME="anchor" ID="anchor">Calendar</A>';}
+{echo '<A HREF="#" onClick="cal.select(document.forms[\'DiveSiteEntry\'].DiveSiteDateEntered,\'anchor\',\'yyyy-MM-dd\');return false;" NAME="anchor" ID="anchor">Calendar</A>';}
 echo("</td>");
 echo stripslashes("</tr>");
 echo("</tr></table></td>");
