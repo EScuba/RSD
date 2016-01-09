@@ -32,7 +32,7 @@ $testSiteId= $_SESSION['DiveSiteId'];
 
 
 
-$pixTypeArray=array('','Entry','Point of Interest','Surface Site','General Underwater','Other');
+$pixTypeArray=array('','Entry','Point of Interest','Surface Site','General Underwater','Historic','Other');
 
 $table="DiveSitePix";
 $CallingProgram="index.php";
@@ -245,10 +245,14 @@ echo stripslashes("
 <input type ='text' NAME='DiveSiteMajorName' hidden VALUE='$DiveSiteMajorName'  SIZE='80' MAXLENGTH='80'  tabindex='9' id ='DiveSiteMajorName'> 
 <input type ='text' NAME='DiveSiteMinorName' hidden VALUE='$DiveSiteMinorName'  SIZE='80' MAXLENGTH='80'  tabindex='10' id ='DiveSiteMinorName'> 
 <input type ='text' NAME='DiveSiteExactLat' hidden VALUE='$DiveSiteExactLat'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='11' id ='DiveSiteExactLat'>
-<input type ='text' NAME='DiveSiteExactLong' hidden VALUE='$DiveSiteExactLong'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='12' id ='DiveSiteExactLong'>  
+<input type ='text' NAME='DiveSiteExactLong' hidden VALUE='$DiveSiteExactLong'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='12' id ='DiveSiteExactLong'> "); 
 
+if($Mode!="ADD")
+ {
+ 	echo stripslashes("<input type='text' NAME='DiveSitePixPictureURLFileInfo'  hidden VALUE='$DiveSitePixPictureURLFileInfo'  SIZE='150' MAXLENGTH='150'  tabindex='16' id ='DiveSitePixPictureURLFileInfo'>"); 
+ }
 
-<TABLE border='1' align='center'><tr><td>
+echo stripslashes("<TABLE border='1' align='center'><tr><td>
 <TABLE border='1' align='center' cellspacing='5'>
 <tr><th valign='top' align ='left' scope='row'>Picture System Id</th>");
 echo("<td colspan=3><table><tr>");
@@ -374,9 +378,8 @@ echo stripslashes("</tr>");
 }
 else
 {
-echo("<tr><th valign='top' align ='left' scope='row'>DiveSitePixPictureURLFileInfo</th>
-<td><input type='text' NAME='DiveSitePixPictureURLFileInfo'  READONLY VALUE='$DiveSitePixPictureURLFileInfo'  SIZE='150' MAXLENGTH='150'  tabindex='16' id ='DiveSitePixPictureURLFileInfo' 
-   onBlur=\"if(isBlank(this.form.DiveSitePixPictureURLFileInfo.value)) {alert('DiveSitePixPictureURLFileInfo cannot be blank');this.form.DiveSitePixPictureURLFileInfo.style.background='Yellow';}else{this.form.DiveSitePixPictureURLFileInfo.style.background='White';}\"><br /></td>");
+ echo ("<tr><th valign='top' align ='left' scope='row'>Map Image</th>
+<td align='center'><img src=".$DiveSitePixPictureURLFileInfo." width=\"200px\" ALT=\"".$DiveSitePixPictureURLFileInfo."\"></td>");
 echo stripslashes("</tr>");
 }	
 	
@@ -453,7 +456,8 @@ echo stripslashes("
 <input type ='text' NAME='DiveSiteMajorName' hidden VALUE='$DiveSiteMajorName'  SIZE='80' MAXLENGTH='80'  tabindex='9' id ='DiveSiteMajorName'> 
 <input type ='text' NAME='DiveSiteMinorName' hidden VALUE='$DiveSiteMinorName'  SIZE='80' MAXLENGTH='80'  tabindex='10' id ='DiveSiteMinorName'> 
 <input type ='text' NAME='DiveSiteExactLat' hidden VALUE='$DiveSiteExactLat'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='11' id ='DiveSiteExactLat'>
-<input type ='text' NAME='DiveSiteExactLong' hidden VALUE='$DiveSiteExactLong'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='12' id ='DiveSiteExactLong'>  
+<input type ='text' NAME='DiveSiteExactLong' hidden VALUE='$DiveSiteExactLong'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='12' id ='DiveSiteExactLong'> 
+<input type='text' NAME='DiveSitePixPictureURLFileInfo'  hidden VALUE='$DiveSitePixPictureURLFileInfo'  SIZE='150' MAXLENGTH='150'  tabindex='16' id ='DiveSitePixPictureURLFileInfo'> 
 
 
 <TABLE border='1' align='center'><tr><td>
@@ -582,9 +586,8 @@ echo stripslashes("</tr>");
 }
 else
 {
-echo("<tr><th valign='top' align ='left' scope='row'>DiveSitePixPictureURLFileInfo</th>
-<td><input type='text' NAME='DiveSitePixPictureURLFileInfo'  READONLY VALUE='$DiveSitePixPictureURLFileInfo'  SIZE='150' MAXLENGTH='150'  tabindex='16' id ='DiveSitePixPictureURLFileInfo' 
-   onBlur=\"if(isBlank(this.form.DiveSitePixPictureURLFileInfo.value)) {alert('DiveSitePixPictureURLFileInfo cannot be blank');this.form.DiveSitePixPictureURLFileInfo.style.background='Yellow';}else{this.form.DiveSitePixPictureURLFileInfo.style.background='White';}\"><br /></td>");
+ echo ("<tr><th valign='top' align ='left' scope='row'>Map Image</th>
+<td align='center'><img src=".$DiveSitePixPictureURLFileInfo." width=\"200px\" ALT=\"".$DiveSitePixPictureURLFileInfo."\"></td>");
 echo stripslashes("</tr>");
 }	
 	
@@ -617,7 +620,8 @@ echo stripslashes("
 <input type ='text' NAME='DiveSiteMajorName' hidden VALUE='$DiveSiteMajorName'  SIZE='80' MAXLENGTH='80'  tabindex='9' id ='DiveSiteMajorName'> 
 <input type ='text' NAME='DiveSiteMinorName' hidden VALUE='$DiveSiteMinorName'  SIZE='80' MAXLENGTH='80'  tabindex='10' id ='DiveSiteMinorName'> 
 <input type ='text' NAME='DiveSiteExactLat' hidden VALUE='$DiveSiteExactLat'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='11' id ='DiveSiteExactLat'>
-<input type ='text' NAME='DiveSiteExactLong' hidden VALUE='$DiveSiteExactLong'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='12' id ='DiveSiteExactLong'>  
+<input type ='text' NAME='DiveSiteExactLong' hidden VALUE='$DiveSiteExactLong'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='12' id ='DiveSiteExactLong'> 
+<input type='text' NAME='DiveSitePixPictureURLFileInfo'  hidden VALUE='$DiveSitePixPictureURLFileInfo'  SIZE='150' MAXLENGTH='150'  tabindex='16' id ='DiveSitePixPictureURLFileInfo'> 
 
 
 <TABLE border='1' align='center'><tr><td>
@@ -746,9 +750,8 @@ echo stripslashes("</tr>");
 }
 else
 {
-echo("<tr><th valign='top' align ='left' scope='row'>DiveSitePixPictureURLFileInfo</th>
-<td><input type='text' NAME='DiveSitePixPictureURLFileInfo'  READONLY VALUE='$DiveSitePixPictureURLFileInfo'  SIZE='150' MAXLENGTH='150'  tabindex='16' id ='DiveSitePixPictureURLFileInfo' 
-   onBlur=\"if(isBlank(this.form.DiveSitePixPictureURLFileInfo.value)) {alert('DiveSitePixPictureURLFileInfo cannot be blank');this.form.DiveSitePixPictureURLFileInfo.style.background='Yellow';}else{this.form.DiveSitePixPictureURLFileInfo.style.background='White';}\"><br /></td>");
+ echo ("<tr><th valign='top' align ='left' scope='row'>Map Image</th>
+<td align='center'><img src=".$DiveSitePixPictureURLFileInfo." width=\"200px\" ALT=\"".$DiveSitePixPictureURLFileInfo."\"></td>");
 echo stripslashes("</tr>");
 }	
 	
@@ -1049,8 +1052,8 @@ mysql_close($connection);
 #$DiveSitePixId='9999';  # fake id to test
 
 #------------ now to move the file with the name properly set ---------------------------------
-echo('Pix ID is: '.$DiveSitePixId.'<br>');
-echo('Pix File name: '.$DiveSitePixURLFileInfo.'<br>');
+#echo('Pix ID is: '.$DiveSitePixId.'<br>');
+#echo('Pix File name: '.$DiveSitePixURLFileInfo.'<br>');
 
 
 
@@ -1312,7 +1315,7 @@ echo "<td align='center'>".$rowdata[12]."&nbsp;<br>".$rowdata[13]." </td>";
 
 echo "<td align='left'>".$rowdata[14]."&nbsp; </td>";
 
-echo "<td align='center'><img src=".$rowdata[15]." height=\"3%\" ALT=\"".$rowdata[15]."\"></td>";
+echo "<td align='center'><img src=".$rowdata[15]." width=\"100px\" ALT=\"".$rowdata[15]."\"></td>";
 #echo "<td align='left'>".$rowdata[15]."&nbsp; </td>";
 
 echo "<td align='left'>".$rowdata[16]."&nbsp; </td>";

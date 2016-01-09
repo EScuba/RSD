@@ -67,32 +67,6 @@ $SiteCityArray=array("Calgary","Red Deer","Banff","Edmonton","Lethbridge","Medec
 # exec("mysqldump -h mysql.aquatreasurequest.com -ukenpon -p@notherP@ssw0rd aquatreasurequest >aqdump.sql");
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #-------------------------Get a Desired Record -------------------------
 
 function GetLoadDesiredRecord()
@@ -175,45 +149,6 @@ $DiveSiteEAPId=$rowdata[46];
 PutVariablesIntoSession();
 return;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 function GetCheckBoxRecords(&$NumRecords,&$CheckBoxId,&$CheckBoxRank,&$CheckBoxDescription,$CheckTable,&$CheckField)
@@ -4246,11 +4181,11 @@ echo "<td align='left'>".$rowdata[1]."&nbsp;</td>";
 echo "<td align='center'>".$rowdata[2]."&nbsp;<br>".$rowdata[3]."</td>";
 #echo "<td align='left'>".$rowdata[3]."&nbsp; </td>";
 
-echo "<td align='center'>".$rowdata[4]."&nbsp;<br>".$rowdata[5]."<br>".$rowdata[6]."</td>";
+echo "<td align='center'>".$rowdata[4].",&nbsp;".$rowdata[5]."<br>".$rowdata[6]."</td>";
 #echo "<td align='left'>".$rowdata[5]."&nbsp; </td>";
 #echo "<td align='left'>".$rowdata[6]."&nbsp; </td>";
 
-echo "<td align='center'>".$rowdata[7]."&nbsp;<br>".$rowdata[8]."<br>".$rowdata[9]."</td>";
+echo "<td align='center'>".$rowdata[7].",&nbsp;".$rowdata[8]."<br>".$rowdata[9]."</td>";
 #echo "<td align='left'>".$rowdata[8]."&nbsp; </td>";
 #echo "<td align='left'>".$rowdata[9]."&nbsp; </td>";
 echo "</tr>";

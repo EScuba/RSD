@@ -37,6 +37,9 @@ $rs = mysql_select_db($db,$conn) or die("Error: Selecting files Database");
       }
 
   mysql_close($conn);
+  
+  
+ob_start();
 
 echo "<?php\n";
 
@@ -1839,5 +1842,11 @@ echo "echo\"
 </html>\"\n";
 
 echo"?>\n";
+
+$program=ob_get_contents();
+ob_end_clean();
+$f=fopen("prog.txt","w");
+fwrite($f,$program);
+fclose($f);
 
 ?>

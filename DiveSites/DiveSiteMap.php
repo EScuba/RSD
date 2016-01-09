@@ -14,6 +14,12 @@ require_once('SystemFunctions.php');
  $Start=$_SESSION['Start'];
 
  $Expiry=$_SESSION['Expiry'];
+ 
+ if($_SESSION['DiveSiteId'] =='00000000')
+  {
+  	 header("Location: EmptyFrame.php");
+  	exit();
+  }
 
  if(($_POST['display_button']=='Back')||($_POST['display_button']=='Logout'))
   { 
@@ -133,6 +139,34 @@ $DiveSiteMapNotes=$_SESSION['DiveSiteMapNotes'];
 return;
 }
 
+#-----------------------Transfer Common Session Variables to Screen variables---------------------
+
+function GetCommonVariablesFromSession()
+ { 
+global $db, $user, $serverhost, $password, $Add, $Edit, $Delete, $Search, $Start, $Expiry;
+global $NumDiveSitePixRecords,$DiveSitePixId,$DiveSiteId,$DiveSitePixEnteredBy,$DiveSitePixDateEntered;
+global $DiveSiteCity,$DiveSiteProvince,$DiveSiteCountry,$DiveSiteName,$DiveSiteMajorName;
+global $DiveSiteMinorName,$DiveSiteExactLat,$DiveSiteExactLong,$DiveSitePixTitle,$DIveSitePixType;
+global $DiveSitePixNoteKeywords,$DiveSitePixPictureURLFileInfo,$DiveSitePixNotes;
+
+
+$DiveSiteId=$_SESSION['DiveSiteId'];
+
+$DiveSiteCity=$_SESSION['DiveSiteCity'];
+$DiveSiteProvince=$_SESSION['DiveSiteProvince'];
+$DiveSiteCountry=$_SESSION['DiveSiteCountry'];
+$DiveSiteName=$_SESSION['DiveSiteName'];
+$DiveSiteMajorName=$_SESSION['DiveSiteMajorName'];
+$DiveSiteMinorName=$_SESSION['DiveSiteMinorName'];
+$DiveSiteExactLat=$_SESSION['DiveSiteExactLat'];
+$DiveSiteExactLong=$_SESSION['DiveSiteExactLong'];
+
+
+
+
+return;
+}
+
 #----------------------------Get Last Database Record-----------------------------------------
 function GetLastRecord($conn,$result)
  { 
@@ -169,25 +203,42 @@ global $DiveSiteCity,$DiveSiteProvince,$DiveSiteCountry,$DiveSiteName,$DiveSiteM
 global $DiveSiteMinorName,$DiveSiteExactLat,$DiveSiteExactLong,$DiveSiteMapFileInfo,$DiveSiteMapNotes;
 global $Mode;
 echo stripslashes("
-<TABLE border='1' align='center'><tr><td>
+
+<input type ='text' NAME='DiveSiteCity' hidden VALUE='$DiveSiteCity'  SIZE='30' MAXLENGTH='30'  tabindex='5' id ='DiveSiteCity'>
+<input type ='text' NAME='DiveSiteProvince' hidden VALUE='$DiveSiteProvince'  SIZE='15' MAXLENGTH='15'  tabindex='6' id ='DiveSiteProvince'>
+<input type ='text' NAME='DiveSiteCountry' hidden VALUE='$DiveSiteCountry'  SIZE='15' MAXLENGTH='15'  tabindex='7' id ='DiveSiteCountry'>
+<input type ='text' NAME='DiveSiteName' hidden VALUE='$DiveSiteName'  SIZE='80' MAXLENGTH='80'  tabindex='8' id ='DiveSiteName'> 
+<input type ='text' NAME='DiveSiteMajorName' hidden VALUE='$DiveSiteMajorName'  SIZE='80' MAXLENGTH='80'  tabindex='9' id ='DiveSiteMajorName'> 
+<input type ='text' NAME='DiveSiteMinorName' hidden VALUE='$DiveSiteMinorName'  SIZE='80' MAXLENGTH='80'  tabindex='10' id ='DiveSiteMinorName'> 
+<input type ='text' NAME='DiveSiteExactLat' hidden VALUE='$DiveSiteExactLat'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='11' id ='DiveSiteExactLat'>
+<input type ='text' NAME='DiveSiteExactLong' hidden VALUE='$DiveSiteExactLong'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='12' id ='DiveSiteExactLong'> "); 
+
+if($Mode!="ADD")
+ {
+echo(" 	<input type='text' NAME='DiveSiteMapFileInfo'  hidden VALUE='$DiveSiteMapFileInfo'  SIZE='150' MAXLENGTH='150'  tabindex='13' id ='DiveSiteMapFileInfo'>");
+ } 
+
+
+
+echo stripslashes("<TABLE border='1' align='center'><tr><td>
 <TABLE border='1' align='center' cellspacing='5'>
-<tr><th valign='top' align ='left' scope='row'>DiveSiteMapId</th>
+<tr><th valign='top' align ='left' scope='row'>System Map Id</th>
+<td colspan=5><table><tr>
 <td><input type ='text' NAME='DiveSiteMapId' VALUE='$DiveSiteMapId' SIZE='8' MAXLENGTH='8' tabindex ='1' id ='DiveSiteMapId' READONLY><br /></td>
-</tr>
-<tr><th valign='top' align ='left' scope='row'>DiveSiteId</th>
+<th valign='top' align ='left' scope='row'>Dive Site Id</th>
 "); if($Mode=='EDIT')
 {echo ("<td><input type ='text' style='color: gray' READONLY NAME='DiveSiteId' VALUE='$DiveSiteId'  SIZE='8' MAXLENGTH='8'  tabindex='2' id ='DiveSiteId' 
    onBlur=\"if(isBlank(this.form.DiveSiteId.value)) {alert('DiveSiteId cannot be blank');this.form.DiveSiteId.style.background='Yellow';}else{this.form.DiveSiteId.style.background='White';}\"><br /></td>");}
 else 
 {echo ("<td><input type ='text' NAME='DiveSiteId' VALUE='$DiveSiteId'  SIZE='8' MAXLENGTH='8'  tabindex='2' id ='DiveSiteId' 
    onBlur=\"if(isBlank(this.form.DiveSiteId.value)) {alert('DiveSiteId cannot be blank');this.form.DiveSiteId.style.background='Yellow';}else{this.form.DiveSiteId.style.background='White';}\"><br /></td>");}
-echo stripslashes("</tr>
-<tr><th valign='top' align ='left' scope='row'>DiveSiteMapEnteredBy</th>
-");
+echo stripslashes("</tr></tr></table></td>");
+
+echo("<tr><th valign='top' align ='left' scope='row'>Map Entered By</th>");
+echo("<td colpspan=5><table><tr>");
 echo ("<td><input type ='text' NAME='DiveSiteMapEnteredBy' VALUE='$DiveSiteMapEnteredBy'  SIZE='25' MAXLENGTH='25'  tabindex='3' id ='DiveSiteMapEnteredBy' 
    onBlur=\"if(isBlank(this.form.DiveSiteMapEnteredBy.value)) {alert('DiveSiteMapEnteredBy cannot be blank');this.form.DiveSiteMapEnteredBy.style.background='Yellow';}else{this.form.DiveSiteMapEnteredBy.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th valign='top' align ='left' scope='row'>DiveSiteMapDateEntered</th>
+echo stripslashes("<th valign='top' align ='left' scope='row'>Date Entered</th>
 <td><input type ='text' NAME='DiveSiteMapDateEntered' VALUE='$DiveSiteMapDateEntered'  SIZE='11' MAXLENGTH='11'  tabindex='4' id ='DiveSiteMapDateEntered' 
    onBlur=\"if(isBlank(this.form.DiveSiteMapDateEntered.value)) {alert('DiveSiteMapDateEntered cannot be blank');this.form.DiveSiteMapDateEntered.style.background='Yellow';}else{this.form.DiveSiteMapDateEntered.style.background='White';}\">");
 if($Mode=='EDIT')
@@ -195,55 +246,68 @@ if($Mode=='EDIT')
 else 
 {echo '<A HREF="#" onClick="cal.select(document.forms[\'DiveSiteMapEntry\'].DiveSiteMapDateEntered,\'anchor\',\'yyyy-MM-dd\');return false;" NAME="anchor" ID="anchor">Calendar</A>';}
 echo("</td>");
-echo stripslashes("</tr>
-<tr><th valign='top' align ='left' scope='row'>DiveSiteCity</th>
-");
-echo ("<td><input type ='text' NAME='DiveSiteCity' VALUE='$DiveSiteCity'  SIZE='30' MAXLENGTH='30'  tabindex='5' id ='DiveSiteCity' 
-   onBlur=\"if(isBlank(this.form.DiveSiteCity.value)) {alert('DiveSiteCity cannot be blank');this.form.DiveSiteCity.style.background='Yellow';}else{this.form.DiveSiteCity.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th valign='top' align ='left' scope='row'>DiveSiteProvince</th>
-");
-echo ("<td><input type ='text' NAME='DiveSiteProvince' VALUE='$DiveSiteProvince'  SIZE='15' MAXLENGTH='15'  tabindex='6' id ='DiveSiteProvince' 
-   onBlur=\"if(isBlank(this.form.DiveSiteProvince.value)) {alert('DiveSiteProvince cannot be blank');this.form.DiveSiteProvince.style.background='Yellow';}else{this.form.DiveSiteProvince.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th valign='top' align ='left' scope='row'>DiveSiteCountry</th>
-");
-echo ("<td><input type ='text' NAME='DiveSiteCountry' VALUE='$DiveSiteCountry'  SIZE='15' MAXLENGTH='15'  tabindex='7' id ='DiveSiteCountry' 
-   onBlur=\"if(isBlank(this.form.DiveSiteCountry.value)) {alert('DiveSiteCountry cannot be blank');this.form.DiveSiteCountry.style.background='Yellow';}else{this.form.DiveSiteCountry.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th valign='top' align ='left' scope='row'>DiveSiteName</th>
-");
-echo ("<td><input type ='text' NAME='DiveSiteName' VALUE='$DiveSiteName'  SIZE='80' MAXLENGTH='80'  tabindex='8' id ='DiveSiteName' 
-   onBlur=\"if(isBlank(this.form.DiveSiteName.value)) {alert('DiveSiteName cannot be blank');this.form.DiveSiteName.style.background='Yellow';}else{this.form.DiveSiteName.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th valign='top' align ='left' scope='row'>DiveSiteMajorName</th>
-");
-echo ("<td><input type ='text' NAME='DiveSiteMajorName' VALUE='$DiveSiteMajorName'  SIZE='80' MAXLENGTH='80'  tabindex='9' id ='DiveSiteMajorName' 
-   onBlur=\"if(isBlank(this.form.DiveSiteMajorName.value)) {alert('DiveSiteMajorName cannot be blank');this.form.DiveSiteMajorName.style.background='Yellow';}else{this.form.DiveSiteMajorName.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th valign='top' align ='left' scope='row'>DiveSiteMinorName</th>
-");
-echo ("<td><input type ='text' NAME='DiveSiteMinorName' VALUE='$DiveSiteMinorName'  SIZE='80' MAXLENGTH='80'  tabindex='10' id ='DiveSiteMinorName' 
-   onBlur=\"if(isBlank(this.form.DiveSiteMinorName.value)) {alert('DiveSiteMinorName cannot be blank');this.form.DiveSiteMinorName.style.background='Yellow';}else{this.form.DiveSiteMinorName.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th valign='top' align ='left' scope='row'>DiveSiteExactLat</th>
-");
-echo ("<td><input type ='text' NAME='DiveSiteExactLat' VALUE='$DiveSiteExactLat'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='11' id ='DiveSiteExactLat' 
-   onBlur=\"if(isBlank(this.form.DiveSiteExactLat.value)) {alert('DiveSiteExactLat cannot be blank');this.form.DiveSiteExactLat.style.background='Yellow';}else{this.form.DiveSiteExactLat.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th valign='top' align ='left' scope='row'>DiveSiteExactLong</th>
-");
-echo ("<td><input type ='text' NAME='DiveSiteExactLong' VALUE='$DiveSiteExactLong'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='12' id ='DiveSiteExactLong' 
-   onBlur=\"if(isBlank(this.form.DiveSiteExactLong.value)) {alert('DiveSiteExactLong cannot be blank');this.form.DiveSiteExactLong.style.background='Yellow';}else{this.form.DiveSiteExactLong.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th valign='top' align ='left' scope='row'>DiveSiteMapFileInfo</th>
+echo stripslashes("</tr></tr></table></td>");
+
+#echo("<tr><th valign='top' align ='left' scope='row'>DiveSiteCity</th>");
+#echo ("<td><input type ='text' NAME='DiveSiteCity' VALUE='$DiveSiteCity'  SIZE='30' MAXLENGTH='30'  tabindex='5' id ='DiveSiteCity' 
+#   onBlur=\"if(isBlank(this.form.DiveSiteCity.value)) {alert('DiveSiteCity cannot be blank');this.form.DiveSiteCity.style.background='Yellow';}else{this.form.DiveSiteCity.style.background='White';}\"><br /></td>");
+#echo stripslashes("</tr><tr><th valign='top' align ='left' scope='row'>DiveSiteProvince</th>");
+#echo ("<td><input type ='text' NAME='DiveSiteProvince' VALUE='$DiveSiteProvince'  SIZE='15' MAXLENGTH='15'  tabindex='6' id ='DiveSiteProvince' 
+#   onBlur=\"if(isBlank(this.form.DiveSiteProvince.value)) {alert('DiveSiteProvince cannot be blank');this.form.DiveSiteProvince.style.background='Yellow';}else{this.form.DiveSiteProvince.style.background='White';}\"><br /></td>");
+#echo stripslashes("</tr>
+#<tr><th valign='top' align ='left' scope='row'>DiveSiteCountry</th>
+#");
+#echo ("<td><input type ='text' NAME='DiveSiteCountry' VALUE='$DiveSiteCountry'  SIZE='15' MAXLENGTH='15'  tabindex='7' id ='DiveSiteCountry' 
+#   onBlur=\"if(isBlank(this.form.DiveSiteCountry.value)) {alert('DiveSiteCountry cannot be blank');this.form.DiveSiteCountry.style.background='Yellow';}else{this.form.DiveSiteCountry.style.background='White';}\"><br /></td>");
+#echo stripslashes("</tr>
+#<tr><th valign='top' align ='left' scope='row'>DiveSiteName</th>
+#");
+#echo ("<td><input type ='text' NAME='DiveSiteName' VALUE='$DiveSiteName'  SIZE='80' MAXLENGTH='80'  tabindex='8' id ='DiveSiteName' 
+#   onBlur=\"if(isBlank(this.form.DiveSiteName.value)) {alert('DiveSiteName cannot be blank');this.form.DiveSiteName.style.background='Yellow';}else{this.form.DiveSiteName.style.background='White';}\"><br /></td>");
+#echo stripslashes("</tr>
+#<tr><th valign='top' align ='left' scope='row'>DiveSiteMajorName</th>
+#");
+#echo ("<td><input type ='text' NAME='DiveSiteMajorName' VALUE='$DiveSiteMajorName'  SIZE='80' MAXLENGTH='80'  tabindex='9' id ='DiveSiteMajorName' 
+#   onBlur=\"if(isBlank(this.form.DiveSiteMajorName.value)) {alert('DiveSiteMajorName cannot be blank');this.form.DiveSiteMajorName.style.background='Yellow';}else{this.form.DiveSiteMajorName.style.background='White';}\"><br /></td>");
+#echo stripslashes("</tr>
+#<tr><th valign='top' align ='left' scope='row'>DiveSiteMinorName</th>
+#");
+#echo ("<td><input type ='text' NAME='DiveSiteMinorName' VALUE='$DiveSiteMinorName'  SIZE='80' MAXLENGTH='80'  tabindex='10' id ='DiveSiteMinorName' 
+#   onBlur=\"if(isBlank(this.form.DiveSiteMinorName.value)) {alert('DiveSiteMinorName cannot be blank');this.form.DiveSiteMinorName.style.background='Yellow';}else{this.form.DiveSiteMinorName.style.background='White';}\"><br /></td>");
+#echo stripslashes("</tr>
+#<tr><th valign='top' align ='left' scope='row'>DiveSiteExactLat</th>
+#");
+#echo ("<td><input type ='text' NAME='DiveSiteExactLat' VALUE='$DiveSiteExactLat'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='11' id ='DiveSiteExactLat' 
+#   onBlur=\"if(isBlank(this.form.DiveSiteExactLat.value)) {alert('DiveSiteExactLat cannot be blank');this.form.DiveSiteExactLat.style.background='Yellow';}else{this.form.DiveSiteExactLat.style.background='White';}\"><br /></td>");
+#echo stripslashes("</tr>
+#<tr><th valign='top' align ='left' scope='row'>DiveSiteExactLong</th>
+#");
+#echo ("<td><input type ='text' NAME='DiveSiteExactLong' VALUE='$DiveSiteExactLong'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='12' id ='DiveSiteExactLong' 
+#   onBlur=\"if(isBlank(this.form.DiveSiteExactLong.value)) {alert('DiveSiteExactLong cannot be blank');this.form.DiveSiteExactLong.style.background='Yellow';}else{this.form.DiveSiteExactLong.style.background='White';}\"><br /></td>");
+#echo stripslashes("</tr>");
+
+echo("<tr><th valign='top' align ='left' scope='row'>Comments & Notes</th>
+<td><TEXTAREA NAME='DiveSiteMapNotes' COLS=100 ROW=3 TABINDEX='14'>$DiveSiteMapNotes</TEXTAREA></td>");
+echo stripslashes("</tr>");
+
+if($Mode=='ADD')
+ {
+echo ("<tr><th valign='top' align ='left' scope='row'>DiveSiteMapFileInfo</th>
 <td><input type='file' NAME='DiveSiteMapFileInfo'  VALUE='$DiveSiteMapFileInfo'  SIZE='150' MAXLENGTH='150'  tabindex='13' id ='DiveSiteMapFileInfo' 
    onBlur=\"if(isBlank(this.form.DiveSiteMapFileInfo.value)) {alert('DiveSiteMapFileInfo cannot be blank');this.form.DiveSiteMapFileInfo.style.background='Yellow';}else{this.form.DiveSiteMapFileInfo.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th valign='top' align ='left' scope='row'>DiveSiteMapNotes</th>
-<td><TEXTAREA NAME='DiveSiteMapNotes' COLS=100 ROW=3 TABINDEX='14'>$DiveSiteMapNotes</TEXTAREA></td>");
-echo stripslashes("</tr>
-<tr></tr><tr></tr><tr></tr>
+echo stripslashes("</tr>");
+  }
+else
+ {
+ echo ("<tr><th valign='top' align ='left' scope='row'>Map Image</th>
+<td align='center'><img src=".$DiveSiteMapFileInfo." width=\"200px\" ALT=\"".$DiveSiteMapFileInfo."\"></td>");
+echo stripslashes("</tr>");
+ 
+  }  
+
+
+
+echo("<tr></tr><tr></tr><tr></tr>
 <tr>
 ");}
 #----------------------------Entry Form----------------------------------------------------
@@ -256,7 +320,7 @@ global $DiveSiteMinorName,$DiveSiteExactLat,$DiveSiteExactLong,$DiveSiteMapFileI
 global $Mode;
 $Mode='ADD';
 echo stripslashes("
-<FORM NAME='DiveSiteMapEntry' action='DiveSiteMap.php' method='POST'>");
+<FORM NAME='DiveSiteMapEntry' action='DiveSiteMap.php' method='POST' enctype='multipart/form-data'>");
 CommonForm();
 echo stripslashes("
 <td colspan =2 align='center'>
@@ -283,7 +347,7 @@ global $DiveSiteMinorName,$DiveSiteExactLat,$DiveSiteExactLong,$DiveSiteMapFileI
 global $Mode;
 $Mode='EDIT';
 echo stripslashes("
-<FORM NAME='DiveSiteMapEdit' action='DiveSiteMap.php' method='POST'>");
+<FORM NAME='DiveSiteMapEdit' action='DiveSiteMap.php' method='POST' enctype='multipart/form-data'>");
 CommonForm();
 echo stripslashes("
 <td colspan =2 align='center'>
@@ -303,79 +367,104 @@ global $DiveSiteCity,$DiveSiteProvince,$DiveSiteCountry,$DiveSiteName,$DiveSiteM
 global $DiveSiteMinorName,$DiveSiteExactLat,$DiveSiteExactLong,$DiveSiteMapFileInfo,$DiveSiteMapNotes;
 echo stripslashes("
 <FORM NAME='DiveSiteMapDelete' action='DiveSiteMap.php' method='POST'>
-<TABLE  align='center' border='1'><tr><td>
-<TABLE align='center' border='1' cellspacing='5'>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteMapId</th>
-<td><input type ='text' READONLY NAME='DiveSiteMapId' VALUE='$DiveSiteMapId' SIZE='8' MAXLENGTH='8' tabindex ='1' id ='DiveSiteMapId' READONLY><br /></td></tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteId</th>
+<FORM NAME='DiveSiteMapDisplay' action='DiveSiteMap.php' method='POST'>
+<input type ='text' NAME='DiveSiteCity' hidden VALUE='$DiveSiteCity'  SIZE='30' MAXLENGTH='30'  tabindex='5' id ='DiveSiteCity'>
+<input type ='text' NAME='DiveSiteProvince' hidden VALUE='$DiveSiteProvince'  SIZE='15' MAXLENGTH='15'  tabindex='6' id ='DiveSiteProvince'>
+<input type ='text' NAME='DiveSiteCountry' hidden VALUE='$DiveSiteCountry'  SIZE='15' MAXLENGTH='15'  tabindex='7' id ='DiveSiteCountry'>
+<input type ='text' NAME='DiveSiteName' hidden VALUE='$DiveSiteName'  SIZE='80' MAXLENGTH='80'  tabindex='8' id ='DiveSiteName'> 
+<input type ='text' NAME='DiveSiteMajorName' hidden VALUE='$DiveSiteMajorName'  SIZE='80' MAXLENGTH='80'  tabindex='9' id ='DiveSiteMajorName'> 
+<input type ='text' NAME='DiveSiteMinorName' hidden VALUE='$DiveSiteMinorName'  SIZE='80' MAXLENGTH='80'  tabindex='10' id ='DiveSiteMinorName'> 
+<input type ='text' NAME='DiveSiteExactLat' hidden VALUE='$DiveSiteExactLat'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='11' id ='DiveSiteExactLat'>
+<input type ='text' NAME='DiveSiteExactLong' hidden VALUE='$DiveSiteExactLong'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='12' id ='DiveSiteExactLong'>
+<input type='text' NAME='DiveSiteMapFileInfo'  hidden VALUE='$DiveSiteMapFileInfo'  SIZE='150' MAXLENGTH='150'  tabindex='13' id ='DiveSiteMapFileInfo'>  
+
+
+<TABLE border='1' align='center'><tr><td>
+<TABLE border='1' align='center' cellspacing='5'>
+<tr><th valign='top' align ='left' scope='row'>System Map Id</th>
+<td colspan=5><table><tr>
+<td><input type ='text' NAME='DiveSiteMapId' VALUE='$DiveSiteMapId' SIZE='8' MAXLENGTH='8' tabindex ='1' id ='DiveSiteMapId' READONLY><br /></td>
+<th valign='top' align ='left' scope='row'>Dive Site Id</th>
 "); if($Mode=='EDIT')
 {echo ("<td><input type ='text' style='color: gray' READONLY NAME='DiveSiteId' VALUE='$DiveSiteId'  SIZE='8' MAXLENGTH='8'  tabindex='2' id ='DiveSiteId' 
    onBlur=\"if(isBlank(this.form.DiveSiteId.value)) {alert('DiveSiteId cannot be blank');this.form.DiveSiteId.style.background='Yellow';}else{this.form.DiveSiteId.style.background='White';}\"><br /></td>");}
 else 
-{echo ("<td><input type ='text' READONLY NAME='DiveSiteId' VALUE='$DiveSiteId'  SIZE='8' MAXLENGTH='8'  tabindex='2' id ='DiveSiteId' 
+{echo ("<td><input type ='text' NAME='DiveSiteId' READONLY VALUE='$DiveSiteId'  SIZE='8' MAXLENGTH='8'  tabindex='2' id ='DiveSiteId' 
    onBlur=\"if(isBlank(this.form.DiveSiteId.value)) {alert('DiveSiteId cannot be blank');this.form.DiveSiteId.style.background='Yellow';}else{this.form.DiveSiteId.style.background='White';}\"><br /></td>");}
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteMapEnteredBy</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteMapEnteredBy' VALUE='$DiveSiteMapEnteredBy'  SIZE='25' MAXLENGTH='25'  tabindex='3' id ='DiveSiteMapEnteredBy' 
+echo stripslashes("</tr></tr></table></td>");
+
+echo("<tr><th valign='top' align ='left' scope='row'>Map Entered By</th>");
+echo("<td colpspan=5><table><tr>");
+echo ("<td><input type ='text' NAME='DiveSiteMapEnteredBy' VALUE='$DiveSiteMapEnteredBy'  SIZE='25' MAXLENGTH='25'  tabindex='3' id ='DiveSiteMapEnteredBy' 
    onBlur=\"if(isBlank(this.form.DiveSiteMapEnteredBy.value)) {alert('DiveSiteMapEnteredBy cannot be blank');this.form.DiveSiteMapEnteredBy.style.background='Yellow';}else{this.form.DiveSiteMapEnteredBy.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteMapDateEntered</th>
-<td><input type ='text'READONLY NAME='DiveSiteMapDateEntered' VALUE='$DiveSiteMapDateEntered'  SIZE='11' MAXLENGTH='11'  tabindex='4' id ='DiveSiteMapDateEntered'>");
+echo stripslashes("<th valign='top' align ='left' scope='row'>Date Entered</th>
+<td><input type ='text' NAME='DiveSiteMapDateEntered' VALUE='$DiveSiteMapDateEntered'  SIZE='11' MAXLENGTH='11'  tabindex='4' id ='DiveSiteMapDateEntered' 
+   onBlur=\"if(isBlank(this.form.DiveSiteMapDateEntered.value)) {alert('DiveSiteMapDateEntered cannot be blank');this.form.DiveSiteMapDateEntered.style.background='Yellow';}else{this.form.DiveSiteMapDateEntered.style.background='White';}\">");
 if($Mode=='EDIT')
 {echo '<A HREF="#" onClick="cal.select(document.forms[\'DiveSiteMapEdit\'].DiveSiteMapDateEntered,\'anchor\',\'yyyy-MM-dd\');return false;" NAME="anchor" ID="anchor">Calendar</A>';}
 else 
 {echo '<A HREF="#" onClick="cal.select(document.forms[\'DiveSiteMapEntry\'].DiveSiteMapDateEntered,\'anchor\',\'yyyy-MM-dd\');return false;" NAME="anchor" ID="anchor">Calendar</A>';}
 echo("</td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteCity</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteCity' VALUE='$DiveSiteCity'  SIZE='30' MAXLENGTH='30'  tabindex='5' id ='DiveSiteCity' 
-   onBlur=\"if(isBlank(this.form.DiveSiteCity.value)) {alert('DiveSiteCity cannot be blank');this.form.DiveSiteCity.style.background='Yellow';}else{this.form.DiveSiteCity.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteProvince</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteProvince' VALUE='$DiveSiteProvince'  SIZE='15' MAXLENGTH='15'  tabindex='6' id ='DiveSiteProvince' 
-   onBlur=\"if(isBlank(this.form.DiveSiteProvince.value)) {alert('DiveSiteProvince cannot be blank');this.form.DiveSiteProvince.style.background='Yellow';}else{this.form.DiveSiteProvince.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteCountry</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteCountry' VALUE='$DiveSiteCountry'  SIZE='15' MAXLENGTH='15'  tabindex='7' id ='DiveSiteCountry' 
-   onBlur=\"if(isBlank(this.form.DiveSiteCountry.value)) {alert('DiveSiteCountry cannot be blank');this.form.DiveSiteCountry.style.background='Yellow';}else{this.form.DiveSiteCountry.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteName</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteName' VALUE='$DiveSiteName'  SIZE='80' MAXLENGTH='80'  tabindex='8' id ='DiveSiteName' 
-   onBlur=\"if(isBlank(this.form.DiveSiteName.value)) {alert('DiveSiteName cannot be blank');this.form.DiveSiteName.style.background='Yellow';}else{this.form.DiveSiteName.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteMajorName</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteMajorName' VALUE='$DiveSiteMajorName'  SIZE='80' MAXLENGTH='80'  tabindex='9' id ='DiveSiteMajorName' 
-   onBlur=\"if(isBlank(this.form.DiveSiteMajorName.value)) {alert('DiveSiteMajorName cannot be blank');this.form.DiveSiteMajorName.style.background='Yellow';}else{this.form.DiveSiteMajorName.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteMinorName</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteMinorName' VALUE='$DiveSiteMinorName'  SIZE='80' MAXLENGTH='80'  tabindex='10' id ='DiveSiteMinorName' 
-   onBlur=\"if(isBlank(this.form.DiveSiteMinorName.value)) {alert('DiveSiteMinorName cannot be blank');this.form.DiveSiteMinorName.style.background='Yellow';}else{this.form.DiveSiteMinorName.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteExactLat</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteExactLat' VALUE='$DiveSiteExactLat'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='11' id ='DiveSiteExactLat' 
-   onBlur=\"if(isBlank(this.form.DiveSiteExactLat.value)) {alert('DiveSiteExactLat cannot be blank');this.form.DiveSiteExactLat.style.background='Yellow';}else{this.form.DiveSiteExactLat.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteExactLong</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteExactLong' VALUE='$DiveSiteExactLong'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='12' id ='DiveSiteExactLong' 
-   onBlur=\"if(isBlank(this.form.DiveSiteExactLong.value)) {alert('DiveSiteExactLong cannot be blank');this.form.DiveSiteExactLong.style.background='Yellow';}else{this.form.DiveSiteExactLong.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteMapFileInfo</th>
-<td><input type='file'READONLY NAME='DiveSiteMapFileInfo'  VALUE='$DiveSiteMapFileInfo'  SIZE='150' MAXLENGTH='150'  tabindex='13' id ='DiveSiteMapFileInfo' 
+echo stripslashes("</tr></tr></table></td>");
+
+#echo("<tr><th valign='top' align ='left' scope='row'>DiveSiteCity</th>");
+#echo ("<td><input type ='text' NAME='DiveSiteCity' VALUE='$DiveSiteCity'  SIZE='30' MAXLENGTH='30'  tabindex='5' id ='DiveSiteCity' 
+#   onBlur=\"if(isBlank(this.form.DiveSiteCity.value)) {alert('DiveSiteCity cannot be blank');this.form.DiveSiteCity.style.background='Yellow';}else{this.form.DiveSiteCity.style.background='White';}\"><br /></td>");
+#echo stripslashes("</tr><tr><th valign='top' align ='left' scope='row'>DiveSiteProvince</th>");
+#echo ("<td><input type ='text' NAME='DiveSiteProvince' VALUE='$DiveSiteProvince'  SIZE='15' MAXLENGTH='15'  tabindex='6' id ='DiveSiteProvince' 
+#   onBlur=\"if(isBlank(this.form.DiveSiteProvince.value)) {alert('DiveSiteProvince cannot be blank');this.form.DiveSiteProvince.style.background='Yellow';}else{this.form.DiveSiteProvince.style.background='White';}\"><br /></td>");
+#echo stripslashes("</tr>
+#<tr><th valign='top' align ='left' scope='row'>DiveSiteCountry</th>
+#");
+#echo ("<td><input type ='text' NAME='DiveSiteCountry' VALUE='$DiveSiteCountry'  SIZE='15' MAXLENGTH='15'  tabindex='7' id ='DiveSiteCountry' 
+#   onBlur=\"if(isBlank(this.form.DiveSiteCountry.value)) {alert('DiveSiteCountry cannot be blank');this.form.DiveSiteCountry.style.background='Yellow';}else{this.form.DiveSiteCountry.style.background='White';}\"><br /></td>");
+#echo stripslashes("</tr>
+#<tr><th valign='top' align ='left' scope='row'>DiveSiteName</th>
+#");
+#echo ("<td><input type ='text' NAME='DiveSiteName' VALUE='$DiveSiteName'  SIZE='80' MAXLENGTH='80'  tabindex='8' id ='DiveSiteName' 
+#   onBlur=\"if(isBlank(this.form.DiveSiteName.value)) {alert('DiveSiteName cannot be blank');this.form.DiveSiteName.style.background='Yellow';}else{this.form.DiveSiteName.style.background='White';}\"><br /></td>");
+#echo stripslashes("</tr>
+#<tr><th valign='top' align ='left' scope='row'>DiveSiteMajorName</th>
+#");
+#echo ("<td><input type ='text' NAME='DiveSiteMajorName' VALUE='$DiveSiteMajorName'  SIZE='80' MAXLENGTH='80'  tabindex='9' id ='DiveSiteMajorName' 
+#   onBlur=\"if(isBlank(this.form.DiveSiteMajorName.value)) {alert('DiveSiteMajorName cannot be blank');this.form.DiveSiteMajorName.style.background='Yellow';}else{this.form.DiveSiteMajorName.style.background='White';}\"><br /></td>");
+#echo stripslashes("</tr>
+#<tr><th valign='top' align ='left' scope='row'>DiveSiteMinorName</th>
+#");
+#echo ("<td><input type ='text' NAME='DiveSiteMinorName' VALUE='$DiveSiteMinorName'  SIZE='80' MAXLENGTH='80'  tabindex='10' id ='DiveSiteMinorName' 
+#   onBlur=\"if(isBlank(this.form.DiveSiteMinorName.value)) {alert('DiveSiteMinorName cannot be blank');this.form.DiveSiteMinorName.style.background='Yellow';}else{this.form.DiveSiteMinorName.style.background='White';}\"><br /></td>");
+#echo stripslashes("</tr>
+#<tr><th valign='top' align ='left' scope='row'>DiveSiteExactLat</th>
+#");
+#echo ("<td><input type ='text' NAME='DiveSiteExactLat' VALUE='$DiveSiteExactLat'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='11' id ='DiveSiteExactLat' 
+#   onBlur=\"if(isBlank(this.form.DiveSiteExactLat.value)) {alert('DiveSiteExactLat cannot be blank');this.form.DiveSiteExactLat.style.background='Yellow';}else{this.form.DiveSiteExactLat.style.background='White';}\"><br /></td>");
+#echo stripslashes("</tr>
+#<tr><th valign='top' align ='left' scope='row'>DiveSiteExactLong</th>
+#");
+#echo ("<td><input type ='text' NAME='DiveSiteExactLong' VALUE='$DiveSiteExactLong'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='12' id ='DiveSiteExactLong' 
+#   onBlur=\"if(isBlank(this.form.DiveSiteExactLong.value)) {alert('DiveSiteExactLong cannot be blank');this.form.DiveSiteExactLong.style.background='Yellow';}else{this.form.DiveSiteExactLong.style.background='White';}\"><br /></td>");
+#echo stripslashes("</tr>");
+
+echo("<tr><th valign='top' align ='left' scope='row'>Comments & Notes</th>
+<td><TEXTAREA NAME='DiveSiteMapNotes' COLS=100 ROW=3 TABINDEX='14'>$DiveSiteMapNotes</TEXTAREA></td>");
+echo stripslashes("</tr>");
+
+if($Mode=='ADD')
+ {
+echo ("<tr><th valign='top' align ='left' scope='row'>DiveSiteMapFileInfo</th>
+<td><input type='file' NAME='DiveSiteMapFileInfo'  VALUE='$DiveSiteMapFileInfo'  SIZE='150' MAXLENGTH='150'  tabindex='13' id ='DiveSiteMapFileInfo' 
    onBlur=\"if(isBlank(this.form.DiveSiteMapFileInfo.value)) {alert('DiveSiteMapFileInfo cannot be blank');this.form.DiveSiteMapFileInfo.style.background='Yellow';}else{this.form.DiveSiteMapFileInfo.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteMapNotes</th>
-<td><TEXTAREA NAME='DiveSiteMapNotes' READONLY COLS=100 ROW=3 TABINDEX='14'>$DiveSiteMapNotes</TEXTAREA></td>");
-echo stripslashes("</tr>
-<tr></tr><tr></tr><tr></tr>
+echo stripslashes("</tr>");
+  }
+else
+ {
+ echo ("<tr><th valign='top' align ='left' scope='row'>Map Image</th>
+<td align='center'><img src=".$DiveSiteMapFileInfo." width=\"200px\" ALT=\"".$DiveSiteMapFileInfo."\"></td>");
+echo stripslashes("</tr>");
+ 
+  }  
+
+echo("<tr></tr><tr></tr><tr></tr>
 <tr>
 <td colspan ='2' align='center'>
 <input type ='SUBMIT' NAME='display_button' Value = 'Cancel Delete'>
@@ -394,68 +483,104 @@ global $DiveSiteCity,$DiveSiteProvince,$DiveSiteCountry,$DiveSiteName,$DiveSiteM
 global $DiveSiteMinorName,$DiveSiteExactLat,$DiveSiteExactLong,$DiveSiteMapFileInfo,$DiveSiteMapNotes;
 echo stripslashes("
 <FORM NAME='DiveSiteMapDisplay' action='DiveSiteMap.php' method='POST'>
-<TABLE  align='center' border='1'><tr><td>
-<TABLE align='center' border='1' cellspacing='5'>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteMapId</th>
-<td><input type ='text' READONLY NAME='DiveSiteMapId' VALUE='$DiveSiteMapId' SIZE='8' MAXLENGTH='8' tabindex ='1' id ='DiveSiteMapId' READONLY><br /></td>
-</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteId</th>
+<input type ='text' NAME='DiveSiteCity' hidden VALUE='$DiveSiteCity'  SIZE='30' MAXLENGTH='30'  tabindex='5' id ='DiveSiteCity'>
+<input type ='text' NAME='DiveSiteProvince' hidden VALUE='$DiveSiteProvince'  SIZE='15' MAXLENGTH='15'  tabindex='6' id ='DiveSiteProvince'>
+<input type ='text' NAME='DiveSiteCountry' hidden VALUE='$DiveSiteCountry'  SIZE='15' MAXLENGTH='15'  tabindex='7' id ='DiveSiteCountry'>
+<input type ='text' NAME='DiveSiteName' hidden VALUE='$DiveSiteName'  SIZE='80' MAXLENGTH='80'  tabindex='8' id ='DiveSiteName'> 
+<input type ='text' NAME='DiveSiteMajorName' hidden VALUE='$DiveSiteMajorName'  SIZE='80' MAXLENGTH='80'  tabindex='9' id ='DiveSiteMajorName'> 
+<input type ='text' NAME='DiveSiteMinorName' hidden VALUE='$DiveSiteMinorName'  SIZE='80' MAXLENGTH='80'  tabindex='10' id ='DiveSiteMinorName'> 
+<input type ='text' NAME='DiveSiteExactLat' hidden VALUE='$DiveSiteExactLat'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='11' id ='DiveSiteExactLat'>
+<input type ='text' NAME='DiveSiteExactLong' hidden VALUE='$DiveSiteExactLong'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='12' id ='DiveSiteExactLong'>
+<input type='text' NAME='DiveSiteMapFileInfo'  hidden VALUE='$DiveSiteMapFileInfo'  SIZE='150' MAXLENGTH='150'  tabindex='13' id ='DiveSiteMapFileInfo'>  
+
+
+<TABLE border='1' align='center'><tr><td>
+<TABLE border='1' align='center' cellspacing='5'>
+<tr><th valign='top' align ='left' scope='row'>System Map Id</th>
+<td colspan=5><table><tr>
+<td><input type ='text' NAME='DiveSiteMapId' VALUE='$DiveSiteMapId' SIZE='8' MAXLENGTH='8' tabindex ='1' id ='DiveSiteMapId' READONLY><br /></td>
+<th valign='top' align ='left' scope='row'>Dive Site Id</th>
 "); if($Mode=='EDIT')
-{echo ("<td><input type ='text' style='color: gray' READONLY NAME='DiveSiteId' VALUE='$DiveSiteId'  SIZE='8' MAXLENGTH='8'  tabindex='2' id ='DiveSiteId'><br /></td>");}
+{echo ("<td><input type ='text' style='color: gray' READONLY NAME='DiveSiteId' VALUE='$DiveSiteId'  SIZE='8' MAXLENGTH='8'  tabindex='2' id ='DiveSiteId' 
+   onBlur=\"if(isBlank(this.form.DiveSiteId.value)) {alert('DiveSiteId cannot be blank');this.form.DiveSiteId.style.background='Yellow';}else{this.form.DiveSiteId.style.background='White';}\"><br /></td>");}
 else 
-{echo ("<td><input type ='text' READONLY NAME='DiveSiteId' VALUE='$DiveSiteId'  SIZE='8' MAXLENGTH='8'  tabindex='2' id ='DiveSiteId'><br /></td>");}
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteMapEnteredBy</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteMapEnteredBy' VALUE='$DiveSiteMapEnteredBy'  SIZE='25' MAXLENGTH='25'  tabindex='3' id ='DiveSiteMapEnteredBy'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteMapDateEntered</th>
-<td><input type ='text'READONLY NAME='DiveSiteMapDateEntered' VALUE='$DiveSiteMapDateEntered'  SIZE='11' MAXLENGTH='11'  tabindex='4' id ='DiveSiteMapDateEntered'>");
+{echo ("<td><input type ='text' NAME='DiveSiteId' VALUE='$DiveSiteId'  SIZE='8' MAXLENGTH='8'  tabindex='2' id ='DiveSiteId' 
+   onBlur=\"if(isBlank(this.form.DiveSiteId.value)) {alert('DiveSiteId cannot be blank');this.form.DiveSiteId.style.background='Yellow';}else{this.form.DiveSiteId.style.background='White';}\"><br /></td>");}
+echo stripslashes("</tr></tr></table></td>");
+
+echo("<tr><th valign='top' align ='left' scope='row'>Map Entered By</th>");
+echo("<td colpspan=5><table><tr>");
+echo ("<td><input type ='text' NAME='DiveSiteMapEnteredBy' VALUE='$DiveSiteMapEnteredBy'  SIZE='25' MAXLENGTH='25'  tabindex='3' id ='DiveSiteMapEnteredBy' 
+   onBlur=\"if(isBlank(this.form.DiveSiteMapEnteredBy.value)) {alert('DiveSiteMapEnteredBy cannot be blank');this.form.DiveSiteMapEnteredBy.style.background='Yellow';}else{this.form.DiveSiteMapEnteredBy.style.background='White';}\"><br /></td>");
+echo stripslashes("<th valign='top' align ='left' scope='row'>Date Entered</th>
+<td><input type ='text' NAME='DiveSiteMapDateEntered' VALUE='$DiveSiteMapDateEntered'  SIZE='11' MAXLENGTH='11'  tabindex='4' id ='DiveSiteMapDateEntered' 
+   onBlur=\"if(isBlank(this.form.DiveSiteMapDateEntered.value)) {alert('DiveSiteMapDateEntered cannot be blank');this.form.DiveSiteMapDateEntered.style.background='Yellow';}else{this.form.DiveSiteMapDateEntered.style.background='White';}\">");
 if($Mode=='EDIT')
 {echo '<A HREF="#" onClick="cal.select(document.forms[\'DiveSiteMapEdit\'].DiveSiteMapDateEntered,\'anchor\',\'yyyy-MM-dd\');return false;" NAME="anchor" ID="anchor">Calendar</A>';}
 else 
 {echo '<A HREF="#" onClick="cal.select(document.forms[\'DiveSiteMapEntry\'].DiveSiteMapDateEntered,\'anchor\',\'yyyy-MM-dd\');return false;" NAME="anchor" ID="anchor">Calendar</A>';}
 echo("</td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteCity</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteCity' VALUE='$DiveSiteCity'  SIZE='30' MAXLENGTH='30'  tabindex='5' id ='DiveSiteCity'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteProvince</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteProvince' VALUE='$DiveSiteProvince'  SIZE='15' MAXLENGTH='15'  tabindex='6' id ='DiveSiteProvince'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteCountry</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteCountry' VALUE='$DiveSiteCountry'  SIZE='15' MAXLENGTH='15'  tabindex='7' id ='DiveSiteCountry'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteName</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteName' VALUE='$DiveSiteName'  SIZE='80' MAXLENGTH='80'  tabindex='8' id ='DiveSiteName'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteMajorName</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteMajorName' VALUE='$DiveSiteMajorName'  SIZE='80' MAXLENGTH='80'  tabindex='9' id ='DiveSiteMajorName'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteMinorName</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteMinorName' VALUE='$DiveSiteMinorName'  SIZE='80' MAXLENGTH='80'  tabindex='10' id ='DiveSiteMinorName'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteExactLat</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteExactLat' VALUE='$DiveSiteExactLat'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='11' id ='DiveSiteExactLat'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteExactLong</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteExactLong' VALUE='$DiveSiteExactLong'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='12' id ='DiveSiteExactLong'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteMapFileInfo</th>
-<td><input type='file'READONLY NAME='DiveSiteMapFileInfo'  VALUE='$DiveSiteMapFileInfo'  SIZE='150' MAXLENGTH='150'  tabindex='13' id ='DiveSiteMapFileInfo'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteMapNotes</th>
-<td><TEXTAREA NAME='DiveSiteMapNotes' READONLY COLS=100 ROW=3 TABINDEX='14'>$DiveSiteMapNotes</TEXTAREA></td>");
-echo stripslashes("</tr>
-<tr></tr><tr></tr><tr></tr>
+echo stripslashes("</tr></tr></table></td>");
+
+#echo("<tr><th valign='top' align ='left' scope='row'>DiveSiteCity</th>");
+#echo ("<td><input type ='text' NAME='DiveSiteCity' VALUE='$DiveSiteCity'  SIZE='30' MAXLENGTH='30'  tabindex='5' id ='DiveSiteCity' 
+#   onBlur=\"if(isBlank(this.form.DiveSiteCity.value)) {alert('DiveSiteCity cannot be blank');this.form.DiveSiteCity.style.background='Yellow';}else{this.form.DiveSiteCity.style.background='White';}\"><br /></td>");
+#echo stripslashes("</tr><tr><th valign='top' align ='left' scope='row'>DiveSiteProvince</th>");
+#echo ("<td><input type ='text' NAME='DiveSiteProvince' VALUE='$DiveSiteProvince'  SIZE='15' MAXLENGTH='15'  tabindex='6' id ='DiveSiteProvince' 
+#   onBlur=\"if(isBlank(this.form.DiveSiteProvince.value)) {alert('DiveSiteProvince cannot be blank');this.form.DiveSiteProvince.style.background='Yellow';}else{this.form.DiveSiteProvince.style.background='White';}\"><br /></td>");
+#echo stripslashes("</tr>
+#<tr><th valign='top' align ='left' scope='row'>DiveSiteCountry</th>
+#");
+#echo ("<td><input type ='text' NAME='DiveSiteCountry' VALUE='$DiveSiteCountry'  SIZE='15' MAXLENGTH='15'  tabindex='7' id ='DiveSiteCountry' 
+#   onBlur=\"if(isBlank(this.form.DiveSiteCountry.value)) {alert('DiveSiteCountry cannot be blank');this.form.DiveSiteCountry.style.background='Yellow';}else{this.form.DiveSiteCountry.style.background='White';}\"><br /></td>");
+#echo stripslashes("</tr>
+#<tr><th valign='top' align ='left' scope='row'>DiveSiteName</th>
+#");
+#echo ("<td><input type ='text' NAME='DiveSiteName' VALUE='$DiveSiteName'  SIZE='80' MAXLENGTH='80'  tabindex='8' id ='DiveSiteName' 
+#   onBlur=\"if(isBlank(this.form.DiveSiteName.value)) {alert('DiveSiteName cannot be blank');this.form.DiveSiteName.style.background='Yellow';}else{this.form.DiveSiteName.style.background='White';}\"><br /></td>");
+#echo stripslashes("</tr>
+#<tr><th valign='top' align ='left' scope='row'>DiveSiteMajorName</th>
+#");
+#echo ("<td><input type ='text' NAME='DiveSiteMajorName' VALUE='$DiveSiteMajorName'  SIZE='80' MAXLENGTH='80'  tabindex='9' id ='DiveSiteMajorName' 
+#   onBlur=\"if(isBlank(this.form.DiveSiteMajorName.value)) {alert('DiveSiteMajorName cannot be blank');this.form.DiveSiteMajorName.style.background='Yellow';}else{this.form.DiveSiteMajorName.style.background='White';}\"><br /></td>");
+#echo stripslashes("</tr>
+#<tr><th valign='top' align ='left' scope='row'>DiveSiteMinorName</th>
+#");
+#echo ("<td><input type ='text' NAME='DiveSiteMinorName' VALUE='$DiveSiteMinorName'  SIZE='80' MAXLENGTH='80'  tabindex='10' id ='DiveSiteMinorName' 
+#   onBlur=\"if(isBlank(this.form.DiveSiteMinorName.value)) {alert('DiveSiteMinorName cannot be blank');this.form.DiveSiteMinorName.style.background='Yellow';}else{this.form.DiveSiteMinorName.style.background='White';}\"><br /></td>");
+#echo stripslashes("</tr>
+#<tr><th valign='top' align ='left' scope='row'>DiveSiteExactLat</th>
+#");
+#echo ("<td><input type ='text' NAME='DiveSiteExactLat' VALUE='$DiveSiteExactLat'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='11' id ='DiveSiteExactLat' 
+#   onBlur=\"if(isBlank(this.form.DiveSiteExactLat.value)) {alert('DiveSiteExactLat cannot be blank');this.form.DiveSiteExactLat.style.background='Yellow';}else{this.form.DiveSiteExactLat.style.background='White';}\"><br /></td>");
+#echo stripslashes("</tr>
+#<tr><th valign='top' align ='left' scope='row'>DiveSiteExactLong</th>
+#");
+#echo ("<td><input type ='text' NAME='DiveSiteExactLong' VALUE='$DiveSiteExactLong'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='12' id ='DiveSiteExactLong' 
+#   onBlur=\"if(isBlank(this.form.DiveSiteExactLong.value)) {alert('DiveSiteExactLong cannot be blank');this.form.DiveSiteExactLong.style.background='Yellow';}else{this.form.DiveSiteExactLong.style.background='White';}\"><br /></td>");
+#echo stripslashes("</tr>");
+
+echo("<tr><th valign='top' align ='left' scope='row'>Comments & Notes</th>
+<td><TEXTAREA NAME='DiveSiteMapNotes' COLS=100 ROW=3 TABINDEX='14'>$DiveSiteMapNotes</TEXTAREA></td>");
+echo stripslashes("</tr>");
+
+if($Mode=='ADD')
+ {
+echo ("<tr><th valign='top' align ='left' scope='row'>DiveSiteMapFileInfo</th>
+<td><input type='file' NAME='DiveSiteMapFileInfo'  VALUE='$DiveSiteMapFileInfo'  SIZE='150' MAXLENGTH='150'  tabindex='13' id ='DiveSiteMapFileInfo' 
+   onBlur=\"if(isBlank(this.form.DiveSiteMapFileInfo.value)) {alert('DiveSiteMapFileInfo cannot be blank');this.form.DiveSiteMapFileInfo.style.background='Yellow';}else{this.form.DiveSiteMapFileInfo.style.background='White';}\"><br /></td>");
+echo stripslashes("</tr>");
+  }
+else
+ {
+ echo ("<tr><th valign='top' align ='left' scope='row'>Map Image</th>
+<td align='center'><img src=".$DiveSiteMapFileInfo." width=\"200px\" ALT=\"".$DiveSiteMapFileInfo."\"></td>");
+echo stripslashes("</tr>");
+ 
+  }  
+
+
+echo("<tr></tr><tr></tr><tr></tr>
 <tr>
 <td colspan ='2' align='center'>
 <input type ='SUBMIT' NAME='display_button' Value = 'Return'>
@@ -713,8 +838,87 @@ $sql=$sql."'".strip_tags(addslashes($DiveSiteMapFileInfo))."',";
 $sql=$sql."'".strip_tags(addslashes($DiveSiteMapNotes))."')";
 $result = mysql_query($sql,$connection) or die("ERROR!! DiveSiteMap ADD failure");
 $DiveSiteMapId=mysql_insert_id($connection);
-PutVariablesIntoSession();
+
+
+
 mysql_close($connection);
+
+#$DiveSiteMapId='9999';  # fake id to test
+
+#------------ now to move the file with the name properly set ---------------------------------
+#echo('Map ID is: '.$DiveSiteMapId.'<br>');
+#echo('Map File name: '.$DiveSiteMapFileInfo.'<br>');
+
+$target_dir = "DiveSiteMaps/";
+$target_name=$DiveSiteName.'_map_'.str_pad($DiveSiteMapId, 8, '0', STR_PAD_LEFT);
+#echo('target name is: '.$target_name.'<br>');
+$target_file = $target_dir . basename($_FILES["DiveSiteMapFileInfo"]["name"]);
+#echo('target file is: '.$target_file.'<br>');
+
+$uploadOk = 1;
+$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+// Check if image file is a actual image or fake image
+if(isset($_POST["submit"])) {
+    $check = getimagesize($_FILES["DiveSiteMapFileInfo"]["tmp_name"]);
+    if($check !== false) {
+#        echo "File is an image - " . $check["mime"] . ".";
+        $uploadOk = 1;
+    } else {
+#        echo "File is not an image.";
+        $uploadOk = 0;
+    }
+}
+// Check if file already exists
+if (file_exists($target_file)) {
+#    echo "Sorry, file already exists.";
+    $uploadOk = 0;
+}
+// Check file size
+if ($_FILES["fileToUpload"]["size"] > 10000000) {
+#    echo "Sorry, your file is too large.";
+    $uploadOk = 0;
+}
+// Allow certain file formats
+
+if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+&& $imageFileType != "gif" && $imageFileType != "JPG" && $imageFileType != "PNG" && $imageFileType != "JPEG"
+&& $imageFileType != "GIF") {
+ #   echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+    $uploadOk = 0;
+}
+// Check if $uploadOk is set to 0 by an error
+if ($uploadOk == 0) {
+#   echo "Sorry, your file was not uploaded.";
+   exit();
+// if everything is ok, try to upload file
+} else {
+	
+	     $target_file=$target_dir.$target_name.'.'.$imageFileType;
+	     $target_file= preg_replace('/\s+/', '_', $target_file);
+	     
+ if (move_uploaded_file($_FILES["DiveSiteMapFileInfo"]["tmp_name"], $target_file)) {
+ #      echo "The file ". basename( $_FILES["DiveSiteMapFileInfo"]["name"]). " has been uploaded as ".$target_file;
+        
+        
+        
+        
+        
+    } else {
+#        echo "Sorry, there was an error uploading your file.";
+        exit();
+    }
+}
+
+
+$DiveSiteMapFileInfo=$target_file;
+
+PutVariablesIntoSession();
+Db_Update();
+
+
+
+
+
 return;
 }
 #----------------------------Database Delete Function------------------------------------
@@ -727,9 +931,39 @@ global $DiveSiteCity,$DiveSiteProvince,$DiveSiteCountry,$DiveSiteName,$DiveSiteM
 global $DiveSiteMinorName,$DiveSiteExactLat,$DiveSiteExactLong,$DiveSiteMapFileInfo,$DiveSiteMapNotes;
 $connection = mysql_connect($serverhost,$user,$password) or die('ERROR!!  Cannot connect to MySql');
 $rs = mysql_select_db($db,$connection)    or die('ERROR!! Cannot connect to aquatreasurequest database');
-$sql="delete from DiveSiteMap where DiveSiteMapId='".$DiveSiteMapId."'";
-$result = mysql_query($sql,$connection) or die("ERROR!! DiveSiteMap DELETE failure");
+
+
+
+$connection = mysql_connect($serverhost,$user,$password) or die('ERROR!!  Cannot connect to MySql');
+$rs = mysql_select_db($db,$connection)    or die('ERROR!! Cannot connect to DiveSites - delete Pix database');
+
+# --- first delete the picture file ---------
+
+if (unlink($DiveSiteMapFileInfo))
+   { #echo ($DiveSiteMapFileInfo.' has been deleted');
+# -- now remove it from the database ----   	
+   	 $sql="delete from DiveSiteMap where DiveSiteMapId='".$DiveSiteMapId."'";
+   	 $result = mysql_query($sql,$connection) or die("ERROR!! DiveSiteMap DELETE failure");
+   	}
+   else
+    {
+    	echo('houston - we have a problem');
+    	exit();
+    }
+
 mysql_close($connection);
+
+
+
+
+
+
+
+
+
+
+
+
 return;
 }
 #-----------------------------Get Current Number of Records -----------------------------
@@ -807,9 +1041,11 @@ return;
 function ListMenu()
  { 
 global $user, $serverhost,$db,$password;
+global $DiveSiteId;
+#echo('<br>in listm: '.$DiveSiteId);
 $connection = mysql_connect($serverhost,$user,$password) or die('ERROR!!  Cannot connect to MySql');
 $rs = mysql_select_db($db,$connection)    or die('ERROR!! Cannot connect to aquatreasurequest database');
-$sql="select * from DiveSiteMap order by DiveSiteId";
+$sql="select * from DiveSiteMap  where(DiveSiteId = '".strip_tags(addslashes($DiveSiteId))."') order by DiveSiteMapId";
 $result = mysql_query($sql,$connection) or die("ERROR!! DiveSiteMap GetNumRecs failure");
 $NumDiveSiteMapRecords = mysql_num_rows($result);
 mysql_close($connection);
@@ -818,20 +1054,28 @@ mysql_close($connection);
 echo "<form name='ListMenu' action='DiveSiteMap.php' method ='POST'>";
 echo"<table align='center' border = '1' cellspacing ='3'>";
 echo "<input type='hidden' name='check' id='check'>";
+echo "<tr><td colspan='14' align='center'>
+
+<input type ='SUBMIT' NAME='display_button' Value = 'Add'>";
+echo "</td></tr>";
 echo "<tr>";
 echo "<td align='center' ><b>DiveSiteMapId</b></td>";
 echo "<td align='center' ><b>DiveSiteId</b></td>";
-echo "<td align='center' ><b>DiveSiteMapEnteredBy</b></td>";
-echo "<td align='center' ><b>DiveSiteMapDateEntered</b></td>";
-echo "<td align='center' ><b>DiveSiteCity</b></td>";
-echo "<td align='center' ><b>DiveSiteProvince</b></td>";
-echo "<td align='center' ><b>DiveSiteCountry</b></td>";
-echo "<td align='center' ><b>DiveSiteName</b></td>";
-echo "<td align='center' ><b>DiveSiteMajorName</b></td>";
-echo "<td align='center' ><b>DiveSiteMinorName</b></td>";
-echo "<td align='center' ><b>DiveSiteExactLat</b></td>";
-echo "<td align='center' ><b>DiveSiteExactLong</b></td>";
+
+echo "<td align='center' ><b>Map Entered</b></td>";
+#echo "<td align='center' ><b>DiveSiteMapDateEntered</b></td>";
+
+#echo "<td align='center' ><b>DiveSiteCity</b></td>";
+#echo "<td align='center' ><b>DiveSiteProvince</b></td>";
+#echo "<td align='center' ><b>DiveSiteCountry</b></td>";
+#echo "<td align='center' ><b>DiveSiteName</b></td>";
+#echo "<td align='center' ><b>DiveSiteMajorName</b></td>";
+#echo "<td align='center' ><b>DiveSiteMinorName</b></td>";
+#echo "<td align='center' ><b>DiveSiteExactLat</b></td>";
+#echo "<td align='center' ><b>DiveSiteExactLong</b></td>";
+
 echo "<td align='center' ><b>DiveSiteMapFileInfo</b></td>";
+
 echo "<td align='center' ><b>DiveSiteMapNotes</b></td>";
 echo '</tr>';
  for($i=1;$i<=$NumDiveSiteMapRecords;$i++)
@@ -840,22 +1084,28 @@ $rowdata=mysql_fetch_row($result);
 echo "<tr>";
 echo "<td align='center'><input type=radio id='SelectRecord' NAME='SelectRecord' VALUE='".$rowdata[0]."' onClick=\"document.forms.ListMenu.display_button.value = 'Display';document.forms.ListMenu.check.value = 'Display';document.forms.ListMenu.submit();\" >&nbsp; </td>";
 echo "<td align='left'>".$rowdata[1]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[2]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[3]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[4]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[5]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[6]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[7]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[8]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[9]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[10]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[11]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[12]."&nbsp; </td>";
+
+echo "<td align='left'>".$rowdata[2]."&nbsp;<br>".$rowdata[3]." </td>";
+#echo "<td align='left'>".$rowdata[3]."&nbsp; </td>";
+
+#echo "<td align='left'>".$rowdata[4]."&nbsp; </td>";
+#echo "<td align='left'>".$rowdata[5]."&nbsp; </td>";
+#echo "<td align='left'>".$rowdata[6]."&nbsp; </td>";
+#echo "<td align='left'>".$rowdata[7]."&nbsp; </td>";
+#echo "<td align='left'>".$rowdata[8]."&nbsp; </td>";
+#echo "<td align='left'>".$rowdata[9]."&nbsp; </td>";
+#echo "<td align='left'>".$rowdata[10]."&nbsp; </td>";
+#echo "<td align='left'>".$rowdata[11]."&nbsp; </td>";
+
+#echo "<td align='left'>".$rowdata[12]."&nbsp; </td>";
+echo "<td align='center'><img src=".$rowdata[12]." width=\"100px\" ALT=\"".$rowdata[12]."\"></td>";
+
 echo "<td align='left'>".$rowdata[13]."&nbsp; </td>";
 echo "</tr>";
+
 }
 echo "<tr><td colspan='14' align='center'>
-<input type ='SUBMIT' NAME='display_button' Value = 'Back'>
+
 <input type ='SUBMIT' NAME='display_button' Value = 'Add'>";
 echo "</td></tr>";
 echo '</table>';
@@ -878,8 +1128,9 @@ $NumDiveSiteMapRecords = mysql_num_rows($result);
 if($NumDiveSiteMapRecords==0)
 {InitializeVariables();}
 else
-{GetLastRecord($connection,$result);}
-PutVariablesIntoSession();
+{}
+#{GetLastRecord($connection,$result);}
+#PutVariablesIntoSession();
 mysql_close($connection);
 return;
 }
@@ -1181,6 +1432,11 @@ echo "<body bgcolor ='".$BackgroundColor."'>";
              case 'Add':
                
                InitializeVariables();
+               GetCommonVariablesFromSession();
+               echo('At Add: '.$DiveSiteName);
+               
+              
+               
                AddForm();
                break;
 
@@ -1232,7 +1488,15 @@ echo "<body bgcolor ='".$BackgroundColor."'>";
                
   
            case 'Submit Add':
+           
+                
                GetPostVariables();
+                Db_Add();
+               
+               ListMenu();
+               
+               
+               exit();
                if(ValidUniqueCode())
                  {  
                    Db_Add();
@@ -1274,6 +1538,7 @@ echo "<body bgcolor ='".$BackgroundColor."'>";
    else
    {
         InitializeProgram();
+        GetCommonVariablesFromSession();
         ListMenu();
        
    }
