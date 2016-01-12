@@ -1433,7 +1433,7 @@ echo "<body bgcolor ='".$BackgroundColor."'>";
                
                InitializeVariables();
                GetCommonVariablesFromSession();
-               echo('At Add: '.$DiveSiteName);
+//               echo('At Add: '.$DiveSiteName);
                
               
                

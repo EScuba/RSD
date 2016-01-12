@@ -178,11 +178,16 @@ if (xmlDoc) {
     var SiteNotes;
     var SiteInfo;
     var DrivingInfo;
+    var NumPOI;
     var OutputTable='<table>';
-        OutputTable=OutputTable+'<tr><th align="center">Dive Site<br>(Click on name for more information)</th><th>Level</th><th>Distance (km)<br>(Click on distance for directions)</th></tr>';
+        OutputTable=OutputTable+'<tr><th align="center">Dive Site<br>(Click on icons or name for more information)</th><th>Level</th><th>Distance (km)<br>(Click on distance for directions)</th></tr>';
     var convert;
     
-    for (var i = 1; i < DiveSites.length; i++) {
+    for (var i = 1; i < DiveSites.length; i++) {       
+    	
+    	
+    	
+    	
          DiveSiteId = DiveSites[i].getAttribute('DiveSiteId');
          DiveSiteName = DiveSites[i].getAttribute('DiveSiteName');
          DiveSiteMajorName = DiveSites[i].getAttribute('DiveSiteMajorName');
@@ -196,7 +201,17 @@ if (xmlDoc) {
          DiveSiteShoreLong = DiveSites[i].getAttribute('DiveSiteShoreLong');
          
          DiveSiteDifficulty = DiveSites[i].getAttribute('DiveSiteDifficulty');
-         Distance = DiveSites[i].getAttribute('distance');
+         Distance = DiveSites[i].getAttribute('distance');  
+         NumPOI=DiveSites[i].getAttribute('NumPOI');
+         
+     
+     
+     
+     
+     
+     
+         
+         
          
 
          SiteNotes = DiveSiteName+'<br>'+DiveSiteMajorName+'<br>'+DiveSiteMinorName+'<br>';
@@ -213,21 +228,32 @@ if (xmlDoc) {
          
          convert = parseFloat(Distance).toFixed(2);
  //Build Site info link        
-         SiteInfo='<a href="http://www.kenspon.com/HAWGS/DiveSites/DiveSiteInfoDisplay.php?DiveSite='+DiveSiteId+'" target=_blank">'+SiteNotes+'</a>';
-         
- //Build the driving directionw
+         SiteInfo='<a href="http://www.kenspon.com/HAWGS/DiveSites/DiveSiteInfoDisplay.php?DiveSite='+DiveSiteId+'" target=_blank">'+SiteNotes+'</a>';  
+         if(NumPOI >0)
+          { 
+         POILink='<a href="http://www.kenspon.com/HAWGS/plotPOIsites.html?DesiredSite='+DiveSiteId+'"><img border="0" alt="POILink" src="MapIcons/POI.png" width="100" height="100"></a>';
+           }
+          else
+          	{ 
+              POILink='';
+            }
+ 
+ 
+ //        alert('POILink is: '+POILink);
+ //Build the driving directions
  
          DrivingInfo='<a href="http://maps.google.com/maps?saddr='+latitude+','+longitude+'&daddr='+DiveSiteExactLat+','+DiveSiteExactLong+'"target=_blank">'+convert+'</a>';     
          
            
-         OutputTable=OutputTable+'<tr><td>'+SiteInfo+'</td><td>'+DiveSiteDifficulty+'</td>'+'<td align="right">'+DrivingInfo+'</td></tr>';
+         OutputTable=OutputTable+'<tr><td>'+SiteInfo+'<br>'+POILink+'</td><td>'+DiveSiteDifficulty+'</td>'+'<td align="right">'+DrivingInfo+'</td></tr>';
+ //        alert('new line: '+OutputTable);
                  
          
 
        }
     
     OutputTable=OutputTable+'</table>';
-//    window.alert(OutputTable);
+//      window.alert(OutputTable);
       document.getElementById("ResultsTable").innerHTML = OutputTable;
     
 }

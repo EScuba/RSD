@@ -4711,8 +4711,7 @@ echo "<body bgcolor ='".$BackgroundColor."' onLoad=\"parent.showframe.location.h
             
                
                GetPostVariables();    #--- At end of this - we have the data ready for database processing
-               AddForm();
-              
+               
                
 #               if(ValidUniqueCode())
 #                 {  

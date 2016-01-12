@@ -125,10 +125,28 @@ if(strlen($DiveSiteType)!=0)
   $newnode->setAttribute("DiveSiteType", $SiteType);
   $newnode->setAttribute("distance", $row['distance']);
   
+  
+  
+  
+ 
+
+#$connection = mysql_connect($serverhost,$user,$password) or die('ERROR!!  Cannot connect to MySql');
+#$rs = mysql_select_db($db,$connection)    or die('ERROR!! Cannot connect to divesites database');
+$sql="select * from DiveSitePOI where DiveSiteId =".$row['DiveSiteId'];
+
+#echo('sql: '.$sql);
+
+$result1 = mysql_query($sql,$connection) or die("ERROR!! DiveSitePOI GetNumRecs failure");
+$NumDiveSitePOIRecords = mysql_num_rows($result1);
+
+$newnode->setAttribute("NumPOI", $NumDiveSitePOIRecords);
+  
+  
+  
 
 }
 
-
+mysql_close($connection);
 
 
 

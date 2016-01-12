@@ -7,11 +7,11 @@ echo('
 <html>
 
 <frameset cols="15%,85%">
-	<frame src="EmptyFrame.php" name="navframe">
+	<frame src="EmptyFrame.php" name="navframe" scrolling=auto>
 	
 <frameset rows="60%,40%">
 <frame src="DiveSite.php" name="showframe0">
-<frame src="EmptyFrame.php" name="showframe">
+<frame src="EmptyFrame.php" name="showframe" scrolling=auto>
 
 </frameset>
 

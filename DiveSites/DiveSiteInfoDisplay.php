@@ -1308,7 +1308,7 @@ $DiveSitePixNotes=$rowdata[16];
 
 
 
-echo('<tr><td align="center">'.$DiveSitePixDateEntered.'<br><br>by<br><br>'.$DiveSitePixEnteredBy.'</td><td><img src="'.$DiveSitePixPictureURLFileInfo.'" width="500px" alt="'.$DiveSitePixPictureURLFileInfo.'" ></td><td>&nbsp;'.$DiveSitePixNotes.'</td>');
+echo('<tr><td align="center">'.$DiveSitePixDateEntered.'<br><br>by<br><br>'.$DiveSitePixEnteredBy.'</td><td><img src="'.$DiveSitePixPictureURLFileInfo.'" width="500px" alt="'.$DiveSitePixPictureURLFileInfo.'" ></td><td>&nbsp;'.$DiveSitePixTitle.'</td>');
 
 
 

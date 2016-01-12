@@ -346,7 +346,7 @@ for ($i=0;$i<$array_length;$i++)
        }
        else
        {
-       	   if($DiveSitePOIType == $DiveSitePOIType[$i]){$selopt="selected";}else{$selopt="";}  
+       	   if($DiveSitePOIType == $sitePOITypeArray[$i]){$selopt="selected";}else{$selopt="";}  
        }      	
 echo ('<option value="'.$sitePOITypeArray[$i].'" '.$selopt.'>'.$sitePOITypeArray[$i].'</option>');
     }
@@ -1119,9 +1119,10 @@ return;
 function ListMenu()
  { 
 global $user, $serverhost,$db,$password;
+global $DiveSiteId;
 $connection = mysql_connect($serverhost,$user,$password) or die('ERROR!!  Cannot connect to MySql');
 $rs = mysql_select_db($db,$connection)    or die('ERROR!! Cannot connect to divesites database');
-$sql="select * from DiveSitePOI order by DiveSiteId";
+$sql="select * from DiveSitePOI where(DiveSiteId = '".strip_tags(addslashes($DiveSiteId))."') order by DiveSiteId";
 $result = mysql_query($sql,$connection) or die("ERROR!! DiveSitePOI GetNumRecs failure");
 $NumDiveSitePOIRecords = mysql_num_rows($result);
 mysql_close($connection);
@@ -1603,7 +1604,7 @@ echo "<body bgcolor ='".$BackgroundColor."'>";
 
 
             default:
-              
+               GetVariablesFromSession();
                ListMenu();
                break;   
          }  
@@ -1612,6 +1613,7 @@ echo "<body bgcolor ='".$BackgroundColor."'>";
    else
    {
         InitializeProgram();
+        GetCommonVariablesFromSession();
         ListMenu();
        
    }

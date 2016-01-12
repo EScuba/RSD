@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <title>plotPOIsites</title>
+  <link rel="stylesheet" href="css/coffeegrinder.min.css">
+  <link rel="stylesheet" href="css/wireframe-theme.min.css">
+  <script>document.createElement( "picture" );</script>
+  <script src="js/picturefill.min.js" class="picturefill" async="async"></script>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Creepster%7COswald">
+
+
+
+  
+   
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCRCIipacvl0PMGdIGho8_9KbnK-LUQvNo"></script>
+  <script type="text/javascript" src="v3_ll_grat.js"></script>                                                                              
+
+ 
+<script type="text/javascript">function goBack(){window.history.back()} </script>
+                             
+<script type="text/javascript">
+	
+
+  var map;
+  var bounds; 
+  var grid;              // added to handle grid
+  var dsname;   
+  var iconCount=0;
+  var iconArray=["MapIcons/star.png","MapIcons/a.png","MapIcons/b.png","MapIcons/c.png","MapIcons/d.png","MapIcons/e.png", "MapIcons/f.png","MapIcons/g.png",
+                                    "MapIcons/h.png","MapIcons/i.png","MapIcons/j.png","MapIcons/k.png","MapIcons/l.png","MapIcons/m.png","MapIcons/n.png", 
+                                    "MapIcons/o.png","MapIcons/p.png","MapIcons/q.png","MapIcons/r.png","MapIcons/s.png","MapIcons/t.png", 
+                                    "MapIcons/u.png","MapIcons/v.png","MapIcons/w.png","MapIcons/x.png","MapIcons/y.png","MapIcons/z.png","MapIcons/1.png", 
+                                    "MapIcons/2.png","MapIcons/3.png","MapIcons/4.png","MapIcons/5.png","MapIcons/5.png","MapIcons/6.png","MapIcons/7.png",
+                                    "MapIcons/8.png","MapIcons/9.png","MapIcons/10.png"];
+                                                                                          
+                                                                                          
+                                                                                          
+  
+                                                                                
+                                                                                            
+                                                                                           
+  
+  var GET = {};                                                              
+  var query = window.location.search.substring(1).split("&");                
+  for (var i = 0, max = query.length; i < max; i++)                          
+  {                                                                          
+      if (query[i] === "") // check for trailing & with no param             
+          continue;                                                          
+                                                                             
+      var param = query[i].split("=");                                       
+      GET[decodeURIComponent(param[0])] = decodeURIComponent(param[1] || "");
+  }                                                                          
+
+    
+    
+    
+//alert('got id as ' + query);
+//alert('try: '+ param);  
+
+//alert("try2: " + GET["DesiredSite"]);  
+var DesiredSite=GET["DesiredSite"];   
+    
+
+function initialize()
+{
+  geocoder=new google.maps.Geocoder();
+  
+   // Resize stuff...
+   google.maps.event.addDomListener(window, "resize", function() {
+   var center = map.getCenter();
+   google.maps.event.trigger(map, "resize");
+   map.setCenter(center); 
+     
+ });   
+   bounds = new google.maps.LatLngBounds(); 
+   
+  
+   searchLocations('Calgary, Alberta',200);
+        
+  
+  
+}
+
+
+
+//function loadScript()    **** was the original loading function ****                                                                                                                 
+//{                                                                                                                                        
+//                                                                                                                                         
+//  var script = document.createElement("script");                                                                                         
+//  script.type = "text/javascript";                                                                                                       
+//  script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyCRCIipacvl0PMGdIGho8_9KbnK-LUQvNo&callback=initialize";                 
+//                                                                                                                                         
+//                                                                                                                                         
+//  document.body.appendChild(script);                                                                                                                                                                                                         
+//                                                                                                                                         
+//                                                                                                                                         
+//                                                                                                                                         
+//} 
+                                                                                                                                       
+function processLocation(){
+	   var address = document.getElementById('addressInput').value;
+	  
+	   var radius = document.getElementById('radiusSelect').value;
+	   
+	    searchLocations(address,radius);
+	   
+	   
+	  } 
+
+
+
+ function searchLocations(address,radius) {
+     
+     geocoder.geocode({address:address}, function(results, status) {
+     	
+ // add the check that resulting address search was ok 
+ // also add what happens if the user decides to enter long,lat or system has long lats
+     	
+     	  
+        
+        
+         getPlotPOIs();
+        
+     	
+//     alert(status + latitude + longitude + radius);	
+    });
+     
+   }
+   
+   
+   
+     function getPlotPOIs() {
+//     alert('got to searchLocationsNear');
+     var searchUrl = 'http://www.kenspon.com/HAWGS/DiveSites/SIteList/phpPOIgenJSON.php?DesiredDiveSite='+DesiredSite;
+//     alert('here: '+searchUrl);
+    
+     var req = new XMLHttpRequest(); 
+//     alert('After req'); 
+     req.open('GET', searchUrl,false);  
+     req.onreadystatechange = function() {//Call a function when the state changes.  	
+	    if(req.readyState == 4 && req.status == 200) {
+//		   alert('response: '+req.responseText);
+	   }
+   }
+     
+      
+     req.send(null);  
+
+     var TestText;
+     
+
+//     window.alert('out' +req.responseText); 
+     
+     var jsonStr= req.responseText;
+     
+                                    
+if(jsonStr.length !=0)                                                                
+{                         //      alert('I got'+jsonStr); 
+      
+      var POIArray = JSON.parse(jsonStr);  
+       
+//      	alert('got after parse');   
+      	
+        var out=''; 
+        
+         var DiveSitePOIId;
+         
+                       
+          var DiveSiteName;              
+          var DiveSiteMajorName;          
+          var DiveSiteMinorName;           
+          var DiveSitePOITitle;              
+          var DiveSitePOIType;                
+          var DiveSitePOILat;                 
+          var DiveSitePOILong;                
+          var DiveSitePOINotes;
+          var DiveSiteExactLong;
+          var DiveSiteExactLat;             
+                 
+
+var latlng;                                                                                                                                                                                                                                                                                                                                                                                                                                    
+var SiteNotes;                                                                                                                                                                                                                                                                                                                                                                                                                                 
+var SiteInfo;                                                                                                                                                                                                                                                                                                                                                                                                                                  
+var DrivingInfo;                                                                                                                                                                                                                                                                                                                                                                                                                                                
+var OutputTable='<table>';                                                                                                                                                                                                                                                                                                                                                                                                                                      
+    OutputTable=OutputTable+'<tr><th align="center">Point of Interest</th><th>Type</th><th>Description<br></th><th>Notes & Comments</tr>';                                                                                                                                                                                                                                                                     
+var convert;                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+var iconUse; 
+//alert(' size is: '+ POIArray.length);                  
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                            
+         
+//        alert(' size is: '+ POIArray.length);                                                                                                     
+        for(i = 0; i < POIArray.length; i++) { 
+              
+//            alert('in loop: '+i);            
+            DiveSitePOIId=POIArray[i].DiveSitePOIId;
+            DiveSiteName=POIArray[i].DiveSiteName;
+            DiveSiteMajorName=POIArray[i].DiveSiteMajorName;
+            DiveSiteMinorName=POIArray[i].DiveSiteMinorName; 
+            DiveSitePOITitle=POIArray[i].DiveSitePOITitle; 
+            DiveSitePOIType=POIArray[i].DiveSitePOIType;
+            DiveSitePOILat=POIArray[i].DiveSitePOILat; 
+            DiveSitePOILong=POIArray[i].DiveSitePOILong;  
+            DiveSitePOINotes=POIArray[i].DiveSitePOINotes; 
+            DiveSiteExactLong=POIArray[i].DiveSiteExactLong;   
+            DiveSiteExactLat=POIArray[i].DiveSiteExactLat;        
+            
+            
+            
+                 if(i==0)                                          
+                   {                                                
+                   dsname=DiveSiteName+'<br>'+DiveSiteMajorName+'<br>'+DiveSiteMinorName; 
+                  
+                   document.getElementById("LocationDisplay").innerHTML= DiveSiteName+'<br> '+DiveSiteMajorName+'<br>'+DiveSiteMinorName;                                              
+                   init(DiveSiteExactLat,DiveSiteExactLong ,10);	  
+                	                                                
+                  } 
+                  
+           if(DiveSitePOIType=='Entry')
+              {iconUse=iconArray[0];}
+           else {iconCount++;iconUse=iconArray[iconCount];}                                                        
+            
+         
+            out += "<tr><td>" + DiveSitePOIId + "</td><td>"  ; 
+            
+          
+          	  
+            SiteNotes = DiveSitePOITitle;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+//         window.alert('Notes: '+SiteNotes);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+         putMarker(DiveSitePOILat,DiveSitePOILong,iconUse,SiteNotes,'');                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+ //        alert('here: '+DiveSiteName);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+         latlng = new google.maps.LatLng(DiveSitePOILat,DiveSitePOILong);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+         bounds.extend(latlng);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+         map.fitBounds(bounds);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+         convert ='';                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+ //Build Site info link                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+        SiteInfo='<img src="'+iconUse+'" alt="'+DiveSitePOIId+'" style="width:50px;">';                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+ //Build the driving directionw                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+//         DrivingInfo='<a href="http://maps.google.com/maps?saddr='+latitude+','+longitude+'&daddr='+DiveSiteExactLat+','+DiveSiteExactLong+'"target=_blank">'+convert+'</a>';                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+         OutputTable=OutputTable+'<tr><td>'+SiteInfo+'</td><td>'+DiveSitePOIType+'</td><td>'+DiveSitePOITitle+'</td>'+'<td>'+DiveSitePOINotes+'</td></tr>';                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+       }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+//        alert('built: '+out);  
+    OutputTable=OutputTable+'</table>';
+//    window.alert(OutputTable);
+      document.getElementById("ResultsTable").innerHTML = OutputTable;
+    
+}
+else
+{
+
+OutputTable='<table><tr><th>No Points of Interest found!<br> Check back later.</th></tr></table>';
+//document.getElementById("ResultsTable").innerHTML = OutputTable;    
+document.getElementById("LocationDisplay").innerHTML= OutputTable; 
+		
+}		
+}    
+   
+   
+function putMarker(latitude,longitude,markerImage,markerInfo,majorLocation){
+	
+//	    alert('at marker: '+latitude);
+      var latlng = new google.maps.LatLng(latitude,longitude);	
+	    var marker = new google.maps.Marker({
+          position: latlng, 
+          icon: markerImage,
+          map: map, 
+            title: majorLocation
+        }); 
+        
+     var infoWindow=new google.maps.InfoWindow({
+     	    content: markerInfo
+     	  });
+     	  
+     marker.addListener('click',function(){
+     	infoWindow.open(map,marker);
+     });		     
+        
+}   
+   
+  
+function init(latitude,longitude,zoomFactor) {
+        var latlng = new google.maps.LatLng(latitude,longitude);
+
+        var myOptions = {
+          zoom: zoomFactor,
+          center:  new google.maps.LatLng(latitude,longitude),
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+          
+        };
+        map = new google.maps.Map(document.getElementById("googleMap"),myOptions);
+ 
+        grid = new Graticule(map, true);        // turns grid on and off
+       
+ 
+
+
+
+        var marker = new google.maps.Marker({
+          position: latlng, 
+          map: map, 
+            title:"Dive Site"
+       }); 
+    
+    var infoWindow=new google.maps.InfoWindow({     
+    	    content: dsname                       
+    	  });                                         
+    	                                              
+    marker.addListener('click',function(){          
+    	infoWindow.open(map,marker);                      
+    });		                                          
+         bounds.extend(latlng);
+         map.fitBounds(bounds);
+        
+        
+        
+        
+      }
+
+
+
+window.onload =initialize;
+// originally window.onload = loadscript;
+  
+
+
+</script>
+
+ 
+
+
+
+
+
+
+
+<style>
+    
+  
+    #googleMap {
+    	  position: absolute;
+    	  padding-top: 350px;
+    	  max-width: 1085px;
+    	  max-height:380px;
+    	  width: 89%;
+    	  height: 100%;
+    	  z-index: 5;
+    	  margin: auto;
+    	 
+    	  
+    }	  
+    
+   #ResultsTable{
+   	   position: relative;
+   	   padding-top:400px;
+   	   max-width: 800px;
+   	   width:100%;
+   	   margin:auto;
+   	  
+   }
+   
+   #ResultsTable table{
+   	  
+   	     border: solid #000000 2px;
+  }
+  
+  #ResultsTable th{
+   	  
+   	     border: solid #000000 1px;
+  }
+  
+  #ResultsTable td{
+   	  
+   	     border: solid #000000 1px;
+  }
+  
+  #ResultsTable tr:nth-child(even) {
+    background-color: #FFFFFF;
+}
+   
+   
+
+   #Search{                    
+   	                           
+   	   top: 0px;               
+   	   max-width: 400px;       
+   	   width: 100%;            
+   	   height:100%; 
+   	   margin: auto;           
+	                             
+  }                            
+                               
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  #All{
+  	  position: absolute;
+  	  max-width: 1100px;
+  	  width: 100%;
+  	 
+  	  background-color: WHITE;
+  	
+  }
+    	
+</style>
+
+
+<style type="text/css">     
+    select {
+        width:120px;
+    }
+</style>
+
+<style>                                                                                
+     @media screen and (max-width: 768px) {#menu.show {display: block;}}                                                                                
+</style>                                                                             
+
+
+  </head>
+                                                                                       
+<body class="grid-1">
+  <div class="row">
+    <div class="coffee-span-22 coffee-offset-1 column-1">
+      <h1 class="heading-1"><span class="heading-text-2">H.A.W.G.S.</span>
+      </h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="coffee-span-22 coffee-offset-1 column-2">
+      <div class="subgrid">
+        <div class="row">
+          <div class="coffee-span-24 mobile-button"><span class="glyph mobile-icon"><i class="coffeecup-icons-menu3"></i></span>
+            <span class="text-element menu-label">MENU</span>
+          </div>
+          <div class="coffee-span-24 menu" id="menu">
+            <div class="container pulldown">
+              <a class="link-text first-level-button" href="index.html">HOME</a>
+              <ul class="link-list submenu">
+                <li class="list-item-link submenu-li w200"><a href="#">SubMENU BUTTON</a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+              </ul>
+            </div>
+            <div class="container pulldown">
+              <a class="link-text first-level-button" href="#">LOGIN</a>
+              <ul class="link-list submenu">
+                <li class="list-item-link submenu-li w200"><a href="login.html">MEMBERS<br></a>
+                </li>
+                <li class="list-item-link submenu-li" id="Registration"><a href="registration.html">Registration<br></a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+              </ul>
+            </div>
+            <div class="container pulldown">
+              <a class="link-text first-level-button" href="#">DIVE SITES</a>
+              <ul class="link-list submenu">
+                <li class="list-item-link submenu-li w200" id="FindSite"><a href="findsite.html">FIND A Dive site<br></a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+              </ul>
+            </div>
+            <div class="container pulldown">
+              <a class="link-text first-level-button" href="#">BUDDIES</a>
+              <ul class="link-list submenu">
+                <li class="list-item-link submenu-li w200"><a href="#">SubMENU BUTTON</a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+              </ul>
+            </div>
+            <div class="container pulldown">
+              <a class="link-text first-level-button" href="contact.html">CONTACT</a>
+              <ul class="link-list submenu">
+                <li class="list-item-link submenu-li w200"><a href="#">SubMENU BUTTON</a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+              </ul>
+            </div>
+            <div class="container pulldown">
+              <a class="link-text first-level-button" href="about.html">ABOUT</a>
+              <ul class="link-list submenu">
+                <li class="list-item-link submenu-li w200"><a href="#">SubMENU BUTTON</a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+                <li class="list-item-link submenu-li"><a href="#">SubMENU BUTTON</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+
+
+    <div class="coffee-span-22 column-3 coffee-offset-1">
+	
+<div id="Search">	
+<center>	
+<h3>Points of Interest</h3>
+<h5 id="LocationDisplay">"TBD"</h5> 
+                                                      
+<input type="button" value="Back" onclick="goBack()" />
+
+</center>
+
+
+    
+    <br> <br> 
+</div> 
+
+
+
+     
+    
+    
+    
+    
+    
+    
+    
+ 
+ 
+ 
+ <div id="googleMap"></div>
+
+ <div id="ResultsTable"></div>   	
+    	
+    </div>
+  </div>
+
+  <script src="js/jquery-1.11.0.min.js"></script>
+<script>
+   $(document).ready(function() {
+      $(".mobile-button").click(function() {
+         $("#menu").slideToggle('fast', function() {
+            $(this).attr('style', '').toggleClass('show');
+         });
+         $(this).toggleClass('active');
+      });
+   });
+</script>
+
+<script type="text/javascript">
+   $(".pulldown").hover(function() {
+      $(this).children('ul').slideToggle("fast");
+   });
+   $(".submenu").click(function(event) {
+      event.stopPropagation();
+   });
+</script>
+</body>
+
+</html>
