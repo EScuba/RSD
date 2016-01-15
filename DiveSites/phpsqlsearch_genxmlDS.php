@@ -114,8 +114,8 @@ if(strlen($DiveSiteType)!=0)
  // echo($row['DiveSiteId'].'<br>');
 
   $newnode->setAttribute("DiveSiteId", $row['DiveSiteId']);
-  $newnode->setAttribute("DiveSiteName", $row['DiveSiteName']);
-  $newnode->setAttribute("DiveSiteMajorName", $row['DiveSiteMajorName']);
+  $newnode->setAttribute("DiveSiteName",$row['DiveSiteName']);
+  $newnode->setAttribute("DiveSiteMajorName",$row['DiveSiteMajorName']);
   $newnode->setAttribute("DiveSiteMinorName", $row['DiveSiteMinorName']);
   $newnode->setAttribute("DiveSiteDifficulty", $Difficulty);
   $newnode->setAttribute("DiveSiteShoreLat", $row['DiveSiteShoreLat']);
