@@ -237,9 +237,9 @@ if (xmlDoc) {
           	{ 
               POILink='';
             }
+         POILink=POILink+' '+'<img onclick="putPin('+DiveSiteExactLat+','+DiveSiteExactLong+',\'yellow-pushpin.png\',\''+SiteNotes+'\',\''+DiveSiteName+'\')" src="yellow-pushpin.png"  height="50"/>';
  
- 
- //        alert('POILink is: '+POILink);
+  //       alert('POILink is: '+POILink);
  //Build the driving directions
  
          DrivingInfo='<a href="http://maps.google.com/maps?saddr='+latitude+','+longitude+'&daddr='+DiveSiteExactLat+','+DiveSiteExactLong+'"target=_blank">'+convert+'</a>';     
@@ -258,25 +258,14 @@ if (xmlDoc) {
     
 }
      
-     
-     
-     
-     
-     
-     
-     
-     
-   
-   
-   
-   
+    
   } 
    
    
    
    
    
-   
+     
    
    
    
@@ -299,7 +288,33 @@ function putMarker(latitude,longitude,markerImage,markerInfo,majorLocation){
      	infoWindow.open(map,marker);
      });		     
         
-}   
+} 
+
+  
+  
+  
+  
+  function putPin(latitude,longitude,markerImage,markerInfo,majorLocation){                            
+  	                                                                                                      
+  //	    alert('at marker: '+latitude);                                                                  
+        var latlng = new google.maps.LatLng(latitude,longitude);	                                        
+  	    var marker = new google.maps.Marker({                                                             
+            position: latlng,                                                                             
+            icon: markerImage, 
+            zIndex: google.maps.Marker.MAX_ZINDEX + 1,                                                                           
+            map: map,                                                                                     
+              title: majorLocation                                                                        
+          });                                                                                             
+                                                                                                          
+       var infoWindow=new google.maps.InfoWindow({                                                        
+       	    content: markerInfo                                                                           
+       	  });                                                                                             
+       	                                                                                                  
+       marker.addListener('click',function(){                                                             
+       	infoWindow.open(map,marker);                                                                      
+       });		                                                                                            
+                                                                                                          
+  }                                                                                                       
    
   
 function init(latitude,longitude,zoomFactor) {
@@ -571,13 +586,14 @@ window.onload =initialize;
       <option value="1000">1000</option> 
       <option value="1100">1100</option>                              
     </select></td><td></td></tr>
-    <tr><td></td><td align='center'><br><input type="button" onclick="processLocation()" value="Search"/></td><td></td></tr>
+    <tr><td></td><td align='center'><br><input type="button" onclick="processLocation()" value="Search"/>
+    </td><td></td></tr>
 </table>    
     <br> <br> 
 </div> 
 
 
-
+ 
      
     
     

@@ -1,17 +1,145 @@
 <HTML>
 <HEAD>
     <TITLE> Plan A dive Route </TITLE>
-    <h4>Route Calculator - Members Only - Alpha Version - Lake Chaparral limited data</H4><br><br>
+    <center><h4>Route Calculator - Members Only - Alpha Version (POI Site Data)</H4></center><br><br>
     <style>
     	input { 
     		text-align: right;
     		
     	 }
     </style>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     	
     <SCRIPT language="javascript">
-   
     	
+//------ Get site to be used----------------------------------------------------    	
+    	  var GET = {};                                                              
+      var query = window.location.search.substring(1).split("&");                
+  for (var i = 0, max = query.length; i < max; i++)                          
+  {                                                                          
+      if (query[i] === "") // check for trailing & with no param             
+          continue;                                                          
+                                                                             
+      var param = query[i].split("=");                                       
+      GET[decodeURIComponent(param[0])] = decodeURIComponent(param[1] || "");
+  }                                                                          
+
+    
+    
+    
+//alert('got id as ' + query);
+//alert('try: '+ param);  
+
+//alert("try2: " + GET["DesiredSite"]);  
+var DesiredSite=GET["DesiredSite"]; 
+
+
+//---------------Load the  POI's for the site ----------------------------------------------
+
+//     alert('got to searchLocationsNear');
+     var searchUrl = 'http://www.kenspon.com/HAWGS/DiveSites/SIteList/phpPOIgenJSON.php?DesiredDiveSite='+DesiredSite;
+//     alert('here: '+searchUrl);
+    
+     var req = new XMLHttpRequest(); 
+//     alert('After req'); 
+     req.open('GET', searchUrl,false);  
+     req.onreadystatechange = function() {//Call a function when the state changes.  	
+	    if(req.readyState == 4 && req.status == 200) {
+//		   alert('response: '+req.responseText);
+	   }
+   }
+     
+      
+     req.send(null);  
+
+     var TestText;
+     
+
+//      window.alert('out' +req.responseText); 
+     
+     var jsonStr= req.responseText;
+     
+                                    
+if(jsonStr.length !=0)                                                                
+{   //  alert('I got'+jsonStr); 
+      
+      var POIArray = JSON.parse(jsonStr); 
+ 
+      
+        
+        
+       
+//      	alert('got after parse');   
+      	
+        var out=''; 
+        
+         var DiveSitePOIId;
+         
+                       
+          var DiveSiteName;              
+          var DiveSiteMajorName;          
+          var DiveSiteMinorName;           
+          var DiveSitePOITitle;              
+          var DiveSitePOIType;                
+          var DiveSitePOILat;                 
+          var DiveSitePOILong;                
+          var DiveSitePOINotes;
+          var DiveSiteExactLong;
+          var DiveSiteExactLat;             
+                 
+
+var latlng;                                                                                                                                                                                                                                                                                                                                                                                                                                    
+var SiteNotes;                                                                                                                                                                                                                                                                                                                                                                                                                                 
+var SiteInfo;                                                                                                                                                                                                                                                                                                                                                                                                                                  
+var DrivingInfo;                                                                                                                                                                                                                                                                                                                                                                                                                                                
+//var OutputTable='<table>';                                                                                                                                                                                                                                                                                                                                                                                                                                      
+//    OutputTable=OutputTable+'<tr><th align="center">Point of Interest</th><th>Type</th><th>Description<br></th><th>Notes & Comments</tr>';                                                                                                                                                                                                                                                                     
+var convert;                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+var iconUse; 
+//alert(' size is: '+ POIArray.length);                  
+
+var POINameArray=new Array();
+var POILatArray = new Array();
+var POILongArray = new Array();
+
+                                                                                                                                                                                                                                                                                                                                                                                                                            
+         
+//        alert(' size is: '+ POIArray.length);                                                                                                     
+        for(i = 0; i < POIArray.length; i++) { 
+              
+//            alert('in loop: '+i);            
+            DiveSitePOIId=POIArray[i].DiveSitePOIId;
+            DiveSiteName=POIArray[i].DiveSiteName;
+            DiveSiteMajorName=POIArray[i].DiveSiteMajorName;
+            DiveSiteMinorName=POIArray[i].DiveSiteMinorName; 
+            DiveSitePOITitle=POIArray[i].DiveSitePOITitle; 
+            DiveSitePOIType=POIArray[i].DiveSitePOIType;
+            DiveSitePOILat=POIArray[i].DiveSitePOILat; 
+            DiveSitePOILong=POIArray[i].DiveSitePOILong;  
+            DiveSitePOINotes=POIArray[i].DiveSitePOINotes; 
+            DiveSiteExactLong=POIArray[i].DiveSiteExactLong;   
+            DiveSiteExactLat=POIArray[i].DiveSiteExactLat;   
+            
+            POINameArray[i]=POIArray[i].DiveSitePOITitle;
+            POILatArray[i]=POIArray[i].DiveSitePOILat; 
+            POILongArray[i]=POIArray[i].DiveSitePOILong; 
+            
+            
+            
+                 
+            
+}
+}            
+     	
     	
     	
     	  // Converts from degrees to radians.
@@ -28,9 +156,9 @@
     	
     	
     	
-    	  var POINameArray=["End of EAST DOCK","ROCK","EDGE","Structure 8","NAV 6","Structure 1"];
-    	  var POILatArray=[50.88605126,50.885799,50.885380,50.885555,50.885441,50.885845 ];
-    	  var POILongArray=[-114.036313,-114.035683,-114.035896,-114.036209,-114.036171,-114.036270];
+//    	  var POINameArray=["End of EAST DOCK","ROCK","EDGE","Structure 8","NAV 6","Structure 1"];
+//    	  var POILatArray=[50.88605126,50.885799,50.885380,50.885555,50.885441,50.885845 ];
+//    	  var POILongArray=[-114.036313,-114.035683,-114.035896,-114.036209,-114.036171,-114.036270];
     	  var Distance;
     	  var Bearing;
     	  var DistanceTotal;
@@ -741,9 +869,16 @@ return dec;
         	
  
     </SCRIPT>
+    
+<style>    
+
+</style>       
+    
+    
+    
 </HEAD>
 <BODY>
- 
+<div id="results"> 
     <INPUT type="button" value="Add Waypoint" onclick="addRow('dataTable')" />
  
     <INPUT type="button" value="Delete Waypoint" onclick="deleteRow('dataTable')" />
@@ -756,6 +891,6 @@ return dec;
         <TR><TH>Delete</TH><TH>Waypoint</TH><TH>Description</TH><TH>Lat/Long</TH><TH>True<br>Bearing</TH><TH>Compass<br>Bearing</TH><TH>Distance<br>feet</TH><TH>Total Distance<br>feet</TH></TR>
         
     </TABLE>
- 
+ </div>
 </BODY>
 </HTML>

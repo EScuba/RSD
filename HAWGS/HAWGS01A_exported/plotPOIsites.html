@@ -763,8 +763,16 @@ if (Math.abs(glat) >= 55.0)
 return dec;
 }
 
-
-
+function plotDiveRoute(){
+	
+	
+	
+	window.open("http://www.kenspon.com/HAWGS/DynamicTableA.html?DesiredSite="+DesiredSite);
+	
+	
+	
+	}
+ 
 
 
 
@@ -990,6 +998,8 @@ window.onload =initialize;
 <h5 id="LocationDisplay">"TBD"</h5> 
                                                       
 <input type="button" value="Back" onclick="goBack()" />
+<input type="button" value="Plot Dive Route" onclick="plotDiveRoute()" />
+
 
 
 
