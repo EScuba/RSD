@@ -367,7 +367,7 @@ global $DiveSiteCity,$DiveSiteProvince,$DiveSiteCountry,$DiveSiteName,$DiveSiteM
 global $DiveSiteMinorName,$DiveSiteExactLat,$DiveSiteExactLong,$DiveSiteMapFileInfo,$DiveSiteMapNotes;
 echo stripslashes("
 <FORM NAME='DiveSiteMapDelete' action='DiveSiteMap.php' method='POST'>
-<FORM NAME='DiveSiteMapDisplay' action='DiveSiteMap.php' method='POST'>
+
 <input type ='text' NAME='DiveSiteCity' hidden VALUE='$DiveSiteCity'  SIZE='30' MAXLENGTH='30'  tabindex='5' id ='DiveSiteCity'>
 <input type ='text' NAME='DiveSiteProvince' hidden VALUE='$DiveSiteProvince'  SIZE='15' MAXLENGTH='15'  tabindex='6' id ='DiveSiteProvince'>
 <input type ='text' NAME='DiveSiteCountry' hidden VALUE='$DiveSiteCountry'  SIZE='15' MAXLENGTH='15'  tabindex='7' id ='DiveSiteCountry'>

@@ -4142,7 +4142,7 @@ global $user, $serverhost,$db,$password;
 $_SESSION['DiveSiteId']='00000000';
 $connection = mysql_connect($serverhost,$user,$password) or die('ERROR!!  Cannot connect to MySql');
 $rs = mysql_select_db($db,$connection)    or die('ERROR!! Cannot connect to aquatreasurequest database');
-$sql="select * from DiveSite order by DiveSiteStatus";
+$sql="select * from DiveSite order by DiveSiteCountry,DiveSiteProvince,DiveSiteCity,DiveSiteName";
 $result = mysql_query($sql,$connection) or die("ERROR!! DiveSite GetNumRecs failure");
 $NumDiveSiteRecords = mysql_num_rows($result);
 mysql_close($connection);

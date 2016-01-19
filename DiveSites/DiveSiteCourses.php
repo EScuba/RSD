@@ -242,9 +242,23 @@ global $Mode;
 
 global $coursesArray;
 echo stripslashes("
+
+<input type ='text' NAME='DiveSiteCity' hidden VALUE='$DiveSiteCity'  SIZE='30' MAXLENGTH='30'  tabindex='5' id ='DiveSiteCity'>
+<input type ='text' NAME='DiveSiteProvince' hidden VALUE='$DiveSiteProvince'  SIZE='15' MAXLENGTH='15'  tabindex='6' id ='DiveSiteProvince'>
+<input type ='text' NAME='DiveSiteCountry' hidden VALUE='$DiveSiteCountry'  SIZE='15' MAXLENGTH='15'  tabindex='7' id ='DiveSiteCountry'>
+<input type ='text' NAME='DiveSiteName' hidden VALUE='$DiveSiteName'  SIZE='80' MAXLENGTH='80'  tabindex='8' id ='DiveSiteName'> 
+<input type ='text' NAME='DiveSiteMajorName' hidden VALUE='$DiveSiteMajorName'  SIZE='80' MAXLENGTH='80'  tabindex='9' id ='DiveSiteMajorName'> 
+<input type ='text' NAME='DiveSiteMinorName' hidden VALUE='$DiveSiteMinorName'  SIZE='80' MAXLENGTH='80'  tabindex='10' id ='DiveSiteMinorName'> 
+<input type ='text' NAME='DiveSiteExactLat' hidden VALUE='$DiveSiteExactLat'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='11' id ='DiveSiteExactLat'>
+<input type ='text' NAME='DiveSiteExactLong' hidden VALUE='$DiveSiteExactLong'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='12' id ='DiveSiteExactLong'>
+
+
+
 <TABLE border='1' align='center'><tr><td>
 <TABLE border='1' align='center' cellspacing='5'>
-<tr><th valign='top' align ='left' scope='row'>DiveSiteCourse</th>
+
+
+<tr><th valign='top' align ='left' scope='row'>Dive Site Course ID</th>
 <td colspan='5'><table><tr>
 <td><input type ='text' NAME='DiveSiteCourse' VALUE='$DiveSiteCourse' SIZE='8' MAXLENGTH='8' tabindex ='1' id ='DiveSiteCourse' READONLY><br /></td>
 <th valign='top' align ='left' scope='row'>DiveSiteId</th>
@@ -257,13 +271,13 @@ else
 echo stripslashes("</tr>");
 echo("</table></td></tr>");
 
-echo("<tr><th valign='top' align ='left' scope='row'>DiveSiteCourseEnteredBy</th>");
+echo("<tr><th valign='top' align ='left' scope='row'>Site Course Entered By</th>");
 echo("<td colspan='5'><table><tr>");
 echo ("<td><input type ='text' NAME='DiveSiteCourseEnteredBy' VALUE='$DiveSiteCourseEnteredBy'  SIZE='25' MAXLENGTH='25'  tabindex='3' id ='DiveSiteCourseEnteredBy' 
    onBlur=\"if(isBlank(this.form.DiveSiteCourseEnteredBy.value)) {alert('DiveSiteCourseEnteredBy cannot be blank');this.form.DiveSiteCourseEnteredBy.style.background='Yellow';}else{this.form.DiveSiteCourseEnteredBy.style.background='White';}\"><br /></td>");
 
 
-echo("<th valign='top' align ='left' scope='row'>DiveSiteCourseDateEntered</th>
+echo("<th valign='top' align ='left' scope='row'>Date Entered</th>
 <td><input type ='text' NAME='DiveSiteCourseDateEntered' VALUE='$DiveSiteCourseDateEntered'  SIZE='11' MAXLENGTH='11'  tabindex='4' id ='DiveSiteCourseDateEntered' 
    onBlur=\"if(isBlank(this.form.DiveSiteCourseDateEntered.value)) {alert('DiveSiteCourseDateEntered cannot be blank');this.form.DiveSiteCourseDateEntered.style.background='Yellow';}else{this.form.DiveSiteCourseDateEntered.style.background='White';}\">");
 if($Mode=='EDIT')
@@ -275,54 +289,61 @@ echo stripslashes("</tr>");
 echo("</table></td></tr>");
 
 
-echo("<tr><th valign='top' align ='left' scope='row'>DiveSiteCity</th>
-");
-echo ("<td><input type ='text' READONLY NAME='DiveSiteCity' VALUE='$DiveSiteCity'  SIZE='30' MAXLENGTH='30'  tabindex='5' id ='DiveSiteCity' 
-   onBlur=\"if(isBlank(this.form.DiveSiteCity.value)) {alert('DiveSiteCity cannot be blank');this.form.DiveSiteCity.style.background='Yellow';}else{this.form.DiveSiteCity.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th valign='top' align ='left' scope='row'>DiveSiteProvince</th>
-");
-echo ("<td><input type ='text' READONLY NAME='DiveSiteProvince' VALUE='$DiveSiteProvince'  SIZE='15' MAXLENGTH='15'  tabindex='6' id ='DiveSiteProvince' 
-   onBlur=\"if(isBlank(this.form.DiveSiteProvince.value)) {alert('DiveSiteProvince cannot be blank');this.form.DiveSiteProvince.style.background='Yellow';}else{this.form.DiveSiteProvince.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th valign='top' align ='left' scope='row'>DiveSiteCountry</th>
-");
-echo ("<td><input type ='text' READONLY NAME='DiveSiteCountry' VALUE='$DiveSiteCountry'  SIZE='15' MAXLENGTH='15'  tabindex='7' id ='DiveSiteCountry' 
-   onBlur=\"if(isBlank(this.form.DiveSiteCountry.value)) {alert('DiveSiteCountry cannot be blank');this.form.DiveSiteCountry.style.background='Yellow';}else{this.form.DiveSiteCountry.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th valign='top' align ='left' scope='row'>DiveSiteName</th>
-");
-echo ("<td><input type ='text' READONLY NAME='DiveSiteName' VALUE='$DiveSiteName'  SIZE='80' MAXLENGTH='80'  tabindex='8' id ='DiveSiteName' 
-   onBlur=\"if(isBlank(this.form.DiveSiteName.value)) {alert('DiveSiteName cannot be blank');this.form.DiveSiteName.style.background='Yellow';}else{this.form.DiveSiteName.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th valign='top' align ='left' scope='row'>DiveSiteMajorName</th>
-");
-echo ("<td><input type ='text' READONLY NAME='DiveSiteMajorName' VALUE='$DiveSiteMajorName'  SIZE='80' MAXLENGTH='80'  tabindex='9' id ='DiveSiteMajorName' 
-   onBlur=\"if(isBlank(this.form.DiveSiteMajorName.value)) {alert('DiveSiteMajorName cannot be blank');this.form.DiveSiteMajorName.style.background='Yellow';}else{this.form.DiveSiteMajorName.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th valign='top' align ='left' scope='row'>DiveSiteMinorName</th>
-");
-echo ("<td><input type ='text' READONLY NAME='DiveSiteMinorName' VALUE='$DiveSiteMinorName'  SIZE='80' MAXLENGTH='80'  tabindex='10' id ='DiveSiteMinorName' 
-   onBlur=\"if(isBlank(this.form.DiveSiteMinorName.value)) {alert('DiveSiteMinorName cannot be blank');this.form.DiveSiteMinorName.style.background='Yellow';}else{this.form.DiveSiteMinorName.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th valign='top' align ='left' scope='row'>DiveSiteExactLat</th>
-");
-echo ("<td><input type ='text' READONLY NAME='DiveSiteExactLat' VALUE='$DiveSiteExactLat'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='11' id ='DiveSiteExactLat' 
-   onBlur=\"if(isBlank(this.form.DiveSiteExactLat.value)) {alert('DiveSiteExactLat cannot be blank');this.form.DiveSiteExactLat.style.background='Yellow';}else{this.form.DiveSiteExactLat.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th valign='top' align ='left' scope='row'>DiveSiteExactLong</th>
-");
-echo ("<td><input type ='text' READONLY NAME='DiveSiteExactLong' VALUE='$DiveSiteExactLong'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='12' id ='DiveSiteExactLong' 
-   onBlur=\"if(isBlank(this.form.DiveSiteExactLong.value)) {alert('DiveSiteExactLong cannot be blank');this.form.DiveSiteExactLong.style.background='Yellow';}else{this.form.DiveSiteExactLong.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th valign='top' align ='left' scope='row'>DiveSiteCourseTitle</th>");
+//echo("<tr><th valign='top' align ='left' scope='row'>DiveSiteCity</th>");
+//echo ("<td><input type ='text' READONLY NAME='DiveSiteCity' VALUE='$DiveSiteCity'  SIZE='30' MAXLENGTH='30'  tabindex='5' id ='DiveSiteCity' 
+//   onBlur=\"if(isBlank(this.form.DiveSiteCity.value)) {alert('DiveSiteCity cannot be blank');this.form.DiveSiteCity.style.background='Yellow';}else{this.form.DiveSiteCity.style.background='White';}\"><br /></td>");
+//echo stripslashes("</tr>
+//<tr><th valign='top' align ='left' scope='row'>DiveSiteProvince</th>
+//");
+//echo ("<td><input type ='text' READONLY NAME='DiveSiteProvince' VALUE='$DiveSiteProvince'  SIZE='15' MAXLENGTH='15'  tabindex='6' id ='DiveSiteProvince' 
+//   onBlur=\"if(isBlank(this.form.DiveSiteProvince.value)) {alert('DiveSiteProvince cannot be blank');this.form.DiveSiteProvince.style.background='Yellow';}else{this.form.DiveSiteProvince.style.background='White';}\"><br /></td>");
+//echo stripslashes("</tr>
+//<tr><th valign='top' align ='left' scope='row'>DiveSiteCountry</th>
+//");
+//echo ("<td><input type ='text' READONLY NAME='DiveSiteCountry' VALUE='$DiveSiteCountry'  SIZE='15' MAXLENGTH='15'  tabindex='7' id ='DiveSiteCountry' 
+//   onBlur=\"if(isBlank(this.form.DiveSiteCountry.value)) {alert('DiveSiteCountry cannot be blank');this.form.DiveSiteCountry.style.background='Yellow';}else{this.form.DiveSiteCountry.style.background='White';}\"><br /></td>");
+//echo stripslashes("</tr>
+//<tr><th valign='top' align ='left' scope='row'>DiveSiteName</th>
+//");
+//echo ("<td><input type ='text' READONLY NAME='DiveSiteName' VALUE='$DiveSiteName'  SIZE='80' MAXLENGTH='80'  tabindex='8' id ='DiveSiteName' 
+//   onBlur=\"if(isBlank(this.form.DiveSiteName.value)) {alert('DiveSiteName cannot be blank');this.form.DiveSiteName.style.background='Yellow';}else{this.form.DiveSiteName.style.background='White';}\"><br /></td>");
+//echo stripslashes("</tr>
+//<tr><th valign='top' align ='left' scope='row'>DiveSiteMajorName</th>
+//");
+//echo ("<td><input type ='text' READONLY NAME='DiveSiteMajorName' VALUE='$DiveSiteMajorName'  SIZE='80' MAXLENGTH='80'  tabindex='9' id ='DiveSiteMajorName' 
+//   onBlur=\"if(isBlank(this.form.DiveSiteMajorName.value)) {alert('DiveSiteMajorName cannot be blank');this.form.DiveSiteMajorName.style.background='Yellow';}else{this.form.DiveSiteMajorName.style.background='White';}\"><br /></td>");
+//echo stripslashes("</tr>
+//<tr><th valign='top' align ='left' scope='row'>DiveSiteMinorName</th>
+//");
+//echo ("<td><input type ='text' READONLY NAME='DiveSiteMinorName' VALUE='$DiveSiteMinorName'  SIZE='80' MAXLENGTH='80'  tabindex='10' id ='DiveSiteMinorName' 
+//   onBlur=\"if(isBlank(this.form.DiveSiteMinorName.value)) {alert('DiveSiteMinorName cannot be blank');this.form.DiveSiteMinorName.style.background='Yellow';}else{this.form.DiveSiteMinorName.style.background='White';}\"><br /></td>");
+//echo stripslashes("</tr>
+//<tr><th valign='top' align ='left' scope='row'>DiveSiteExactLat</th>
+//");
+//echo ("<td><input type ='text' READONLY NAME='DiveSiteExactLat' VALUE='$DiveSiteExactLat'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='11' id ='DiveSiteExactLat' 
+//   onBlur=\"if(isBlank(this.form.DiveSiteExactLat.value)) {alert('DiveSiteExactLat cannot be blank');this.form.DiveSiteExactLat.style.background='Yellow';}else{this.form.DiveSiteExactLat.style.background='White';}\"><br /></td>");
+//echo stripslashes("</tr>
+//<tr><th valign='top' align ='left' scope='row'>DiveSiteExactLong</th>
+//");
+//echo ("<td><input type ='text' READONLY NAME='DiveSiteExactLong' VALUE='$DiveSiteExactLong'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='12' id ='DiveSiteExactLong' 
+//   onBlur=\"if(isBlank(this.form.DiveSiteExactLong.value)) {alert('DiveSiteExactLong cannot be blank');this.form.DiveSiteExactLong.style.background='Yellow';}else{this.form.DiveSiteExactLong.style.background='White';}\"><br /></td>");
+//echo stripslashes("</tr>");
+
+echo("<tr><th valign='top' align ='left' scope='row'>Select Course</th>");
 
 $array_length = count($coursesArray);
 echo('<td>');
-echo('<select name="DiveCourseTitle" tabindex=13 id="DiveCourseTitle" VALUE="$DiveCourseTitle">');
+echo('<select name="DiveSiteCourseTitle" tabindex=13 id="DiveSiteCourseTitle" VALUE="$DiveSiteCourseTitle">');
 for ($i=0;$i<$array_length;$i++)
     {
-    	$selopt='';
+    	if($Mode=='ADD')
+    	 {
+           $selopt="";  
+       }
+       else
+       {
+       	   if($DiveSiteCourseTitle == $coursesArray[$i]){$selopt="selected";}else{$selopt="";}  
+       }      	
 echo ('<option value="'.$coursesArray[$i].'" '.$selopt.'>'.$coursesArray[$i].'</option>');
     }
 echo('</select>');
@@ -332,10 +353,10 @@ echo('</td>');
 //echo ("<td><input type ='text' NAME='DiveSiteCourseTitle' VALUE='$DiveSiteCourseTitle'  SIZE='80' MAXLENGTH='80'  tabindex='13' id ='DiveSiteCourseTitle' 
 //   onBlur=\"if(isBlank(this.form.DiveSiteCourseTitle.value)) {alert('DiveSiteCourseTitle cannot be blank');this.form.DiveSiteCourseTitle.style.background='Yellow';}else{this.form.DiveSiteCourseTitle.style.background='White';}\"><br /></td>");
 echo stripslashes("</tr>
-<tr><th valign='top' align ='left' scope='row'>DiveSiteCourseNoteKeywords</th>
+<tr><th valign='top' align ='left' scope='row'>Course Keywords</th>
 <td><TEXTAREA NAME='DiveSiteCourseNoteKeywords' COLS=100 ROW=3 TABINDEX='14'>$DiveSiteCourseNoteKeywords</TEXTAREA></td>");
 echo stripslashes("</tr>
-<tr><th valign='top' align ='left' scope='row'>DiveSiteCourseWhyNotes</th>
+<tr><th valign='top' align ='left' scope='row'>Reason for course:</th>
 <td><TEXTAREA NAME='DiveSiteCourseWhyNotes' COLS=100 ROW=3 TABINDEX='15'>$DiveSiteCourseWhyNotes</TEXTAREA></td>");
 echo stripslashes("</tr>");
 //echo("<tr><th valign='top' align ='left' scope='row'>DiveSiteCourseURLFileInfo</th>
@@ -403,89 +424,132 @@ global $NumDiveSiteCoursesRecords,$DiveSiteCourse,$DiveSiteId,$DiveSiteCourseEnt
 global $DiveSiteCity,$DiveSiteProvince,$DiveSiteCountry,$DiveSiteName,$DiveSiteMajorName;
 global $DiveSiteMinorName,$DiveSiteExactLat,$DiveSiteExactLong,$DiveSiteCourseTitle,$DiveSiteCourseNoteKeywords;
 global $DiveSiteCourseWhyNotes,$DiveSiteCourseURLFileInfo;
+
+global $coursesArray;
 echo stripslashes("
 <FORM NAME='DiveSiteCoursesDelete' action='DiveSiteCourses.php' method='POST'>
-<TABLE  align='center' border='1'><tr><td>
-<TABLE align='center' border='1' cellspacing='5'>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteCourse</th>
-<td><input type ='text' READONLY NAME='DiveSiteCourse' VALUE='$DiveSiteCourse' SIZE='8' MAXLENGTH='8' tabindex ='1' id ='DiveSiteCourse' READONLY><br /></td></tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteId</th>
+
+<input type ='text' NAME='DiveSiteCity' hidden VALUE='$DiveSiteCity'  SIZE='30' MAXLENGTH='30'  tabindex='5' id ='DiveSiteCity'>
+<input type ='text' NAME='DiveSiteProvince' hidden VALUE='$DiveSiteProvince'  SIZE='15' MAXLENGTH='15'  tabindex='6' id ='DiveSiteProvince'>
+<input type ='text' NAME='DiveSiteCountry' hidden VALUE='$DiveSiteCountry'  SIZE='15' MAXLENGTH='15'  tabindex='7' id ='DiveSiteCountry'>
+<input type ='text' NAME='DiveSiteName' hidden VALUE='$DiveSiteName'  SIZE='80' MAXLENGTH='80'  tabindex='8' id ='DiveSiteName'> 
+<input type ='text' NAME='DiveSiteMajorName' hidden VALUE='$DiveSiteMajorName'  SIZE='80' MAXLENGTH='80'  tabindex='9' id ='DiveSiteMajorName'> 
+<input type ='text' NAME='DiveSiteMinorName' hidden VALUE='$DiveSiteMinorName'  SIZE='80' MAXLENGTH='80'  tabindex='10' id ='DiveSiteMinorName'> 
+<input type ='text' NAME='DiveSiteExactLat' hidden VALUE='$DiveSiteExactLat'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='11' id ='DiveSiteExactLat'>
+<input type ='text' NAME='DiveSiteExactLong' hidden VALUE='$DiveSiteExactLong'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='12' id ='DiveSiteExactLong'>
+
+
+
+<TABLE border='1' align='center'><tr><td>
+<TABLE border='1' align='center' cellspacing='5'>
+
+<tr>
+<td colspan ='2' align='center'>
+<input type ='SUBMIT' NAME='display_button' Value = 'Return'>
+<input type ='SUBMIT' NAME='display_button' Value = 'Edit'>
+<input type ='SUBMIT' NAME='display_button' Value = 'Delete'>
+</td>
+</tr>
+
+<tr><th valign='top' align ='left' scope='row'>Dive Site Course ID</th>
+<td colspan='5'><table><tr>
+<td><input type ='text' READONLY NAME='DiveSiteCourse' VALUE='$DiveSiteCourse' SIZE='8' MAXLENGTH='8' tabindex ='1' id ='DiveSiteCourse' READONLY><br /></td>
+<th valign='top' align ='left' scope='row'>DiveSiteId</th>
 "); if($Mode=='EDIT')
 {echo ("<td><input type ='text' style='color: gray' READONLY NAME='DiveSiteId' VALUE='$DiveSiteId'  SIZE='8' MAXLENGTH='8'  tabindex='2' id ='DiveSiteId' 
    onBlur=\"if(isBlank(this.form.DiveSiteId.value)) {alert('DiveSiteId cannot be blank');this.form.DiveSiteId.style.background='Yellow';}else{this.form.DiveSiteId.style.background='White';}\"><br /></td>");}
 else 
 {echo ("<td><input type ='text' READONLY NAME='DiveSiteId' VALUE='$DiveSiteId'  SIZE='8' MAXLENGTH='8'  tabindex='2' id ='DiveSiteId' 
    onBlur=\"if(isBlank(this.form.DiveSiteId.value)) {alert('DiveSiteId cannot be blank');this.form.DiveSiteId.style.background='Yellow';}else{this.form.DiveSiteId.style.background='White';}\"><br /></td>");}
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteCourseEnteredBy</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteCourseEnteredBy' VALUE='$DiveSiteCourseEnteredBy'  SIZE='25' MAXLENGTH='25'  tabindex='3' id ='DiveSiteCourseEnteredBy' 
+echo stripslashes("</tr>");
+echo("</table></td></tr>");
+
+echo("<tr><th valign='top' align ='left' scope='row'>Site Course Entered By</th>");
+echo("<td colspan='5'><table><tr>");
+echo ("<td><input type ='text' READONLY NAME='DiveSiteCourseEnteredBy' VALUE='$DiveSiteCourseEnteredBy'  SIZE='25' MAXLENGTH='25'  tabindex='3' id ='DiveSiteCourseEnteredBy' 
    onBlur=\"if(isBlank(this.form.DiveSiteCourseEnteredBy.value)) {alert('DiveSiteCourseEnteredBy cannot be blank');this.form.DiveSiteCourseEnteredBy.style.background='Yellow';}else{this.form.DiveSiteCourseEnteredBy.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteCourseDateEntered</th>
-<td><input type ='text'READONLY NAME='DiveSiteCourseDateEntered' VALUE='$DiveSiteCourseDateEntered'  SIZE='11' MAXLENGTH='11'  tabindex='4' id ='DiveSiteCourseDateEntered'>");
+
+
+echo("<th valign='top' align ='left' scope='row'>Date Entered</th>
+<td><input type ='text' READONLY NAME='DiveSiteCourseDateEntered' VALUE='$DiveSiteCourseDateEntered'  SIZE='11' MAXLENGTH='11'  tabindex='4' id ='DiveSiteCourseDateEntered' 
+   onBlur=\"if(isBlank(this.form.DiveSiteCourseDateEntered.value)) {alert('DiveSiteCourseDateEntered cannot be blank');this.form.DiveSiteCourseDateEntered.style.background='Yellow';}else{this.form.DiveSiteCourseDateEntered.style.background='White';}\">");
 if($Mode=='EDIT')
 {echo '<A HREF="#" onClick="cal.select(document.forms[\'DiveSiteCoursesEdit\'].DiveSiteCourseDateEntered,\'anchor\',\'yyyy-MM-dd\');return false;" NAME="anchor" ID="anchor">Calendar</A>';}
 else 
 {echo '<A HREF="#" onClick="cal.select(document.forms[\'DiveSiteCoursesEntry\'].DiveSiteCourseDateEntered,\'anchor\',\'yyyy-MM-dd\');return false;" NAME="anchor" ID="anchor">Calendar</A>';}
 echo("</td>");
+echo stripslashes("</tr>");
+echo("</table></td></tr>");
+
+
+//echo("<tr><th valign='top' align ='left' scope='row'>DiveSiteCity</th>");
+//echo ("<td><input type ='text' READONLY NAME='DiveSiteCity' VALUE='$DiveSiteCity'  SIZE='30' MAXLENGTH='30'  tabindex='5' id ='DiveSiteCity' 
+//   onBlur=\"if(isBlank(this.form.DiveSiteCity.value)) {alert('DiveSiteCity cannot be blank');this.form.DiveSiteCity.style.background='Yellow';}else{this.form.DiveSiteCity.style.background='White';}\"><br /></td>");
+//echo stripslashes("</tr>
+//<tr><th valign='top' align ='left' scope='row'>DiveSiteProvince</th>
+//");
+//echo ("<td><input type ='text' READONLY NAME='DiveSiteProvince' VALUE='$DiveSiteProvince'  SIZE='15' MAXLENGTH='15'  tabindex='6' id ='DiveSiteProvince' 
+//   onBlur=\"if(isBlank(this.form.DiveSiteProvince.value)) {alert('DiveSiteProvince cannot be blank');this.form.DiveSiteProvince.style.background='Yellow';}else{this.form.DiveSiteProvince.style.background='White';}\"><br /></td>");
+//echo stripslashes("</tr>
+//<tr><th valign='top' align ='left' scope='row'>DiveSiteCountry</th>
+//");
+//echo ("<td><input type ='text' READONLY NAME='DiveSiteCountry' VALUE='$DiveSiteCountry'  SIZE='15' MAXLENGTH='15'  tabindex='7' id ='DiveSiteCountry' 
+//   onBlur=\"if(isBlank(this.form.DiveSiteCountry.value)) {alert('DiveSiteCountry cannot be blank');this.form.DiveSiteCountry.style.background='Yellow';}else{this.form.DiveSiteCountry.style.background='White';}\"><br /></td>");
+//echo stripslashes("</tr>
+//<tr><th valign='top' align ='left' scope='row'>DiveSiteName</th>
+//");
+//echo ("<td><input type ='text' READONLY NAME='DiveSiteName' VALUE='$DiveSiteName'  SIZE='80' MAXLENGTH='80'  tabindex='8' id ='DiveSiteName' 
+//   onBlur=\"if(isBlank(this.form.DiveSiteName.value)) {alert('DiveSiteName cannot be blank');this.form.DiveSiteName.style.background='Yellow';}else{this.form.DiveSiteName.style.background='White';}\"><br /></td>");
+//echo stripslashes("</tr>
+//<tr><th valign='top' align ='left' scope='row'>DiveSiteMajorName</th>
+//");
+//echo ("<td><input type ='text' READONLY NAME='DiveSiteMajorName' VALUE='$DiveSiteMajorName'  SIZE='80' MAXLENGTH='80'  tabindex='9' id ='DiveSiteMajorName' 
+//   onBlur=\"if(isBlank(this.form.DiveSiteMajorName.value)) {alert('DiveSiteMajorName cannot be blank');this.form.DiveSiteMajorName.style.background='Yellow';}else{this.form.DiveSiteMajorName.style.background='White';}\"><br /></td>");
+//echo stripslashes("</tr>
+//<tr><th valign='top' align ='left' scope='row'>DiveSiteMinorName</th>
+//");
+//echo ("<td><input type ='text' READONLY NAME='DiveSiteMinorName' VALUE='$DiveSiteMinorName'  SIZE='80' MAXLENGTH='80'  tabindex='10' id ='DiveSiteMinorName' 
+//   onBlur=\"if(isBlank(this.form.DiveSiteMinorName.value)) {alert('DiveSiteMinorName cannot be blank');this.form.DiveSiteMinorName.style.background='Yellow';}else{this.form.DiveSiteMinorName.style.background='White';}\"><br /></td>");
+//echo stripslashes("</tr>
+//<tr><th valign='top' align ='left' scope='row'>DiveSiteExactLat</th>
+//");
+//echo ("<td><input type ='text' READONLY NAME='DiveSiteExactLat' VALUE='$DiveSiteExactLat'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='11' id ='DiveSiteExactLat' 
+//   onBlur=\"if(isBlank(this.form.DiveSiteExactLat.value)) {alert('DiveSiteExactLat cannot be blank');this.form.DiveSiteExactLat.style.background='Yellow';}else{this.form.DiveSiteExactLat.style.background='White';}\"><br /></td>");
+//echo stripslashes("</tr>
+//<tr><th valign='top' align ='left' scope='row'>DiveSiteExactLong</th>
+//");
+//echo ("<td><input type ='text' READONLY NAME='DiveSiteExactLong' VALUE='$DiveSiteExactLong'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='12' id ='DiveSiteExactLong' 
+//   onBlur=\"if(isBlank(this.form.DiveSiteExactLong.value)) {alert('DiveSiteExactLong cannot be blank');this.form.DiveSiteExactLong.style.background='Yellow';}else{this.form.DiveSiteExactLong.style.background='White';}\"><br /></td>");
+//echo stripslashes("</tr>");
+
+echo("<tr><th valign='top' align ='left' scope='row'>Select Course</th>");
+
+$array_length = count($coursesArray);
+echo('<td>');
+echo('<select DISABLED name="DiveSiteCourseTitle" tabindex=13 id="DiveSiteCourseTitle" VALUE="$DiveSiteCourseTitle">');
+for ($i=0;$i<$array_length;$i++)
+    {
+    	if($DiveSiteCourseTitle == $coursesArray[$i]){$selopt="selected";}else{$selopt="";}  
+echo ('<option value="'.$coursesArray[$i].'" '.$selopt.'>'.$coursesArray[$i].'</option>');
+    }
+echo('</select>');
+echo('</td>');
+
+
+//echo ("<td><input type ='text' NAME='DiveSiteCourseTitle' VALUE='$DiveSiteCourseTitle'  SIZE='80' MAXLENGTH='80'  tabindex='13' id ='DiveSiteCourseTitle' 
+//   onBlur=\"if(isBlank(this.form.DiveSiteCourseTitle.value)) {alert('DiveSiteCourseTitle cannot be blank');this.form.DiveSiteCourseTitle.style.background='Yellow';}else{this.form.DiveSiteCourseTitle.style.background='White';}\"><br /></td>");
 echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteCity</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteCity' VALUE='$DiveSiteCity'  SIZE='30' MAXLENGTH='30'  tabindex='5' id ='DiveSiteCity' 
-   onBlur=\"if(isBlank(this.form.DiveSiteCity.value)) {alert('DiveSiteCity cannot be blank');this.form.DiveSiteCity.style.background='Yellow';}else{this.form.DiveSiteCity.style.background='White';}\"><br /></td>");
+<tr><th valign='top' align ='left' scope='row'>Course Keywords</th>
+<td><TEXTAREA READONLY NAME='DiveSiteCourseNoteKeywords' COLS=100 ROW=3 TABINDEX='14'>$DiveSiteCourseNoteKeywords</TEXTAREA></td>");
 echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteProvince</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteProvince' VALUE='$DiveSiteProvince'  SIZE='15' MAXLENGTH='15'  tabindex='6' id ='DiveSiteProvince' 
-   onBlur=\"if(isBlank(this.form.DiveSiteProvince.value)) {alert('DiveSiteProvince cannot be blank');this.form.DiveSiteProvince.style.background='Yellow';}else{this.form.DiveSiteProvince.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteCountry</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteCountry' VALUE='$DiveSiteCountry'  SIZE='15' MAXLENGTH='15'  tabindex='7' id ='DiveSiteCountry' 
-   onBlur=\"if(isBlank(this.form.DiveSiteCountry.value)) {alert('DiveSiteCountry cannot be blank');this.form.DiveSiteCountry.style.background='Yellow';}else{this.form.DiveSiteCountry.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteName</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteName' VALUE='$DiveSiteName'  SIZE='80' MAXLENGTH='80'  tabindex='8' id ='DiveSiteName' 
-   onBlur=\"if(isBlank(this.form.DiveSiteName.value)) {alert('DiveSiteName cannot be blank');this.form.DiveSiteName.style.background='Yellow';}else{this.form.DiveSiteName.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteMajorName</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteMajorName' VALUE='$DiveSiteMajorName'  SIZE='80' MAXLENGTH='80'  tabindex='9' id ='DiveSiteMajorName' 
-   onBlur=\"if(isBlank(this.form.DiveSiteMajorName.value)) {alert('DiveSiteMajorName cannot be blank');this.form.DiveSiteMajorName.style.background='Yellow';}else{this.form.DiveSiteMajorName.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteMinorName</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteMinorName' VALUE='$DiveSiteMinorName'  SIZE='80' MAXLENGTH='80'  tabindex='10' id ='DiveSiteMinorName' 
-   onBlur=\"if(isBlank(this.form.DiveSiteMinorName.value)) {alert('DiveSiteMinorName cannot be blank');this.form.DiveSiteMinorName.style.background='Yellow';}else{this.form.DiveSiteMinorName.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteExactLat</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteExactLat' VALUE='$DiveSiteExactLat'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='11' id ='DiveSiteExactLat' 
-   onBlur=\"if(isBlank(this.form.DiveSiteExactLat.value)) {alert('DiveSiteExactLat cannot be blank');this.form.DiveSiteExactLat.style.background='Yellow';}else{this.form.DiveSiteExactLat.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteExactLong</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteExactLong' VALUE='$DiveSiteExactLong'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='12' id ='DiveSiteExactLong' 
-   onBlur=\"if(isBlank(this.form.DiveSiteExactLong.value)) {alert('DiveSiteExactLong cannot be blank');this.form.DiveSiteExactLong.style.background='Yellow';}else{this.form.DiveSiteExactLong.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteCourseTitle</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteCourseTitle' VALUE='$DiveSiteCourseTitle'  SIZE='80' MAXLENGTH='80'  tabindex='13' id ='DiveSiteCourseTitle' 
-   onBlur=\"if(isBlank(this.form.DiveSiteCourseTitle.value)) {alert('DiveSiteCourseTitle cannot be blank');this.form.DiveSiteCourseTitle.style.background='Yellow';}else{this.form.DiveSiteCourseTitle.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteCourseNoteKeywords</th>
-<td><TEXTAREA NAME='DiveSiteCourseNoteKeywords' READONLY COLS=100 ROW=3 TABINDEX='14'>$DiveSiteCourseNoteKeywords</TEXTAREA></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteCourseWhyNotes</th>
-<td><TEXTAREA NAME='DiveSiteCourseWhyNotes' READONLY COLS=100 ROW=3 TABINDEX='15'>$DiveSiteCourseWhyNotes</TEXTAREA></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteCourseURLFileInfo</th>
-<td><input type='file'READONLY NAME='DiveSiteCourseURLFileInfo'  VALUE='$DiveSiteCourseURLFileInfo'  SIZE='150' MAXLENGTH='150'  tabindex='16' id ='DiveSiteCourseURLFileInfo' 
-   onBlur=\"if(isBlank(this.form.DiveSiteCourseURLFileInfo.value)) {alert('DiveSiteCourseURLFileInfo cannot be blank');this.form.DiveSiteCourseURLFileInfo.style.background='Yellow';}else{this.form.DiveSiteCourseURLFileInfo.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr></tr><tr></tr><tr></tr>
+<tr><th valign='top' align ='left' scope='row'>Reason for course:</th>
+<td><TEXTAREA READONLY NAME='DiveSiteCourseWhyNotes' COLS=100 ROW=3 TABINDEX='15'>$DiveSiteCourseWhyNotes</TEXTAREA></td>");
+echo stripslashes("</tr>");
+//echo("<tr><th valign='top' align ='left' scope='row'>DiveSiteCourseURLFileInfo</th>
+//<td><input type='file' NAME='DiveSiteCourseURLFileInfo'  VALUE='$DiveSiteCourseURLFileInfo'  SIZE='150' MAXLENGTH='150'  tabindex='16' id ='DiveSiteCourseURLFileInfo' 
+//   onBlur=\"if(isBlank(this.form.DiveSiteCourseURLFileInfo.value)) {alert('DiveSiteCourseURLFileInfo cannot be blank');this.form.DiveSiteCourseURLFileInfo.style.background='Yellow';}else{this.form.DiveSiteCourseURLFileInfo.style.background='White';}\"><br /></td>");
+//echo stripslashes("</tr>");
+echo("<tr></tr><tr></tr><tr></tr>
 <tr>
 <td colspan ='2' align='center'>
 <input type ='SUBMIT' NAME='display_button' Value = 'Cancel Delete'>
@@ -503,77 +567,129 @@ global $NumDiveSiteCoursesRecords,$DiveSiteCourse,$DiveSiteId,$DiveSiteCourseEnt
 global $DiveSiteCity,$DiveSiteProvince,$DiveSiteCountry,$DiveSiteName,$DiveSiteMajorName;
 global $DiveSiteMinorName,$DiveSiteExactLat,$DiveSiteExactLong,$DiveSiteCourseTitle,$DiveSiteCourseNoteKeywords;
 global $DiveSiteCourseWhyNotes,$DiveSiteCourseURLFileInfo;
+
+global $coursesArray;
 echo stripslashes("
 <FORM NAME='DiveSiteCoursesDisplay' action='DiveSiteCourses.php' method='POST'>
-<TABLE  align='center' border='1'><tr><td>
-<TABLE align='center' border='1' cellspacing='5'>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteCourse</th>
-<td><input type ='text' READONLY NAME='DiveSiteCourse' VALUE='$DiveSiteCourse' SIZE='8' MAXLENGTH='8' tabindex ='1' id ='DiveSiteCourse' READONLY><br /></td>
+<TABLE border='1' align='center'><tr><td>
+<TABLE border='1' align='center' cellspacing='5'>
+
+<input type ='text' NAME='DiveSiteCity' hidden VALUE='$DiveSiteCity'  SIZE='30' MAXLENGTH='30'  tabindex='5' id ='DiveSiteCity'>
+<input type ='text' NAME='DiveSiteProvince' hidden VALUE='$DiveSiteProvince'  SIZE='15' MAXLENGTH='15'  tabindex='6' id ='DiveSiteProvince'>
+<input type ='text' NAME='DiveSiteCountry' hidden VALUE='$DiveSiteCountry'  SIZE='15' MAXLENGTH='15'  tabindex='7' id ='DiveSiteCountry'>
+<input type ='text' NAME='DiveSiteName' hidden VALUE='$DiveSiteName'  SIZE='80' MAXLENGTH='80'  tabindex='8' id ='DiveSiteName'> 
+<input type ='text' NAME='DiveSiteMajorName' hidden VALUE='$DiveSiteMajorName'  SIZE='80' MAXLENGTH='80'  tabindex='9' id ='DiveSiteMajorName'> 
+<input type ='text' NAME='DiveSiteMinorName' hidden VALUE='$DiveSiteMinorName'  SIZE='80' MAXLENGTH='80'  tabindex='10' id ='DiveSiteMinorName'> 
+<input type ='text' NAME='DiveSiteExactLat' hidden VALUE='$DiveSiteExactLat'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='11' id ='DiveSiteExactLat'>
+<input type ='text' NAME='DiveSiteExactLong' hidden VALUE='$DiveSiteExactLong'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='12' id ='DiveSiteExactLong'>
+
+<tr>
+<td colspan ='2' align='center'>
+<input type ='SUBMIT' NAME='display_button' Value = 'Return'>
+<input type ='SUBMIT' NAME='display_button' Value = 'Edit'>
+<input type ='SUBMIT' NAME='display_button' Value = 'Delete'>
+</td>
 </tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteId</th>
+
+<tr><th valign='top' align ='left' scope='row'>Dive Site Course ID</th>
+<td colspan='5'><table><tr>
+<td><input type ='text' READONLY NAME='DiveSiteCourse' VALUE='$DiveSiteCourse' SIZE='8' MAXLENGTH='8' tabindex ='1' id ='DiveSiteCourse' READONLY><br /></td>
+<th valign='top' align ='left' scope='row'>DiveSiteId</th>
 "); if($Mode=='EDIT')
-{echo ("<td><input type ='text' style='color: gray' READONLY NAME='DiveSiteId' VALUE='$DiveSiteId'  SIZE='8' MAXLENGTH='8'  tabindex='2' id ='DiveSiteId'><br /></td>");}
+{echo ("<td><input type ='text' style='color: gray' READONLY NAME='DiveSiteId' VALUE='$DiveSiteId'  SIZE='8' MAXLENGTH='8'  tabindex='2' id ='DiveSiteId' 
+   onBlur=\"if(isBlank(this.form.DiveSiteId.value)) {alert('DiveSiteId cannot be blank');this.form.DiveSiteId.style.background='Yellow';}else{this.form.DiveSiteId.style.background='White';}\"><br /></td>");}
 else 
-{echo ("<td><input type ='text' READONLY NAME='DiveSiteId' VALUE='$DiveSiteId'  SIZE='8' MAXLENGTH='8'  tabindex='2' id ='DiveSiteId'><br /></td>");}
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteCourseEnteredBy</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteCourseEnteredBy' VALUE='$DiveSiteCourseEnteredBy'  SIZE='25' MAXLENGTH='25'  tabindex='3' id ='DiveSiteCourseEnteredBy'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteCourseDateEntered</th>
-<td><input type ='text'READONLY NAME='DiveSiteCourseDateEntered' VALUE='$DiveSiteCourseDateEntered'  SIZE='11' MAXLENGTH='11'  tabindex='4' id ='DiveSiteCourseDateEntered'>");
+{echo ("<td><input type ='text' READONLY NAME='DiveSiteId' VALUE='$DiveSiteId'  SIZE='8' MAXLENGTH='8'  tabindex='2' id ='DiveSiteId' 
+   onBlur=\"if(isBlank(this.form.DiveSiteId.value)) {alert('DiveSiteId cannot be blank');this.form.DiveSiteId.style.background='Yellow';}else{this.form.DiveSiteId.style.background='White';}\"><br /></td>");}
+echo stripslashes("</tr>");
+echo("</table></td></tr>");
+
+echo("<tr><th valign='top' align ='left' scope='row'>Site Course Entered By</th>");
+echo("<td colspan='5'><table><tr>");
+echo ("<td><input type ='text' READONLY NAME='DiveSiteCourseEnteredBy' VALUE='$DiveSiteCourseEnteredBy'  SIZE='25' MAXLENGTH='25'  tabindex='3' id ='DiveSiteCourseEnteredBy' 
+   onBlur=\"if(isBlank(this.form.DiveSiteCourseEnteredBy.value)) {alert('DiveSiteCourseEnteredBy cannot be blank');this.form.DiveSiteCourseEnteredBy.style.background='Yellow';}else{this.form.DiveSiteCourseEnteredBy.style.background='White';}\"><br /></td>");
+
+
+echo("<th valign='top' align ='left' scope='row'>Date Entered</th>
+<td><input type ='text' READONLY NAME='DiveSiteCourseDateEntered' VALUE='$DiveSiteCourseDateEntered'  SIZE='11' MAXLENGTH='11'  tabindex='4' id ='DiveSiteCourseDateEntered' 
+   onBlur=\"if(isBlank(this.form.DiveSiteCourseDateEntered.value)) {alert('DiveSiteCourseDateEntered cannot be blank');this.form.DiveSiteCourseDateEntered.style.background='Yellow';}else{this.form.DiveSiteCourseDateEntered.style.background='White';}\">");
 if($Mode=='EDIT')
 {echo '<A HREF="#" onClick="cal.select(document.forms[\'DiveSiteCoursesEdit\'].DiveSiteCourseDateEntered,\'anchor\',\'yyyy-MM-dd\');return false;" NAME="anchor" ID="anchor">Calendar</A>';}
 else 
 {echo '<A HREF="#" onClick="cal.select(document.forms[\'DiveSiteCoursesEntry\'].DiveSiteCourseDateEntered,\'anchor\',\'yyyy-MM-dd\');return false;" NAME="anchor" ID="anchor">Calendar</A>';}
 echo("</td>");
+echo stripslashes("</tr>");
+echo("</table></td></tr>");
+
+
+//echo("<tr><th valign='top' align ='left' scope='row'>DiveSiteCity</th>");
+//echo ("<td><input type ='text' READONLY NAME='DiveSiteCity' VALUE='$DiveSiteCity'  SIZE='30' MAXLENGTH='30'  tabindex='5' id ='DiveSiteCity' 
+//   onBlur=\"if(isBlank(this.form.DiveSiteCity.value)) {alert('DiveSiteCity cannot be blank');this.form.DiveSiteCity.style.background='Yellow';}else{this.form.DiveSiteCity.style.background='White';}\"><br /></td>");
+//echo stripslashes("</tr>
+//<tr><th valign='top' align ='left' scope='row'>DiveSiteProvince</th>
+//");
+//echo ("<td><input type ='text' READONLY NAME='DiveSiteProvince' VALUE='$DiveSiteProvince'  SIZE='15' MAXLENGTH='15'  tabindex='6' id ='DiveSiteProvince' 
+//   onBlur=\"if(isBlank(this.form.DiveSiteProvince.value)) {alert('DiveSiteProvince cannot be blank');this.form.DiveSiteProvince.style.background='Yellow';}else{this.form.DiveSiteProvince.style.background='White';}\"><br /></td>");
+//echo stripslashes("</tr>
+//<tr><th valign='top' align ='left' scope='row'>DiveSiteCountry</th>
+//");
+//echo ("<td><input type ='text' READONLY NAME='DiveSiteCountry' VALUE='$DiveSiteCountry'  SIZE='15' MAXLENGTH='15'  tabindex='7' id ='DiveSiteCountry' 
+//   onBlur=\"if(isBlank(this.form.DiveSiteCountry.value)) {alert('DiveSiteCountry cannot be blank');this.form.DiveSiteCountry.style.background='Yellow';}else{this.form.DiveSiteCountry.style.background='White';}\"><br /></td>");
+//echo stripslashes("</tr>
+//<tr><th valign='top' align ='left' scope='row'>DiveSiteName</th>
+//");
+//echo ("<td><input type ='text' READONLY NAME='DiveSiteName' VALUE='$DiveSiteName'  SIZE='80' MAXLENGTH='80'  tabindex='8' id ='DiveSiteName' 
+//   onBlur=\"if(isBlank(this.form.DiveSiteName.value)) {alert('DiveSiteName cannot be blank');this.form.DiveSiteName.style.background='Yellow';}else{this.form.DiveSiteName.style.background='White';}\"><br /></td>");
+//echo stripslashes("</tr>
+//<tr><th valign='top' align ='left' scope='row'>DiveSiteMajorName</th>
+//");
+//echo ("<td><input type ='text' READONLY NAME='DiveSiteMajorName' VALUE='$DiveSiteMajorName'  SIZE='80' MAXLENGTH='80'  tabindex='9' id ='DiveSiteMajorName' 
+//   onBlur=\"if(isBlank(this.form.DiveSiteMajorName.value)) {alert('DiveSiteMajorName cannot be blank');this.form.DiveSiteMajorName.style.background='Yellow';}else{this.form.DiveSiteMajorName.style.background='White';}\"><br /></td>");
+//echo stripslashes("</tr>
+//<tr><th valign='top' align ='left' scope='row'>DiveSiteMinorName</th>
+//");
+//echo ("<td><input type ='text' READONLY NAME='DiveSiteMinorName' VALUE='$DiveSiteMinorName'  SIZE='80' MAXLENGTH='80'  tabindex='10' id ='DiveSiteMinorName' 
+//   onBlur=\"if(isBlank(this.form.DiveSiteMinorName.value)) {alert('DiveSiteMinorName cannot be blank');this.form.DiveSiteMinorName.style.background='Yellow';}else{this.form.DiveSiteMinorName.style.background='White';}\"><br /></td>");
+//echo stripslashes("</tr>
+//<tr><th valign='top' align ='left' scope='row'>DiveSiteExactLat</th>
+//");
+//echo ("<td><input type ='text' READONLY NAME='DiveSiteExactLat' VALUE='$DiveSiteExactLat'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='11' id ='DiveSiteExactLat' 
+//   onBlur=\"if(isBlank(this.form.DiveSiteExactLat.value)) {alert('DiveSiteExactLat cannot be blank');this.form.DiveSiteExactLat.style.background='Yellow';}else{this.form.DiveSiteExactLat.style.background='White';}\"><br /></td>");
+//echo stripslashes("</tr>
+//<tr><th valign='top' align ='left' scope='row'>DiveSiteExactLong</th>
+//");
+//echo ("<td><input type ='text' READONLY NAME='DiveSiteExactLong' VALUE='$DiveSiteExactLong'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='12' id ='DiveSiteExactLong' 
+//   onBlur=\"if(isBlank(this.form.DiveSiteExactLong.value)) {alert('DiveSiteExactLong cannot be blank');this.form.DiveSiteExactLong.style.background='Yellow';}else{this.form.DiveSiteExactLong.style.background='White';}\"><br /></td>");
+//echo stripslashes("</tr>");
+
+echo("<tr><th valign='top' align ='left' scope='row'>Select Course</th>");
+
+$array_length = count($coursesArray);
+echo('<td>');
+echo('<select DISABLED name="DiveSiteCourseTitle" tabindex=13 id="DiveSiteCourseTitle" VALUE="$DiveSiteCourseTitle">');
+for ($i=0;$i<$array_length;$i++)
+    {
+    	if($DiveSiteCourseTitle == $coursesArray[$i]){$selopt="selected";}else{$selopt="";}  
+echo ('<option value="'.$coursesArray[$i].'" '.$selopt.'>'.$coursesArray[$i].'</option>');
+    }
+echo('</select>');
+echo('</td>');
+
+
+//echo ("<td><input type ='text' NAME='DiveSiteCourseTitle' VALUE='$DiveSiteCourseTitle'  SIZE='80' MAXLENGTH='80'  tabindex='13' id ='DiveSiteCourseTitle' 
+//   onBlur=\"if(isBlank(this.form.DiveSiteCourseTitle.value)) {alert('DiveSiteCourseTitle cannot be blank');this.form.DiveSiteCourseTitle.style.background='Yellow';}else{this.form.DiveSiteCourseTitle.style.background='White';}\"><br /></td>");
 echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteCity</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteCity' VALUE='$DiveSiteCity'  SIZE='30' MAXLENGTH='30'  tabindex='5' id ='DiveSiteCity'><br /></td>");
+<tr><th valign='top' align ='left' scope='row'>Course Keywords</th>
+<td><TEXTAREA READONLY NAME='DiveSiteCourseNoteKeywords' COLS=100 ROW=3 TABINDEX='14'>$DiveSiteCourseNoteKeywords</TEXTAREA></td>");
 echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteProvince</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteProvince' VALUE='$DiveSiteProvince'  SIZE='15' MAXLENGTH='15'  tabindex='6' id ='DiveSiteProvince'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteCountry</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteCountry' VALUE='$DiveSiteCountry'  SIZE='15' MAXLENGTH='15'  tabindex='7' id ='DiveSiteCountry'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteName</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteName' VALUE='$DiveSiteName'  SIZE='80' MAXLENGTH='80'  tabindex='8' id ='DiveSiteName'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteMajorName</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteMajorName' VALUE='$DiveSiteMajorName'  SIZE='80' MAXLENGTH='80'  tabindex='9' id ='DiveSiteMajorName'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteMinorName</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteMinorName' VALUE='$DiveSiteMinorName'  SIZE='80' MAXLENGTH='80'  tabindex='10' id ='DiveSiteMinorName'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteExactLat</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteExactLat' VALUE='$DiveSiteExactLat'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='11' id ='DiveSiteExactLat'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteExactLong</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteExactLong' VALUE='$DiveSiteExactLong'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='12' id ='DiveSiteExactLong'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteCourseTitle</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSiteCourseTitle' VALUE='$DiveSiteCourseTitle'  SIZE='80' MAXLENGTH='80'  tabindex='13' id ='DiveSiteCourseTitle'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteCourseNoteKeywords</th>
-<td><TEXTAREA NAME='DiveSiteCourseNoteKeywords' READONLY COLS=100 ROW=3 TABINDEX='14'>$DiveSiteCourseNoteKeywords</TEXTAREA></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteCourseWhyNotes</th>
-<td><TEXTAREA NAME='DiveSiteCourseWhyNotes' READONLY COLS=100 ROW=3 TABINDEX='15'>$DiveSiteCourseWhyNotes</TEXTAREA></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSiteCourseURLFileInfo</th>
-<td><input type='file'READONLY NAME='DiveSiteCourseURLFileInfo'  VALUE='$DiveSiteCourseURLFileInfo'  SIZE='150' MAXLENGTH='150'  tabindex='16' id ='DiveSiteCourseURLFileInfo'><br /></td>");
-echo stripslashes("</tr>
-<tr></tr><tr></tr><tr></tr>
+<tr><th valign='top' align ='left' scope='row'>Reason for course:</th>
+<td><TEXTAREA READONLY NAME='DiveSiteCourseWhyNotes' COLS=100 ROW=3 TABINDEX='15'>$DiveSiteCourseWhyNotes</TEXTAREA></td>");
+echo stripslashes("</tr>");
+//echo("<tr><th valign='top' align ='left' scope='row'>DiveSiteCourseURLFileInfo</th>
+//<td><input type='file' NAME='DiveSiteCourseURLFileInfo'  VALUE='$DiveSiteCourseURLFileInfo'  SIZE='150' MAXLENGTH='150'  tabindex='16' id ='DiveSiteCourseURLFileInfo' 
+//   onBlur=\"if(isBlank(this.form.DiveSiteCourseURLFileInfo.value)) {alert('DiveSiteCourseURLFileInfo cannot be blank');this.form.DiveSiteCourseURLFileInfo.style.background='Yellow';}else{this.form.DiveSiteCourseURLFileInfo.style.background='White';}\"><br /></td>");
+//echo stripslashes("</tr>");
+echo("<tr></tr><tr></tr><tr></tr>
 <tr>
 <td colspan ='2' align='center'>
 <input type ='SUBMIT' NAME='display_button' Value = 'Return'>
@@ -838,6 +954,10 @@ global $NumDiveSiteCoursesRecords,$DiveSiteCourse,$DiveSiteId,$DiveSiteCourseEnt
 global $DiveSiteCity,$DiveSiteProvince,$DiveSiteCountry,$DiveSiteName,$DiveSiteMajorName;
 global $DiveSiteMinorName,$DiveSiteExactLat,$DiveSiteExactLong,$DiveSiteCourseTitle,$DiveSiteCourseNoteKeywords;
 global $DiveSiteCourseWhyNotes,$DiveSiteCourseURLFileInfo;
+
+
+// echo('here at add db: '.$DiveSiteCity.' '.$DiveSiteProvince);
+
 $connection = mysql_connect($serverhost,$user,$password) or die('ERROR!!  Cannot connect to MySql');
 $rs = mysql_select_db($db,$connection)    or die('ERROR!! Cannot connect to divesites database');
 $sql="insert into DiveSiteCourses(DiveSiteId,DiveSiteCourseEnteredBy,DiveSiteCourseDateEntered,DiveSiteCity,DiveSiteProvince,DiveSiteCountry,DiveSiteName,DiveSiteMajorName,DiveSiteMinorName,DiveSiteExactLat,DiveSiteExactLong,DiveSiteCourseTitle,DiveSiteCourseNoteKeywords,DiveSiteCourseWhyNotes,DiveSiteCourseURLFileInfo) values (";
@@ -858,7 +978,7 @@ $sql=$sql."'".strip_tags(addslashes($DiveSiteCourseWhyNotes))."',";
 $sql=$sql."'".strip_tags(addslashes($DiveSiteCourseURLFileInfo))."')";
 $result = mysql_query($sql,$connection) or die("ERROR!! DiveSiteCourses ADD failure");
 $DiveSiteCourse=mysql_insert_id($connection);
-PutVariablesIntoSession();
+
 mysql_close($connection);
 return;
 }
@@ -958,9 +1078,11 @@ return;
 function ListMenu()
  { 
 global $user, $serverhost,$db,$password;
+global $DiveSiteId;
 $connection = mysql_connect($serverhost,$user,$password) or die('ERROR!!  Cannot connect to MySql');
 $rs = mysql_select_db($db,$connection)    or die('ERROR!! Cannot connect to divesites database');
-$sql="select * from DiveSiteCourses order by DiveSiteId";
+$sql="select * from DiveSiteCourses where(DiveSiteId = '".strip_tags(addslashes($DiveSiteId))."') order by DiveSiteCourse";
+
 $result = mysql_query($sql,$connection) or die("ERROR!! DiveSiteCourses GetNumRecs failure");
 $NumDiveSiteCoursesRecords = mysql_num_rows($result);
 mysql_close($connection);
@@ -968,22 +1090,29 @@ echo "<form name='ListMenu' action='DiveSiteCourses.php' method ='POST'>";
 echo"<table align='center' border = '1' cellspacing ='3'>";
 echo "<input type='hidden' name='check' id='check'>";
 echo "<tr>";
-echo "<td align='center' ><b>DiveSiteCourse</b></td>";
-echo "<td align='center' ><b>DiveSiteId</b></td>";
-echo "<td align='center' ><b>DiveSiteCourseEnteredBy</b></td>";
-echo "<td align='center' ><b>DiveSiteCourseDateEntered</b></td>";
-echo "<td align='center' ><b>DiveSiteCity</b></td>";
-echo "<td align='center' ><b>DiveSiteProvince</b></td>";
-echo "<td align='center' ><b>DiveSiteCountry</b></td>";
-echo "<td align='center' ><b>DiveSiteName</b></td>";
-echo "<td align='center' ><b>DiveSiteMajorName</b></td>";
-echo "<td align='center' ><b>DiveSiteMinorName</b></td>";
-echo "<td align='center' ><b>DiveSiteExactLat</b></td>";
-echo "<td align='center' ><b>DiveSiteExactLong</b></td>";
+echo "<td align='center' ><b>Site Course</b></td>";
+
+echo "<td align='center' ><b>Dive Site Id</b></td>";
+
+echo "<td align='center' ><b>Course Entered By</b></td>";
+//echo "<td align='center' ><b>DiveSiteCourseDateEntered</b></td>";
+
+//echo "<td align='center' ><b>DiveSiteCity</b></td>";
+//echo "<td align='center' ><b>DiveSiteProvince</b></td>";
+//echo "<td align='center' ><b>DiveSiteCountry</b></td>";
+//echo "<td align='center' ><b>DiveSiteName</b></td>";
+//echo "<td align='center' ><b>DiveSiteMajorName</b></td>";
+//echo "<td align='center' ><b>DiveSiteMinorName</b></td>";
+//echo "<td align='center' ><b>DiveSiteExactLat</b></td>";
+//echo "<td align='center' ><b>DiveSiteExactLong</b></td>";
+
 echo "<td align='center' ><b>DiveSiteCourseTitle</b></td>";
+
 echo "<td align='center' ><b>DiveSiteCourseNoteKeywords</b></td>";
+
 echo "<td align='center' ><b>DiveSiteCourseWhyNotes</b></td>";
-echo "<td align='center' ><b>DiveSiteCourseURLFileInfo</b></td>";
+
+//echo "<td align='center' ><b>DiveSiteCourseURLFileInfo</b></td>";
 echo '</tr>';
  for($i=1;$i<=$NumDiveSiteCoursesRecords;$i++)
 {
@@ -991,24 +1120,30 @@ $rowdata=mysql_fetch_row($result);
 echo "<tr>";
 echo "<td align='center'><input type=radio id='SelectRecord' NAME='SelectRecord' VALUE='".$rowdata[0]."' onClick=\"document.forms.ListMenu.display_button.value = 'Display';document.forms.ListMenu.check.value = 'Display';document.forms.ListMenu.submit();\" >&nbsp; </td>";
 echo "<td align='left'>".$rowdata[1]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[2]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[3]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[4]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[5]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[6]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[7]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[8]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[9]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[10]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[11]."&nbsp; </td>";
+
+echo "<td align='left'>".$rowdata[2]."&nbsp;<br>".$rowdata[3]." </td>";
+//echo "<td align='left'>".$rowdata[3]."&nbsp; </td>";
+
+//echo "<td align='left'>".$rowdata[4]."&nbsp; </td>";
+//echo "<td align='left'>".$rowdata[5]."&nbsp; </td>";
+//echo "<td align='left'>".$rowdata[6]."&nbsp; </td>";
+//echo "<td align='left'>".$rowdata[7]."&nbsp; </td>";
+//echo "<td align='left'>".$rowdata[8]."&nbsp; </td>";
+//echo "<td align='left'>".$rowdata[9]."&nbsp; </td>";
+//echo "<td align='left'>".$rowdata[10]."&nbsp; </td>";
+//echo "<td align='left'>".$rowdata[11]."&nbsp; </td>";
+
 echo "<td align='left'>".$rowdata[12]."&nbsp; </td>";
+
 echo "<td align='left'>".$rowdata[13]."&nbsp; </td>";
+
 echo "<td align='left'>".$rowdata[14]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[15]."&nbsp; </td>";
+
+//echo "<td align='left'>".$rowdata[15]."&nbsp; </td>";
 echo "</tr>";
 }
 echo "<tr><td colspan='16' align='center'>
-<input type ='SUBMIT' NAME='display_button' Value = 'Back'>
+
 <input type ='SUBMIT' NAME='display_button' Value = 'Add'>";
 echo "</td></tr>";
 echo '</table>';
@@ -1049,7 +1184,8 @@ global $DiveSiteMinorName,$DiveSiteExactLat,$DiveSiteExactLong,$DiveSiteCourseTi
 global $DiveSiteCourseWhyNotes,$DiveSiteCourseURLFileInfo;
 $connection = mysql_connect($serverhost,$user,$password) or die('ERROR!!  Cannot connect to MySql');
 $rs = mysql_select_db($db,$connection)    or die('ERROR!! Cannot connect to divesites database');
-$sql="select * from DiveSiteCourses where(DiveSiteId ='".strip_tags(addslashes($DiveSiteId))."') order by DiveSiteId";
+$sql="select * from DiveSiteCourses where(DiveSiteId ='".strip_tags(addslashes($DiveSiteId))."' AND DiveSiteCourseTitle ='".strip_tags(addslashes($DiveSiteCourseTitle))."') order by DiveSiteCourse";
+
 $result = mysql_query($sql,$connection) or die("ERROR!! DiveSiteCourses Select * failure");
 $NumDiveSiteCoursesRecordsDesired = mysql_num_rows($result);
 mysql_close($connection);
@@ -1336,7 +1472,8 @@ echo "<body bgcolor ='".$BackgroundColor."'>";
              case 'Add':
                
                InitializeVariables();
-              
+               GetCommonVariablesFromSession();
+//               echo('at add: '.$DiveSiteCity);
                AddForm();
                break;
 
@@ -1388,9 +1525,21 @@ echo "<body bgcolor ='".$BackgroundColor."'>";
                
   
            case 'Submit Add':
+           
+//              echo('before get post: '.$DiveSiteCity.' '.$DiveSiteProvince);
+              
                GetPostVariables();
+               
+               
+//             echo('here: '.$DiveSiteCity.' '.$DiveSiteProvince);
+              
+               
                if(ValidUniqueCode())
                  {  
+                 	
+                 	
+//               echo('here before add db: '.$DiveSiteCity.' '.$DiveSiteProvince);
+              
                    Db_Add();
                    ListMenu();
                  }
@@ -1430,6 +1579,7 @@ echo "<body bgcolor ='".$BackgroundColor."'>";
    else
    {
         InitializeProgram();
+         GetCommonVariablesFromSession();
         ListMenu();
        
    }
