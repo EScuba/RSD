@@ -45,7 +45,7 @@ function initialize()
    map.setCenter(center); 
      
  });   
-   bounds = new google.maps.LatLngBounds(); 
+ //  bounds = new google.maps.LatLngBounds(); 
    
   
    searchLocations('Calgary, Alberta',200);
@@ -68,22 +68,80 @@ function initialize()
 //                                                                                                                                         
 //                                                                                                                                         
 //                                                                                                                                         
-//} 
-                                                                                                                                       
-function processLocation(){
-	   var address = document.getElementById('addressInput').value;
-	  
-	   var radius = document.getElementById('radiusSelect').value;
-	   
-	    searchLocations(address,radius);
-	   
-	   
-	  } 
+//}   
 
 
 
- function searchLocations(address,radius) {
+var currentLatitude='';    
+var currentLongitude='';   
+var requestButton='';   
+var location_timeout;
+function getCurrentLocation() { 
+	//  alert('before navigator call');                                             
+    if (navigator.geolocation) { 
+//    	  alert('in if at navigator');
+//    	  location_timeout =setTimeout("errorPosition",10000);                                     
+        navigator.geolocation.getCurrentPosition(loadCurrentPosition,errorPosition,{timeout:5000});       
+    } else {                                                          
+        alert("Geolocation is not supported by this browser."); 
+        var address = document.getElementById('addressInput').value;                
+        var radius = document.getElementById('radiusSelect').value;                 
+        requestButton='Search';                                                     
+        searchLocations(address,radius);                                            
+                                                                                      
+    }                                                                 
+}                                                                     
+
+function errorPosition(error){
+//	  clearTimeout(location_timeout);
+	  alert('Geolocation not working - defaulting to Search');
+	  var address = document.getElementById('addressInput').value;       
+	  var radius = document.getElementById('radiusSelect').value;        
+    requestButton='Search';                                                                   
+    searchLocations(address,radius); 
      
+     
+ }    
+                                                                                                        
+function loadCurrentPosition(position) {  
+//	  clearTimeout(location_timeout);
+//	  alert('at loadCurrentPosition');                                  
+    currentLatitude = position.coords.latitude;
+    currentLongitude = position.coords.longitude; 
+    var address = document.getElementById('addressInput').value;  
+    var radius = document.getElementById('radiusSelect').value;   
+    searchLocations(address,radius);  
+//    alert('data: '+currentLatitude+'   '+currentLongitude);	                  
+}   
+                                                                  
+ 
+                                                                                                                                       
+function processLocation(buttonvalue){  
+	
+ //  alert('button: '+ buttonvalue);	
+	   requestButton=buttonvalue;    
+	    
+	   if(requestButton=="Search"){	   
+	   var address = document.getElementById('addressInput').value; 
+	   var radius = document.getElementById('radiusSelect').value;
+	    
+	    searchLocations(address,radius);
+	   }
+     else
+     	{  
+    getCurrentLocation();		
+    var radius = document.getElementById('radiusSelect').value;	
+//    alert('before search after the else');	
+     searchLocations(address,radius);		
+      }	 
+      	  
+	  }   
+	  
+ function searchLocations(address,radius) { 
+ 	
+ //	  alert('in search locations: '+requestButton);
+    if(requestButton=='Search' || requestButton =='')
+    {  
      geocoder.geocode({address:address}, function(results, status) {
      	
  // add the check that resulting address search was ok 
@@ -97,8 +155,25 @@ function processLocation(){
      	
 //     alert(status + latitude + longitude + radius);	
     });
-     
    }
+   else
+   	{ 
+  // 		 alert('in search locations else: '+requestButton);  
+ //  		getCurrentLocation();
+      var latitude =currentLatitude;
+      var longitude= currentLongitude; 
+      
+ //      alert('in seach locations else: lat: '+latitude + ' '+longitude+' '+radius);
+      
+      
+      init(latitude,longitude,10);  
+      
+      
+                             
+      searchLocationsNear(latitude,longitude,radius);      
+     
+    }
+}
    
    
    
@@ -180,7 +255,7 @@ if (xmlDoc) {
     var DrivingInfo;
     var NumPOI;
     var OutputTable='<table>';
-        OutputTable=OutputTable+'<tr><th align="center">Dive Site<br>(Click on icons or name for more information)</th><th>Level</th><th>Distance (km)<br>(Click on distance for directions)</th></tr>';
+        OutputTable=OutputTable+'<tr><th align="center">Dive Site<br>(Use icons for more information)</th><th>Level</th><th>Distance (km)<br>(Click on distance for directions)</th></tr>';
     var convert;
     
     for (var i = 1; i < DiveSites.length; i++) {       
@@ -238,14 +313,25 @@ if (xmlDoc) {
               POILink='';
             }
          POILink=POILink+' '+'<img onclick="putPin('+DiveSiteExactLat+','+DiveSiteExactLong+',\'yellow-pushpin.png\',\''+SiteNotes+'\',\''+DiveSiteName+'\')" src="yellow-pushpin.png"  height="50"/>';
- 
+         POILink=POILink+' '+'<a href="http://www.kenspon.com/HAWGS/DiveSites/DiveSiteInfoDisplay.php?DiveSite='+DiveSiteId+'" target=_blank"><img src="info.png"/></a>';
   //       alert('POILink is: '+POILink);
  //Build the driving directions
  
-         DrivingInfo='<a href="http://maps.google.com/maps?saddr='+latitude+','+longitude+'&daddr='+DiveSiteExactLat+','+DiveSiteExactLong+'"target=_blank">'+convert+'</a>';     
          
+         
+         
+         
+         
+         
+         if(currentLatitude==""){
+         DrivingInfo='<a href="http://maps.google.com/maps?saddr='+latitude+','+longitude+'&daddr='+DiveSiteExactLat+','+DiveSiteExactLong+'"target=_blank">'+convert+'</a>';     
+         }
+         else
+         	{          		
+         DrivingInfo='<a href="http://maps.google.com/maps?saddr='+currentLatitude+','+currentLongitude+'&daddr='+DiveSiteExactLat+','+DiveSiteExactLong+'"target=_blank">'+convert+'</a>';		        		
+         	}	
            
-         OutputTable=OutputTable+'<tr><td>'+SiteInfo+'<br>'+POILink+'</td><td>'+DiveSiteDifficulty+'</td>'+'<td align="right">'+DrivingInfo+'</td></tr>';
+         OutputTable=OutputTable+'<tr><td>'+SiteNotes+'<br>'+POILink+'</td><td>'+DiveSiteDifficulty+'</td>'+'<td align="right">'+DrivingInfo+'</td></tr>';
  //        alert('new line: '+OutputTable);
                  
          
@@ -312,7 +398,14 @@ function putMarker(latitude,longitude,markerImage,markerInfo,majorLocation){
        	                                                                                                  
        marker.addListener('click',function(){                                                             
        	infoWindow.open(map,marker);                                                                      
-       });		                                                                                            
+       });	
+       
+       
+       
+       marker.addListener("dblclick", function() {
+           marker.setMap(null);                   
+       });                                        
+       	                                                                                            
                                                                                                           
   }                                                                                                       
    
@@ -340,7 +433,7 @@ function init(latitude,longitude,zoomFactor) {
             title:"Start Point"
         }); 
         
- 
+         bounds = new google.maps.LatLngBounds();
          bounds.extend(latlng);
          map.fitBounds(bounds);
         
@@ -372,9 +465,9 @@ window.onload =initialize;
     #googleMap {
     	  position: absolute;
     	  padding-top: 350px;
-    	  max-width: 1085px;
+    	  max-width:1085px;
     	  max-height:380px;
-    	  width: 89%;
+    	  width:89%;
     	  height: 100%;
     	  z-index: 5;
     	  margin: auto;
@@ -386,7 +479,8 @@ window.onload =initialize;
    	   position: relative;
    	   padding-top:400px;
    	   max-width: 800px;
-   	   width:100%;
+   	   width:100%;   
+   	   font-size: 11px;
    	   margin:auto;
    	  
    }
@@ -456,7 +550,11 @@ window.onload =initialize;
 </style>
 
 <style>                                                                                
-     @media screen and (max-width: 768px) {#menu.show {display: block;}}                                                                                
+     @media screen and (max-width: 768px) {#menu.show {display: block;}}
+
+     @media screen and (min-width: 460px) {#ResultsTable {font-size: 20px;} } 
+     @media screen and (max-width: 460px) {#Search {font-size: 13px;} } 
+                                                                                    
 </style>                                                                             
 
 
@@ -568,7 +666,7 @@ window.onload =initialize;
 <div id="Search">	
  
  <table>  
-   <tr><th colspan=3><h4>Search Criteria</h1></th></tr>
+   <tr><th colspan=3><bold>Search Criteria</bold></th></tr>
  
    <tr><td>Location /Postal Code:</td><td><input type="text" id="addressInput" value="Calgary,Alberta,Canada"/></td></tr>
      
@@ -586,7 +684,7 @@ window.onload =initialize;
       <option value="1000">1000</option> 
       <option value="1100">1100</option>                              
     </select></td><td></td></tr>
-    <tr><td></td><td align='center'><br><input type="button" onclick="processLocation()" value="Search"/>
+    <tr><td colspan='2' align='center'><br><input type="button" name="searchButton" onclick="processLocation(this.value)" value="Search"/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" name="searchButton" onclick="processLocation(this.value)" value="Search with Current Location"/>
     </td><td></td></tr>
 </table>    
     <br> <br> 

@@ -23,7 +23,7 @@ global $user, $serverhost,$db,$password;
 global $DesiredDiveSiteId;
 $connection = mysql_connect($serverhost,$user,$password) or die('ERROR!!  Cannot connect to MySql');
 $rs = mysql_select_db($db,$connection)    or die('ERROR!! Cannot connect to divesites database');
-$sql="select * from DiveSitePOI where DiveSiteId =".$DesiredDiveSiteId;
+$sql="select * from DiveSitePOI where DiveSiteId =".$DesiredDiveSiteId." order by DiveSitePOIType";
 
 #echo('sql: '.$sql);
 

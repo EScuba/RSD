@@ -244,8 +244,8 @@ echo stripslashes("
 <input type ='text' NAME='DiveSiteName' hidden  VALUE='$DiveSiteName'  SIZE='80' MAXLENGTH='80'  tabindex='8' id ='DiveSiteName' >
 <input type ='text' NAME='DiveSiteMajorName' hidden VALUE='$DiveSiteMajorName'  SIZE='80' MAXLENGTH='80'  tabindex='9' id ='DiveSiteMajorName'> 
 <input type ='text' NAME='DiveSiteMinorName' hidden VALUE='$DiveSiteMinorName'  SIZE='80' MAXLENGTH='80'  tabindex='10' id ='DiveSiteMinorName'> 
-<input type ='text' NAME='DiveSiteExactLat' hidden VALUE='$DiveSiteExactLat'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='11' id ='DiveSiteExactLat'>
-<input type ='text' NAME='DiveSiteExactLong' hidden VALUE='$DiveSiteExactLong'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='12' id ='DiveSiteExactLong'> "); 
+<input type ='text' NAME='DiveSiteExactLat' hidden VALUE='$DiveSiteExactLat'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='11' id ='DiveSiteExactLat'>
+<input type ='text' NAME='DiveSiteExactLong' hidden VALUE='$DiveSiteExactLong'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='12' id ='DiveSiteExactLong'> "); 
 
 if($Mode!="ADD")
  {
@@ -300,11 +300,11 @@ echo("</tr></table></td>");
 #
 #echo("<tr><th valign='top' align ='left' scope='row'>DiveSiteExactLat</th>
 #");
-#echo ("<td><input type ='text' NAME='DiveSiteExactLat' READONLY VALUE='$DiveSiteExactLat'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='11' id ='DiveSiteExactLat' 
+#echo ("<td><input type ='text' NAME='DiveSiteExactLat' READONLY VALUE='$DiveSiteExactLat'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='11' id ='DiveSiteExactLat' 
 #   onBlur=\"if(isBlank(this.form.DiveSiteExactLat.value)) {alert('DiveSiteExactLat cannot be blank');this.form.DiveSiteExactLat.style.background='Yellow';}else{this.form.DiveSiteExactLat.style.background='White';}\"><br /></td>");
 #echo stripslashes("<th valign='top' align ='left' scope='row'>DiveSiteExactLong</th>
 #");
-#echo ("<td><input type ='text' NAME='DiveSiteExactLong' READONLY VALUE='$DiveSiteExactLong'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='12' id ='DiveSiteExactLong' 
+#echo ("<td><input type ='text' NAME='DiveSiteExactLong' READONLY VALUE='$DiveSiteExactLong'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='12' id ='DiveSiteExactLong' 
 #   onBlur=\"if(isBlank(this.form.DiveSiteExactLong.value)) {alert('DiveSiteExactLong cannot be blank');this.form.DiveSiteExactLong.style.background='Yellow';}else{this.form.DiveSiteExactLong.style.background='White';}\"><br /></td>");
 #echo stripslashes("</tr>");
 
@@ -455,8 +455,8 @@ echo stripslashes("
 <input type ='text' NAME='DiveSiteName' hidden  VALUE='$DiveSiteName'  SIZE='80' MAXLENGTH='80'  tabindex='8' id ='DiveSiteName' >
 <input type ='text' NAME='DiveSiteMajorName' hidden VALUE='$DiveSiteMajorName'  SIZE='80' MAXLENGTH='80'  tabindex='9' id ='DiveSiteMajorName'> 
 <input type ='text' NAME='DiveSiteMinorName' hidden VALUE='$DiveSiteMinorName'  SIZE='80' MAXLENGTH='80'  tabindex='10' id ='DiveSiteMinorName'> 
-<input type ='text' NAME='DiveSiteExactLat' hidden VALUE='$DiveSiteExactLat'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='11' id ='DiveSiteExactLat'>
-<input type ='text' NAME='DiveSiteExactLong' hidden VALUE='$DiveSiteExactLong'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='12' id ='DiveSiteExactLong'> 
+<input type ='text' NAME='DiveSiteExactLat' hidden VALUE='$DiveSiteExactLat'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='11' id ='DiveSiteExactLat'>
+<input type ='text' NAME='DiveSiteExactLong' hidden VALUE='$DiveSiteExactLong'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='12' id ='DiveSiteExactLong'> 
 <input type='text' NAME='DiveSitePixPictureURLFileInfo'  hidden VALUE='$DiveSitePixPictureURLFileInfo'  SIZE='150' MAXLENGTH='150'  tabindex='16' id ='DiveSitePixPictureURLFileInfo'> 
 
 
@@ -508,11 +508,11 @@ echo("</tr></table></td>");
 #
 #echo("<tr><th valign='top' align ='left' scope='row'>DiveSiteExactLat</th>
 #");
-#echo ("<td><input type ='text' NAME='DiveSiteExactLat' READONLY VALUE='$DiveSiteExactLat'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='11' id ='DiveSiteExactLat' 
+#echo ("<td><input type ='text' NAME='DiveSiteExactLat' READONLY VALUE='$DiveSiteExactLat'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='11' id ='DiveSiteExactLat' 
 #   onBlur=\"if(isBlank(this.form.DiveSiteExactLat.value)) {alert('DiveSiteExactLat cannot be blank');this.form.DiveSiteExactLat.style.background='Yellow';}else{this.form.DiveSiteExactLat.style.background='White';}\"><br /></td>");
 #echo stripslashes("<th valign='top' align ='left' scope='row'>DiveSiteExactLong</th>
 #");
-#echo ("<td><input type ='text' NAME='DiveSiteExactLong' READONLY VALUE='$DiveSiteExactLong'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='12' id ='DiveSiteExactLong' 
+#echo ("<td><input type ='text' NAME='DiveSiteExactLong' READONLY VALUE='$DiveSiteExactLong'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='12' id ='DiveSiteExactLong' 
 #   onBlur=\"if(isBlank(this.form.DiveSiteExactLong.value)) {alert('DiveSiteExactLong cannot be blank');this.form.DiveSiteExactLong.style.background='Yellow';}else{this.form.DiveSiteExactLong.style.background='White';}\"><br /></td>");
 #echo stripslashes("</tr>");
 
@@ -619,8 +619,8 @@ echo stripslashes("
 <input type ='text' NAME='DiveSiteName' hidden  VALUE='$DiveSiteName'  SIZE='80' MAXLENGTH='80'  tabindex='8' id ='DiveSiteName' >
 <input type ='text' NAME='DiveSiteMajorName' hidden VALUE='$DiveSiteMajorName'  SIZE='80' MAXLENGTH='80'  tabindex='9' id ='DiveSiteMajorName'> 
 <input type ='text' NAME='DiveSiteMinorName' hidden VALUE='$DiveSiteMinorName'  SIZE='80' MAXLENGTH='80'  tabindex='10' id ='DiveSiteMinorName'> 
-<input type ='text' NAME='DiveSiteExactLat' hidden VALUE='$DiveSiteExactLat'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='11' id ='DiveSiteExactLat'>
-<input type ='text' NAME='DiveSiteExactLong' hidden VALUE='$DiveSiteExactLong'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='12' id ='DiveSiteExactLong'> 
+<input type ='text' NAME='DiveSiteExactLat' hidden VALUE='$DiveSiteExactLat'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='11' id ='DiveSiteExactLat'>
+<input type ='text' NAME='DiveSiteExactLong' hidden VALUE='$DiveSiteExactLong'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='12' id ='DiveSiteExactLong'> 
 <input type='text' NAME='DiveSitePixPictureURLFileInfo'  hidden VALUE='$DiveSitePixPictureURLFileInfo'  SIZE='150' MAXLENGTH='150'  tabindex='16' id ='DiveSitePixPictureURLFileInfo'> 
 
 
@@ -672,11 +672,11 @@ echo("</tr></table></td>");
 #
 #echo("<tr><th valign='top' align ='left' scope='row'>DiveSiteExactLat</th>
 #");
-#echo ("<td><input type ='text' NAME='DiveSiteExactLat' READONLY VALUE='$DiveSiteExactLat'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='11' id ='DiveSiteExactLat' 
+#echo ("<td><input type ='text' NAME='DiveSiteExactLat' READONLY VALUE='$DiveSiteExactLat'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='11' id ='DiveSiteExactLat' 
 #   onBlur=\"if(isBlank(this.form.DiveSiteExactLat.value)) {alert('DiveSiteExactLat cannot be blank');this.form.DiveSiteExactLat.style.background='Yellow';}else{this.form.DiveSiteExactLat.style.background='White';}\"><br /></td>");
 #echo stripslashes("<th valign='top' align ='left' scope='row'>DiveSiteExactLong</th>
 #");
-#echo ("<td><input type ='text' NAME='DiveSiteExactLong' READONLY VALUE='$DiveSiteExactLong'  SIZE='10,6' MAXLENGTH='10,6'  tabindex='12' id ='DiveSiteExactLong' 
+#echo ("<td><input type ='text' NAME='DiveSiteExactLong' READONLY VALUE='$DiveSiteExactLong'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='12' id ='DiveSiteExactLong' 
 #   onBlur=\"if(isBlank(this.form.DiveSiteExactLong.value)) {alert('DiveSiteExactLong cannot be blank');this.form.DiveSiteExactLong.style.background='Yellow';}else{this.form.DiveSiteExactLong.style.background='White';}\"><br /></td>");
 #echo stripslashes("</tr>");
 

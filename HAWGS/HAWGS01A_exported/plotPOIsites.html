@@ -205,9 +205,10 @@ var SiteNotes;
 var SiteInfo;                                                                                                                                                                                                                                                                                                                                                                                                                                  
 var DrivingInfo;                                                                                                                                                                                                                                                                                                                                                                                                                                                
 var OutputTable='<table>';                                                                                                                                                                                                                                                                                                                                                                                                                                      
-    OutputTable=OutputTable+'<tr><th align="center">Point of Interest</th><th>Type</th><th>Description<br></th><th>Notes & Comments</tr>';                                                                                                                                                                                                                                                                     
+    OutputTable=OutputTable+'<tr><th align="center">POI</th><th>Type</th><th>Description<br></th><th>Notes & Comments</tr>';                                                                                                                                                                                                                                                                     
 var convert;                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 var iconUse; 
+var POIPin;
 //alert(' size is: '+ POIArray.length);                  
 
 
@@ -254,7 +255,8 @@ var iconUse;
                    		Direction='W';
                    	}	
                    dec = dec.toFixed(2);
-                   document.getElementById("LocationDisplay").innerHTML= DiveSiteName+'<br> '+DiveSiteMajorName+'<br>'+DiveSiteMinorName+'<br>'+'Declination:&nbsp;'+dec+'&nbsp;&deg;&nbsp;'+Direction+'&nbsp;('+decNeed+')';                                              
+//                   document.getElementById("LocationDisplay").innerHTML= DiveSiteName+': '+DiveSiteMajorName+'<br>'+DiveSiteMinorName+'<br>'+'Declination:&nbsp;'+dec+'&nbsp;&deg;&nbsp;'+Direction+'&nbsp;('+decNeed+')'; 
+                    document.getElementById("LocationDisplay").innerHTML= DiveSiteName+': '+DiveSiteMajorName+'<br>'+DiveSiteMinorName;                          
                    init(DiveSiteExactLat,DiveSiteExactLong ,10);	  
                 	                                                
                   } 
@@ -282,14 +284,15 @@ var iconUse;
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
          convert ='';                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
  //Build Site info link                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-        SiteInfo='<img src="'+iconUse+'" alt="'+DiveSitePOIId+'" style="width:50px;">';                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+        SiteInfo='<img src="'+iconUse+'" alt="'+DiveSitePOIId+'" style="width:25px;">';                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
  //Build the driving directionw                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
 //         DrivingInfo='<a href="http://maps.google.com/maps?saddr='+latitude+','+longitude+'&daddr='+DiveSiteExactLat+','+DiveSiteExactLong+'"target=_blank">'+convert+'</a>';                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
-         OutputTable=OutputTable+'<tr><td>'+SiteInfo+'</td><td>'+DiveSitePOIType+'</td><td>'+DiveSitePOITitle+'</td>'+'<td>'+DiveSitePOINotes+'</td></tr>';                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+           POIPin='<img onclick="putPin('+DiveSitePOILat+','+DiveSitePOILong+',\'yellow-pushpin.png\',\''+SiteNotes+'\',\'\')" src="yellow-pushpin.png"  height="50"/>'; 
+//           alert('here: '+POIPin);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+         OutputTable=OutputTable+'<tr><td>'+SiteInfo+'</td><td>'+DiveSitePOIType+'<br>'+POIPin+'</td><td>'+DiveSitePOITitle+'</td>'+'<td>'+DiveSitePOINotes+'</td></tr>';                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
@@ -334,9 +337,55 @@ function putMarker(latitude,longitude,markerImage,markerInfo,majorLocation){
      	infoWindow.open(map,marker);
      });		     
         
-}   
-   
+} 
+
   
+  
+
+  
+
+  function putPin(latitude,longitude,markerImage,markerInfo,majorLocation){              
+  	                                                                                     
+  //	    alert('at marker: '+latitude);                                                 
+        var latlng = new google.maps.LatLng(latitude,longitude);	                       
+  	    var marker = new google.maps.Marker({                                            
+            position: latlng,                                                            
+            icon: markerImage,                                                           
+            zIndex: google.maps.Marker.MAX_ZINDEX + 1,                                   
+            map: map,                                                                    
+              title: majorLocation                                                       
+          });                                                                            
+                                                                                         
+       var infoWindow=new google.maps.InfoWindow({                                       
+       	    content: markerInfo                                                          
+       	  });                                                                            
+       	                                                                                 
+       marker.addListener('click',function(){                                            
+       	infoWindow.open(map,marker);                                                     
+       });	
+     
+       
+       marker.addListener("dblclick", function() {
+        marker.setMap(null);
+        });	 
+        
+         marker.addListener("dblclick", function() {              
+            marker.setMap(null);                                 
+      });                                                      
+ 	                                                        
+
+        
+        
+        
+                                                                                  
+                                                                                         
+  }                                                                                      
+
+
+
+
+
+ 
 function init(latitude,longitude,zoomFactor) {
         var latlng = new google.maps.LatLng(latitude,longitude);
 
@@ -814,6 +863,7 @@ window.onload =initialize;
    	   padding-top:400px;
    	   max-width: 800px;
    	   width:100%;
+   	   font-size: 11px;
    	   margin:auto;
    	  
    }
@@ -849,19 +899,7 @@ window.onload =initialize;
 	                             
   }                            
                                
-
-
-
-
-
-
-
-
-
-
-  
-  
-  
+ 
   
   
   #All{
@@ -883,7 +921,9 @@ window.onload =initialize;
 </style>
 
 <style>                                                                                
-     @media screen and (max-width: 768px) {#menu.show {display: block;}}                                                                                
+     @media screen and (max-width: 768px) {#menu.show {display: block;}} 
+      @media screen and (min-width: 560px) {#ResultsTable {font-size: 20px;} }
+      @media screen and (max-width: 560px) {#Search {font-size: 13px;} }                                                                                       
 </style>                                                                             
 
 
@@ -994,11 +1034,12 @@ window.onload =initialize;
 	
 <div id="Search">	
 <center>	
-<h3>Points of Interest</h3>
-<h5 id="LocationDisplay">"TBD"</h5> 
+<h6>Points of Interest</h6>
+<div id="LocationDisplay">"TBD"</div> 
                                                       
 <input type="button" value="Back" onclick="goBack()" />
 <input type="button" value="Plot Dive Route" onclick="plotDiveRoute()" />
+
 
 
 

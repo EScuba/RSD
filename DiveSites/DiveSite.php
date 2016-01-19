@@ -2512,10 +2512,10 @@ echo stripslashes("</tr>");
 echo stripslashes("<tr><td>Site Location</td><td colspan=\"7\"> <table>");
 echo stripslashes("<tr><th valign='top' align ='left' scope='row'>Latitude</th>
 ");
-echo ("<td><input type ='text' READONLY NAME='DiveSiteExactLat' VALUE='$DiveSiteExactLat'  SIZE='10,6' MAXLENGTH='10,6'  tabindex=11 id ='DiveSiteExactLat' 
+echo ("<td><input type ='text' READONLY NAME='DiveSiteExactLat' VALUE='$DiveSiteExactLat'  SIZE='11,7' MAXLENGTH='11,7'  tabindex=11 id ='DiveSiteExactLat' 
    onBlur=\"if(isBlank(this.form.DiveSiteExactLat.value)) {alert('DiveSiteExactLat cannot be blank');this.form.DiveSiteExactLat.style.background='Yellow';}else{this.form.DiveSiteExactLat.style.background='White';}\"><br></td>");
 echo stripslashes("<th valign='top' align ='left' scope='row'>Longitude</th>");
-echo ("<td><input type ='text' READONLY NAME='DiveSiteExactLong' VALUE='$DiveSiteExactLong'  SIZE='10,6' MAXLENGTH='10,6'  tabindex=12 id ='DiveSiteExactLong' 
+echo ("<td><input type ='text' READONLY NAME='DiveSiteExactLong' VALUE='$DiveSiteExactLong'  SIZE='11,7' MAXLENGTH='11,7'  tabindex=12 id ='DiveSiteExactLong' 
    onBlur=\"if(isBlank(this.form.DiveSiteExactLong.value)) {alert('DiveSiteExactLong cannot be blank');this.form.DiveSiteExactLong.style.background='Yellow';}else{this.form.DiveSiteExactLong.style.background='White';}\"><br></td>");
 echo stripslashes("</table></td></tr>");   
    
@@ -2526,10 +2526,10 @@ echo stripslashes("</tr>");
 
 echo stripslashes("<tr><td>Parking Location</td><td colspan=\"7\"> <table>");
 echo stripslashes("<th valign='top' align ='left' scope='row'>Latitude</th>");
-echo ("<td><input type ='text' READONLY NAME='DiveSiteShoreLat' VALUE='$DiveSiteShoreLat'  SIZE='10,6' MAXLENGTH='10,6'  tabindex=14 id ='DiveSiteShoreLat' 
+echo ("<td><input type ='text' READONLY NAME='DiveSiteShoreLat' VALUE='$DiveSiteShoreLat'  SIZE='11,7' MAXLENGTH='11,7'  tabindex=14 id ='DiveSiteShoreLat' 
    onBlur=\"if(isBlank(this.form.DiveSiteShoreLat.value)) {alert('DiveSiteShoreLat cannot be blank');this.form.DiveSiteShoreLat.style.background='Yellow';}else{this.form.DiveSiteShoreLat.style.background='White';}\"><br></td>");
 echo stripslashes("<th valign='top' align ='left' scope='row'>Longitude</th>");
-echo ("<td><input type ='text' READONLY NAME='DiveSiteShoreLong' VALUE='$DiveSiteShoreLong'  SIZE='10,6' MAXLENGTH='10,6'  tabindex=15 id ='DiveSiteShoreLong' 
+echo ("<td><input type ='text' READONLY NAME='DiveSiteShoreLong' VALUE='$DiveSiteShoreLong'  SIZE='11,7' MAXLENGTH='11,7'  tabindex=15 id ='DiveSiteShoreLong' 
    onBlur=\"if(isBlank(this.form.DiveSiteShoreLong.value)) {alert('DiveSiteShoreLong cannot be blank');this.form.DiveSiteShoreLong.style.background='Yellow';}else{this.form.DiveSiteShoreLong.style.background='White';}\"><br></td>");
 echo stripslashes("</tr>");
 echo stripslashes("</table></td></tr>"); 
