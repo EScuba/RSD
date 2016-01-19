@@ -5,7 +5,7 @@ require_once('SystemFunctions.php');
 $table="DiveSite";
 $CallingProgram="index.php";
 
-
+$_SESSION['DiveSiteId'] = '00000000';  
 
 
 #----------------- load the array for use with radio/check buttons ----------------------------------------

@@ -17,6 +17,8 @@ echo('
 
 if((int)$_SESSION['DiveSiteId']==0 || !isset($_SESSION['DiveSiteId']) || $_SESSION['DiveSiteId']=='0000')
   { echo ('<center>
+<INPUT TYPE="BUTTON" style="width: 150px"  VALUE="Dive Sites" onClick="parent.showframe0.location.href=\'DiveSite.php\';">	<br />  	
+<INPUT TYPE="BUTTON" style="width: 150px"  VALUE="Dive Facilities" onClick="parent.showframe0.location.href=\'DiveSupport.php\';">	<br /><br/>
 <INPUT TYPE="BUTTON" style="width: 150px"  disabled VALUE="Emergency" onClick="parent.showframe.location.href=\'DiveSiteEAP.php\';">	<br />
 <INPUT TYPE="BUTTON"  style="width: 150px"  VALUE="Pictures" onClick="parent.showframe.location.href=\'DiveSitePix.php\';">	<br />
 <INPUT TYPE="BUTTON" style="width: 150px"   disabled VALUE="Videos" onClick="parent.showframe.location.href=\'DiveSiteVideo.php\';">	<br />
@@ -25,7 +27,7 @@ if((int)$_SESSION['DiveSiteId']==0 || !isset($_SESSION['DiveSiteId']) || $_SESSI
 <INPUT TYPE="BUTTON" style="width: 150px"  disabled VALUE="Marine Life" onClick="parent.showframe.location.href=\'DiveSiteMarineLife.php\';">	<br />
 <INPUT TYPE="BUTTON" style="width: 150px"  VALUE="Points of Interest" onClick="parent.showframe.location.href=\'DiveSitePOI.php\';">	<br />
 <INPUT TYPE="BUTTON" style="width: 150px"  disabled VALUE="Surface Interval" onClick="parent.showframe.location.href=\'DiveSiteSI.php\';">	<br />
-<INPUT TYPE="BUTTON" style="width: 150px"  disabled VALUE="Scuba Shops" onClick="parent.showframe.location.href=\'EmpReferences.php\';">	<br />
+<INPUT TYPE="BUTTON" style="width: 150px"  VALUE="Courses" onClick="parent.showframe.location.href=\'DiveSiteCourses.php\';">	<br />
 <INPUT TYPE="BUTTON" style="width: 150px"  disabled VALUE="Buddies" onClick="parent.showframe.location.href=\'DiveSiteBuddy.php\';">	<br />
 
 
@@ -36,6 +38,8 @@ if((int)$_SESSION['DiveSiteId']==0 || !isset($_SESSION['DiveSiteId']) || $_SESSI
 
 else
 {echo('<center>
+<INPUT TYPE="BUTTON" style="width: 150px"  VALUE="Dive Sites" onClick="parent.showframe0.location.href=\'DiveSite.php\';">	<br />  	
+<INPUT TYPE="BUTTON" style="width: 150px"  VALUE="Dive Facilities" onClick="parent.showframe0.location.href=\'DiveSupport.php\';">	<br /><br/>
 <INPUT TYPE="BUTTON" style="width: 150px"  disabled VALUE="Emergency" onClick="parent.showframe.location.href=\'DiveSiteEAP.php\';">	<br />
 <INPUT TYPE="BUTTON"  style="width: 150px"  VALUE="Pictures" onClick="parent.showframe.location.href=\'DiveSitePix.php\';">	<br />
 <INPUT TYPE="BUTTON" style="width: 150px"   disabled VALUE="Videos" onClick="parent.showframe.location.href=\'DiveSiteVideo.php\';">	<br />
@@ -44,7 +48,7 @@ else
 <INPUT TYPE="BUTTON" style="width: 150px"  disabled VALUE="Marine Life" onClick="parent.showframe.location.href=\'DiveSiteMarineLife.php\';">	<br />
 <INPUT TYPE="BUTTON" style="width: 150px"  VALUE="Points of Interest" onClick="parent.showframe.location.href=\'DiveSitePOI.php\';">	<br />
 <INPUT TYPE="BUTTON" style="width: 150px"  disabled VALUE="Surface Interval" onClick="parent.showframe.location.href=\'DiveSiteSI.php\';">	<br />
-<INPUT TYPE="BUTTON" style="width: 150px"  disabled VALUE="Scuba Shops" onClick="parent.showframe.location.href=\'EmpReferences.php\';">	<br />
+<INPUT TYPE="BUTTON" style="width: 150px"  VALUE="Courses" onClick="parent.showframe.location.href=\'DiveSiteCourses.php\';">	<br />
 <INPUT TYPE="BUTTON" style="width: 150px"  disabled VALUE="Buddies" onClick="parent.showframe.location.href=\'DiveSiteBuddy.php\';">	<br />
 
 

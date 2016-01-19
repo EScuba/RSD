@@ -17,14 +17,17 @@ require_once('SystemFunctions.php');
 
  if(($_POST['display_button']=='Back')||($_POST['display_button']=='Logout'))
   { 
-      header('Location: index.php');
+      header('Location: DiveSite.php');
   } 
+  
+$_SESSION['DiveSiteId'] = '00000000';  
+  
 $db="divesites";
 $table="DiveSupport";
 
 $facilityTypeArray=array("Dive Shop","Firehall","Commercial Dive Operation","Independent Supplier","Dive Club","Other (Notes)");
-$facilityServicesArray=array("Air fills","Enriched Air","Trimix","Argon","Oxygen Fills","Equipment Rental","Equipment Service","Equipment Sales","Local Tours","Travel Services","Accommodations","Dive Information","Dive Instruction","PADI","NAUI","SSI","SDI","TDI","CMAS","BSAC","Other (Notes)");
-$facilityPhoneTypeArray=array("Landline","Cell-text","Cell");
+$facilityServicesArray=array("Air fills","Enriched Air","Trimix","Argon","Oxygen Fills","Equipment Rental","Equipment Service","Equipment Sales","Local Tours","Travel Services","Accommodations","Dive Information","Dive Instruction","PADI","NAUI","SSI","SDI","TDI","CMAS","BSAC","PSI","Other (Notes)");
+$facilityPhoneTypeArray=array("Landline","Cell-text","Cell","FAX");
 
 
 
@@ -49,7 +52,7 @@ global $DiveSupportPhone1,$DiveSupportPhone1Type,$DiveSupportPhone2,$DiveSupport
 global $DiveSupportPhone3,$DiveSupportPhone3Type,$DiveSupportWebsite,$DiveSupportEmail,$DiveSupportExactLat;
 global $DiveSupportExactLong,$DiveSupportHoursMon,$DiveSupportHoursTues,$DiveSupportHoursWed;
 global $DiveSupportHoursThu,$DiveSupportHoursFri,$DiveSupportHoursSat,$DiveSupportHoursSun;
-global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate;
+global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate,$DiveSupportPCZip;
 global $DesiredRecord;
 $connection = mysql_connect($serverhost,$user,$password) or die('ERROR!!  Cannot connect to MySql');
 $rs = mysql_select_db($db,$connection)    or die('ERROR!! Cannot connect to divesites database');
@@ -90,6 +93,7 @@ $DiveSupportServices=$rowdata[26];
 $DiveSupportSuppliersNote=$rowdata[27];
 $DiveSupportNotes=$rowdata[28];
 $DiveSupportPaidDate=$rowdata[29];
+$DiveSupportPCZip=$rowdata[30];
 }
 PutVariablesIntoSession();
 return;
@@ -105,7 +109,7 @@ global $DiveSupportPhone1,$DiveSupportPhone1Type,$DiveSupportPhone2,$DiveSupport
 global $DiveSupportPhone3,$DiveSupportPhone3Type,$DiveSupportWebsite,$DiveSupportEmail,$DiveSupportExactLat;
 global $DiveSupportExactLong,$DiveSupportHoursMon,$DiveSupportHoursTues,$DiveSupportHoursWed;
 global $DiveSupportHoursThu,$DiveSupportHoursFri,$DiveSupportHoursSat,$DiveSupportHoursSun;
-global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate;
+global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate,$DiveSupportPCZip;
 $_SESSION['DiveSupportId'] = $DiveSupportId;
 $_SESSION['DiveSupportStatus'] = $DiveSupportStatus;
 $_SESSION['DiveSupportType'] = $DiveSupportType;
@@ -136,6 +140,7 @@ $_SESSION['DiveSupportServices'] = $DiveSupportServices;
 $_SESSION['DiveSupportSuppliersNote'] = $DiveSupportSuppliersNote;
 $_SESSION['DiveSupportNotes'] = $DiveSupportNotes;
 $_SESSION['DiveSupportPaidDate'] = $DiveSupportPaidDate;
+$_SESSION['DiveSupportPCZip']=$DiveSupportPCZip;
 return;
 }
 
@@ -150,7 +155,7 @@ global $DiveSupportPhone1,$DiveSupportPhone1Type,$DiveSupportPhone2,$DiveSupport
 global $DiveSupportPhone3,$DiveSupportPhone3Type,$DiveSupportWebsite,$DiveSupportEmail,$DiveSupportExactLat;
 global $DiveSupportExactLong,$DiveSupportHoursMon,$DiveSupportHoursTues,$DiveSupportHoursWed;
 global $DiveSupportHoursThu,$DiveSupportHoursFri,$DiveSupportHoursSat,$DiveSupportHoursSun;
-global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate;
+global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate,$DiveSupportPCZip;
 
 global $facilityTypeArray,$facilityServicesArray;
 global $siteProvinceArray,$siteCountryArray;
@@ -190,6 +195,7 @@ $DiveSupportServices=$_POST['DiveSupportServices'];
 $DiveSupportSuppliersNote=$_POST['DiveSupportSuppliersNote'];
 $DiveSupportNotes=$_POST['DiveSupportNotes'];
 $DiveSupportPaidDate=$_POST['DiveSupportPaidDate'];
+$DiveSupportPCZip=$_POST['DiveSupportPCZip'];
 
 
 
@@ -457,7 +463,7 @@ global $DiveSupportPhone1,$DiveSupportPhone1Type,$DiveSupportPhone2,$DiveSupport
 global $DiveSupportPhone3,$DiveSupportPhone3Type,$DiveSupportWebsite,$DiveSupportEmail,$DiveSupportExactLat;
 global $DiveSupportExactLong,$DiveSupportHoursMon,$DiveSupportHoursTues,$DiveSupportHoursWed;
 global $DiveSupportHoursThu,$DiveSupportHoursFri,$DiveSupportHoursSat,$DiveSupportHoursSun;
-global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate;
+global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate,$DiveSupportPCZip;
 $DiveSupportId=$_SESSION['DiveSupportId'];
 $DiveSupportStatus=$_SESSION['DiveSupportStatus'];
 $DiveSupportType=$_SESSION['DiveSupportType'];
@@ -488,6 +494,7 @@ $DiveSupportServices=$_SESSION['DiveSupportServices'];
 $DiveSupportSuppliersNote=$_SESSION['DiveSupportSuppliersNote'];
 $DiveSupportNotes=$_SESSION['DiveSupportNotes'];
 $DiveSupportPaidDate=$_SESSION['DiveSupportPaidDate'];
+$DiveSupportPCZip=$_SESSION['DiveSupportPCZip'];
 return;
 }
 
@@ -501,7 +508,7 @@ global $DiveSupportPhone1,$DiveSupportPhone1Type,$DiveSupportPhone2,$DiveSupport
 global $DiveSupportPhone3,$DiveSupportPhone3Type,$DiveSupportWebsite,$DiveSupportEmail,$DiveSupportExactLat;
 global $DiveSupportExactLong,$DiveSupportHoursMon,$DiveSupportHoursTues,$DiveSupportHoursWed;
 global $DiveSupportHoursThu,$DiveSupportHoursFri,$DiveSupportHoursSat,$DiveSupportHoursSun;
-global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate;
+global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate,$DiveSupportPCZip;
 for($i=1;$i<=$NumDiveSupportRecords;$i++)
 {
 $rowdata=mysql_fetch_row($result);
@@ -535,6 +542,7 @@ $DiveSupportServices=$rowdata[26];
 $DiveSupportSuppliersNote=$rowdata[27];
 $DiveSupportNotes=$rowdata[28];
 $DiveSupportPaidDate=$rowdata[29];
+$DiveSupportPCZip=$rowdata[30];
 }
 PutVariablesIntoSession();
 return;
@@ -548,7 +556,7 @@ global $DiveSupportPhone1,$DiveSupportPhone1Type,$DiveSupportPhone2,$DiveSupport
 global $DiveSupportPhone3,$DiveSupportPhone3Type,$DiveSupportWebsite,$DiveSupportEmail,$DiveSupportExactLat;
 global $DiveSupportExactLong,$DiveSupportHoursMon,$DiveSupportHoursTues,$DiveSupportHoursWed;
 global $DiveSupportHoursThu,$DiveSupportHoursFri,$DiveSupportHoursSat,$DiveSupportHoursSun;
-global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate;
+global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate,$DiveSupportPCZip;
 global $Mode;
 global $facilityTypeArray,$facilityServicesArray;
 global $siteProvinceArray,$siteCountryArray;
@@ -678,7 +686,9 @@ echo ('<option value="'.$siteCountryArray[$i].'" '.$selopt.'>'.$siteCountryArray
 echo('</select>');
 echo('</td>');
 
-
+echo("<th valign='top' align ='left' scope='row'>PC/Zip:</th>");
+echo ("<td><input type ='text' NAME='DiveSupportPCZip' VALUE='$DiveSupportPCZip'  SIZE='10' MAXLENGTH='10'  tabindex='9' id ='DiveSupportPCZip' 
+   onBlur=\"if(isBlank(this.form.DiveSupportPCZip.value)) {alert('DiveSupportPCZip cannot be blank');this.form.DiveSupportPCZip1.style.background='Yellow';}else{this.form.DiveSupportPCZip.style.background='White';}\"><br /></td>");
 
 
 
@@ -888,7 +898,7 @@ if(strlen($DiveSupportServices)!=0)
  	    if($facilityServicesArray[$i] == 'Equipment Sales'){echo('</tr><tr>');}
  	    if($facilityServicesArray[$i] == 'Dive Information'){echo('</tr><tr>');}
  	    if($facilityServicesArray[$i] == 'Dive Instruction'){echo('</tr><tr><td colspan=6><table><tr><td>');}
- 	    if($facilityServicesArray[$i] == 'BSAC'){echo('</td></tr></table></td></tr><tr>');}
+ 	    if($facilityServicesArray[$i] == 'PSI'){echo('</td></tr></table></td></tr><tr>');}
  	  }	
  	  	  	
  }
@@ -907,7 +917,7 @@ if(strlen($DiveSupportServices)!=0)
  	       if($facilityServicesArray[$i] == 'Equipment Sales'){echo('</tr><tr>');}
  	       if($facilityServicesArray[$i] == 'Dive Information'){echo('</tr><tr>');}
  	       if($facilityServicesArray[$i] == 'Dive Instruction'){echo('</tr><tr><td colspan=6><table><tr><td>');}
- 	       if($facilityServicesArray[$i] == 'BSAC'){echo('</td></tr></table></td></tr><tr>');}
+ 	       if($facilityServicesArray[$i] == 'PSI'){echo('</td></tr></table></td></tr><tr>');}
        }
   }
 echo('</tr>');
@@ -944,9 +954,11 @@ global $DiveSupportAddress1,$DiveSupportAddress2,$DiveSupportCity,$DiveSupportPr
 global $DiveSupportPhone3,$DiveSupportPhone3Type,$DiveSupportWebsite,$DiveSupportEmail,$DiveSupportExactLat;
 global $DiveSupportExactLong,$DiveSupportHoursMon,$DiveSupportHoursTues,$DiveSupportHoursWed;
 global $DiveSupportHoursThu,$DiveSupportHoursFri,$DiveSupportHoursSat,$DiveSupportHoursSun;
-global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate;
+global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate,$DiveSupportPCZip;
 global $Mode;
 $Mode='ADD';
+
+$DiveSupportStatus='PENDING';
 echo stripslashes("
 <FORM NAME='DiveSupportEntry' action='DiveSupport.php' method='POST'>");
 CommonForm();
@@ -975,7 +987,7 @@ global $DiveSupportPhone1,$DiveSupportPhone1Type,$DiveSupportPhone2,$DiveSupport
 global $DiveSupportPhone3,$DiveSupportPhone3Type,$DiveSupportWebsite,$DiveSupportEmail,$DiveSupportExactLat;
 global $DiveSupportExactLong,$DiveSupportHoursMon,$DiveSupportHoursTues,$DiveSupportHoursWed;
 global $DiveSupportHoursThu,$DiveSupportHoursFri,$DiveSupportHoursSat,$DiveSupportHoursSun;
-global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate;
+global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate,$DiveSupportPCZip;
 global $Mode;
 $Mode='EDIT';
 echo stripslashes("
@@ -1000,154 +1012,392 @@ global $DiveSupportPhone1,$DiveSupportPhone1Type,$DiveSupportPhone2,$DiveSupport
 global $DiveSupportPhone3,$DiveSupportPhone3Type,$DiveSupportWebsite,$DiveSupportEmail,$DiveSupportExactLat;
 global $DiveSupportExactLong,$DiveSupportHoursMon,$DiveSupportHoursTues,$DiveSupportHoursWed;
 global $DiveSupportHoursThu,$DiveSupportHoursFri,$DiveSupportHoursSat,$DiveSupportHoursSun;
-global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate;
+global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate,$DiveSupportPCZip;
+
+global $facilityTypeArray,$facilityServicesArray;
+global $siteProvinceArray,$siteCountryArray;
+global $facilityPhoneTypeArray;
+
 echo stripslashes("
 <FORM NAME='DiveSupportDelete' action='DiveSupport.php' method='POST'>
-<TABLE  align='center' border='1'><tr><td>
-<TABLE align='center' border='1' cellspacing='5'>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportId</th>
-<td><input type ='text' READONLY NAME='DiveSupportId' VALUE='$DiveSupportId' SIZE='8' MAXLENGTH='8' tabindex ='1' id ='DiveSupportId' READONLY><br /></td></tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportStatus</th>
+<TABLE border='1' align='center'><tr><td>
+<TABLE border='1' align='center' cellspacing='5'>
+
+<tr>
+<td colspan ='2' align='center'>
+<input type ='SUBMIT' NAME='display_button' Value = 'Cancel Delete'>
+<input type ='SUBMIT' NAME='display_button' Value = 'Submit Delete'>
+</td>
+</tr>
+
+
+
+<tr><th>Support Facility</th><td colspan='5'><table><th valign='top' align ='left' scope='row'>Id</th>
+<td><input type ='text' NAME='DiveSupportId' VALUE='$DiveSupportId' SIZE='8' MAXLENGTH='8' tabindex ='1' id ='DiveSupportId' READONLY><br /></td>
+
+<th valign='top' align ='left' scope='row'>Status</th>
 "); if($Mode=='EDIT')
 {echo ("<td><input type ='text' style='color: gray' READONLY NAME='DiveSupportStatus' VALUE='$DiveSupportStatus'  SIZE='8' MAXLENGTH='8'  tabindex='2' id ='DiveSupportStatus' 
    onBlur=\"if(isBlank(this.form.DiveSupportStatus.value)) {alert('DiveSupportStatus cannot be blank');this.form.DiveSupportStatus.style.background='Yellow';}else{this.form.DiveSupportStatus.style.background='White';}\"><br /></td>");}
 else 
 {echo ("<td><input type ='text' READONLY NAME='DiveSupportStatus' VALUE='$DiveSupportStatus'  SIZE='8' MAXLENGTH='8'  tabindex='2' id ='DiveSupportStatus' 
    onBlur=\"if(isBlank(this.form.DiveSupportStatus.value)) {alert('DiveSupportStatus cannot be blank');this.form.DiveSupportStatus.style.background='Yellow';}else{this.form.DiveSupportStatus.style.background='White';}\"><br /></td>");}
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportType</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportType' VALUE='$DiveSupportType'  SIZE='10' MAXLENGTH='10'  tabindex='3' id ='DiveSupportType' 
-   onBlur=\"if(isBlank(this.form.DiveSupportType.value)) {alert('DiveSupportType cannot be blank');this.form.DiveSupportType.style.background='Yellow';}else{this.form.DiveSupportType.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportName</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportName' VALUE='$DiveSupportName'  SIZE='100' MAXLENGTH='100'  tabindex='4' id ='DiveSupportName' 
+echo("</table></td></tr>");
+
+
+echo stripslashes("<tr><th valign='top' align ='left' scope='row'>Type</th><td colspan='5'><table><tr>");
+
+
+$tabcount=2;
+	$numPossibleElements = count($facilityTypeArray);
+	
+	
+	
+if(strlen($DiveSupportType)!=0)
+ {
+ 	  	for($i=0;$i < $numPossibleElements;$i++)
+ 	  {
+ 	  	$tabcount++;
+ 	  	if($DiveSupportType[$i]=="1") {$state='checked';}else{$state='';}
+ 	  	echo stripslashes("<td><input type= 'radio' DISABLED name='SupportType[]' value='".$facilityTypeArray[$i]."'tabindex=".$tabcount." ".$state.">".$facilityTypeArray[$i]."</td>");  
+ 	  }	
+ 	  	  	
+ }
+ 	  
+ else
+ { 
+ 	  	
+ 	  	for($i=0;$i < $numPossibleElements;$i++)
+ 	     {
+ 	     	 
+ 	     	 $tabcount++;
+ 	       if($facilityTypeArray[$i] == 'Dive Shop') {$state='checked';} else {$state='';}
+          
+          echo stripslashes("<td><input type= 'radio' DISABLED name='SupportType[]' value='".$facilityTypeArray[$i]."'tabindex=".$tabcount." ".$state.">".$facilityTypeArray[$i]."&nbsp;&nbsp;</td>");
+
+       }
+}
+
+
+//echo ("<td><input type ='text' NAME='DiveSupportType' VALUE='$DiveSupportType'  SIZE='10' MAXLENGTH='10'  tabindex='3' id ='DiveSupportType' 
+//   onBlur=\"if(isBlank(this.form.DiveSupportType.value)) {alert('DiveSupportType cannot be blank');this.form.DiveSupportType.style.background='Yellow';}else{this.form.DiveSupportType.style.background='White';}\"><br /></td>");
+echo stripslashes("</tr>");
+echo("</table></td></tr>");
+
+
+echo("<tr><th valign='top' align ='left' scope='row'>Name</th>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportName' VALUE='$DiveSupportName'  SIZE='100' MAXLENGTH='100'  tabindex='4' id ='DiveSupportName' 
    onBlur=\"if(isBlank(this.form.DiveSupportName.value)) {alert('DiveSupportName cannot be blank');this.form.DiveSupportName.style.background='Yellow';}else{this.form.DiveSupportName.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportAddress1</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportAddress1' VALUE='$DiveSupportAddress1'  SIZE='100' MAXLENGTH='100'  tabindex='5' id ='DiveSupportAddress1' 
+echo stripslashes("</tr>");
+echo("<tr><th valign='top' align ='left' scope='row'>Address 1</th>");
+
+echo ("<td><input type ='text' READONLY NAME='DiveSupportAddress1' VALUE='$DiveSupportAddress1'  SIZE='100' MAXLENGTH='100'  tabindex='5' id ='DiveSupportAddress1' 
    onBlur=\"if(isBlank(this.form.DiveSupportAddress1.value)) {alert('DiveSupportAddress1 cannot be blank');this.form.DiveSupportAddress1.style.background='Yellow';}else{this.form.DiveSupportAddress1.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportAddress2</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportAddress2' VALUE='$DiveSupportAddress2'  SIZE='100' MAXLENGTH='100'  tabindex='6' id ='DiveSupportAddress2' 
+echo stripslashes("</tr>");
+echo("<tr><th valign='top' align ='left' scope='row'>Address 2</th>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportAddress2' VALUE='$DiveSupportAddress2'  SIZE='100' MAXLENGTH='100'  tabindex='6' id ='DiveSupportAddress2' 
    onBlur=\"if(isBlank(this.form.DiveSupportAddress2.value)) {alert('DiveSupportAddress2 cannot be blank');this.form.DiveSupportAddress2.style.background='Yellow';}else{this.form.DiveSupportAddress2.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportCity</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportCity' VALUE='$DiveSupportCity'  SIZE='25' MAXLENGTH='25'  tabindex='7' id ='DiveSupportCity' 
+echo stripslashes("</tr>");
+echo("<tr><th valign='top' align ='left' scope='row'>City</th>");
+echo("<td colspan='5'><table><tr>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportCity' VALUE='$DiveSupportCity'  SIZE='25' MAXLENGTH='25'  tabindex='7' id ='DiveSupportCity' 
    onBlur=\"if(isBlank(this.form.DiveSupportCity.value)) {alert('DiveSupportCity cannot be blank');this.form.DiveSupportCity.style.background='Yellow';}else{this.form.DiveSupportCity.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportProvince</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportProvince' VALUE='$DiveSupportProvince'  SIZE='25' MAXLENGTH='25'  tabindex='8' id ='DiveSupportProvince' 
-   onBlur=\"if(isBlank(this.form.DiveSupportProvince.value)) {alert('DiveSupportProvince cannot be blank');this.form.DiveSupportProvince.style.background='Yellow';}else{this.form.DiveSupportProvince.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportCountry</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportCountry' VALUE='$DiveSupportCountry'  SIZE='25' MAXLENGTH='25'  tabindex='9' id ='DiveSupportCountry' 
-   onBlur=\"if(isBlank(this.form.DiveSupportCountry.value)) {alert('DiveSupportCountry cannot be blank');this.form.DiveSupportCountry.style.background='Yellow';}else{this.form.DiveSupportCountry.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportPhone1</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportPhone1' VALUE='$DiveSupportPhone1'  SIZE='15' MAXLENGTH='15'  tabindex='10' id ='DiveSupportPhone1' 
+echo stripslashes("<th valign='top' align ='left' scope='row'>Province</th>");
+
+
+
+$array_length = count($siteProvinceArray);
+echo('<td>');
+echo('<select DISABLED name="DiveSiteProvince" tabindex=7 id="DiveSiteProvince" VALUE="$DiveSiteProvince">');
+for ($i=0;$i<$array_length;$i++)
+    {
+    	if($Mode=='ADD')
+    	 {
+           if($siteProvinceArray == 'Alberta'){$selopt="selected";}else{$selopt="";}  
+       }
+       else
+       {
+       	   if($DiveSiteProvince == $siteProvinceArray[$i]){$selopt="selected";}else{$selopt="";}  
+       }      	
+echo ('<option value="'.$siteProvinceArray[$i].'" '.$selopt.'>'.$siteProvinceArray[$i].'</option>');
+    }
+echo('</select>');
+echo('</td>');
+
+
+
+
+//echo ("<td><input type ='text' NAME='DiveSupportProvince' VALUE='$DiveSupportProvince'  SIZE='25' MAXLENGTH='25'  tabindex='8' id ='DiveSupportProvince' 
+//   onBlur=\"if(isBlank(this.form.DiveSupportProvince.value)) {alert('DiveSupportProvince cannot be blank');this.form.DiveSupportProvince.style.background='Yellow';}else{this.form.DiveSupportProvince.style.background='White';}\"><br /></td>");
+echo stripslashes("<th valign='top' align ='left' scope='row'>Country</th>");
+
+$array_length = count($siteCountryArray);
+echo('<td>');
+echo('<select DISABLED name="DiveSiteCountry" tabindex=8 id="DiveSiteProvince" VALUE="$DiveSiteCountry">');
+for ($i=0;$i<$array_length;$i++)
+    {
+    	if($Mode=='ADD')
+    	 {
+           if($siteCountryArray == 'Alberta'){$selopt="selected";}else{$selopt="";}  
+       }
+       else
+       {
+       	   if($DiveSiteCountry == $siteCountryArray[$i]){$selopt="selected";}else{$selopt="";}  
+       }      	
+echo ('<option value="'.$siteCountryArray[$i].'" '.$selopt.'>'.$siteCountryArray[$i].'</option>');
+    }
+echo('</select>');
+echo('</td>');
+
+echo("<th valign='top' align ='left' scope='row'>PC/Zip:</th>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportPCZip' VALUE='$DiveSupportPCZip'  SIZE='10' MAXLENGTH='10'  tabindex='9' id ='DiveSupportPCZip' 
+   onBlur=\"if(isBlank(this.form.DiveSupportPCZip.value)) {alert('DiveSupportPCZip cannot be blank');this.form.DiveSupportPCZip1.style.background='Yellow';}else{this.form.DiveSupportPCZip.style.background='White';}\"><br /></td>");
+
+
+
+//echo ("<td><input type ='text' NAME='DiveSupportCountry' VALUE='$DiveSupportCountry'  SIZE='25' MAXLENGTH='25'  tabindex='9' id ='DiveSupportCountry' 
+//   onBlur=\"if(isBlank(this.form.DiveSupportCountry.value)) {alert('DiveSupportCountry cannot be blank');this.form.DiveSupportCountry.style.background='Yellow';}else{this.form.DiveSupportCountry.style.background='White';}\"><br /></td>");
+
+echo stripslashes("</tr>");
+echo("</table></td>");
+
+
+echo("<tr><th>Phones:<br>FORMAT: ###-###-####</th><td colspan ='5'><table>");
+echo("<tr><th valign='top' align ='left' scope='row'>Phone 1</th>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportPhone1' VALUE='$DiveSupportPhone1'  SIZE='15' MAXLENGTH='15'  tabindex='10' id ='DiveSupportPhone1' 
    onBlur=\"if(isBlank(this.form.DiveSupportPhone1.value)) {alert('DiveSupportPhone1 cannot be blank');this.form.DiveSupportPhone1.style.background='Yellow';}else{this.form.DiveSupportPhone1.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportPhone1Type</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportPhone1Type' VALUE='$DiveSupportPhone1Type'  SIZE='15' MAXLENGTH='15'  tabindex='11' id ='DiveSupportPhone1Type' 
-   onBlur=\"if(isBlank(this.form.DiveSupportPhone1Type.value)) {alert('DiveSupportPhone1Type cannot be blank');this.form.DiveSupportPhone1Type.style.background='Yellow';}else{this.form.DiveSupportPhone1Type.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportPhone2</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportPhone2' VALUE='$DiveSupportPhone2'  SIZE='15' MAXLENGTH='15'  tabindex='12' id ='DiveSupportPhone2' 
+
+$tabcount=10;
+	$numPossibleElements = count($facilityPhoneTypeArray);
+	
+	
+echo("<td>");	
+if(strlen($DiveSupportPhone1Type)!=0)
+ {
+ 	  	for($i=0;$i < $numPossibleElements;$i++)
+ 	  {
+ 	  	$tabcount++;
+ 	  	if($DiveSupportPhone1Type[$i]=="1") {$state='checked';}else{$state='';}
+ 	  	echo stripslashes("<input type= 'radio' DISABLED name='SupportPhone1Type[]' value='".$facilityPhoneTypeArray[$i]."'tabindex=".$tabcount." ".$state.">".$facilityPhoneTypeArray[$i]."&nbsp;&nbsp;");  
+ 	  }	
+ 	  	  	
+ }
+ 	  
+ else
+ { 
+ 	  	
+ 	  	for($i=0;$i < $numPossibleElements;$i++)
+ 	     {
+ 	     	 
+ 	     	 $tabcount++;
+ 	       if($facilityPhoneTypeArray[$i] == 'Landline') {$state='checked';} else {$state='';}
+          
+          echo stripslashes("<input type= 'radio' DISABLED name='SupportPhone1Type[]' value='".$facilityPhoneTypeArray[$i]."'tabindex=".$tabcount." ".$state.">".$facilityPhoneTypeArray[$i]."&nbsp;&nbsp;");
+
+       }
+}
+
+echo("</td>");
+
+
+
+//echo ("<td><input type ='text' NAME='DiveSupportPhone1Type' VALUE='$DiveSupportPhone1Type'  SIZE='15' MAXLENGTH='15'  tabindex='11' id ='DiveSupportPhone1Type' 
+//   onBlur=\"if(isBlank(this.form.DiveSupportPhone1Type.value)) {alert('DiveSupportPhone1Type cannot be blank');this.form.DiveSupportPhone1Type.style.background='Yellow';}else{this.form.DiveSupportPhone1Type.style.background='White';}\"><br /></td>");
+
+echo("</tr>");
+echo("<tr>");
+echo stripslashes("<th valign='top' align ='left' scope='row'>Phone2</th>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportPhone2' VALUE='$DiveSupportPhone2'  SIZE='15' MAXLENGTH='15'  tabindex='12' id ='DiveSupportPhone2' 
    onBlur=\"if(isBlank(this.form.DiveSupportPhone2.value)) {alert('DiveSupportPhone2 cannot be blank');this.form.DiveSupportPhone2.style.background='Yellow';}else{this.form.DiveSupportPhone2.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportPhone2Type</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportPhone2Type' VALUE='$DiveSupportPhone2Type'  SIZE='15' MAXLENGTH='15'  tabindex='13' id ='DiveSupportPhone2Type' 
-   onBlur=\"if(isBlank(this.form.DiveSupportPhone2Type.value)) {alert('DiveSupportPhone2Type cannot be blank');this.form.DiveSupportPhone2Type.style.background='Yellow';}else{this.form.DiveSupportPhone2Type.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportPhone3</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportPhone3' VALUE='$DiveSupportPhone3'  SIZE='15' MAXLENGTH='15'  tabindex='14' id ='DiveSupportPhone3' 
+
+$tabcount=12;
+	$numPossibleElements = count($facilityPhoneTypeArray);
+	
+	
+echo("<td>");	
+if(strlen($DiveSupportPhone2Type)!=0)
+ {
+ 	  	for($i=0;$i < $numPossibleElements;$i++)
+ 	  {
+ 	  	$tabcount++;
+ 	  	if($DiveSupportPhone2Type[$i]=="1") {$state='checked';}else{$state='';}
+ 	  	echo stripslashes("<input type= 'radio' DISABLED name='SupportPhone2Type[]' value='".$facilityPhoneTypeArray[$i]."'tabindex=".$tabcount." ".$state.">".$facilityPhoneTypeArray[$i]."&nbsp;&nbsp;");  
+ 	  }	
+ 	  	  	
+ }
+ 	  
+ else
+ { 
+ 	  	
+ 	  	for($i=0;$i < $numPossibleElements;$i++)
+ 	     {
+ 	     	 
+ 	     	 $tabcount++;
+ 	       if($facilityPhoneTypeArray[$i] == 'Cell-text') {$state='checked';} else {$state='';}
+          
+          echo stripslashes("<input type= 'radio' DISABLED name='SupportPhone2Type[]' value='".$facilityPhoneTypeArray[$i]."'tabindex=".$tabcount." ".$state.">".$facilityPhoneTypeArray[$i]."&nbsp;&nbsp;");
+
+       }
+}
+
+echo("</td>");
+
+//echo ("<td><input type ='text' NAME='DiveSupportPhone2Type' VALUE='$DiveSupportPhone2Type'  SIZE='15' MAXLENGTH='15'  tabindex='13' id ='DiveSupportPhone2Type' 
+//   onBlur=\"if(isBlank(this.form.DiveSupportPhone2Type.value)) {alert('DiveSupportPhone2Type cannot be blank');this.form.DiveSupportPhone2Type.style.background='Yellow';}else{this.form.DiveSupportPhone2Type.style.background='White';}\"><br /></td>");
+echo("</tr>");
+
+echo("<tr>");
+echo stripslashes("<th valign='top' align ='left' scope='row'>Phone3</th>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportPhone3' VALUE='$DiveSupportPhone3'  SIZE='15' MAXLENGTH='15'  tabindex='14' id ='DiveSupportPhone3' 
    onBlur=\"if(isBlank(this.form.DiveSupportPhone3.value)) {alert('DiveSupportPhone3 cannot be blank');this.form.DiveSupportPhone3.style.background='Yellow';}else{this.form.DiveSupportPhone3.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportPhone3Type</th>
+$tabcount=14;
+	$numPossibleElements = count($facilityPhoneTypeArray);
+	
+	
+echo("<td>");	
+if(strlen($DiveSupportPhone3Type)!=0)
+ {
+ 	  	for($i=0;$i < $numPossibleElements;$i++)
+ 	  {
+ 	  	$tabcount++;
+ 	  	if($DiveSupportPhone3Type[$i]=="1") {$state='checked';}else{$state='';}
+ 	  	echo stripslashes("<input type= 'radio' DISABLED name='SupportPhone3Type[]' value='".$facilityPhoneTypeArray[$i]."'tabindex=".$tabcount." ".$state.">".$facilityPhoneTypeArray[$i]."&nbsp;&nbsp;");  
+ 	  }	
+ 	  	  	
+ }
+ 	  
+ else
+ { 
+ 	  	
+ 	  	for($i=0;$i < $numPossibleElements;$i++)
+ 	     {
+ 	     	 
+ 	     	 $tabcount++;
+ 	       if($facilityPhoneTypeArray[$i] == 'Cell') {$state='checked';} else {$state='';}
+          
+          echo stripslashes("<input type= 'radio' DISABLED name='SupportPhone3Type[]' value='".$facilityPhoneTypeArray[$i]."'tabindex=".$tabcount." ".$state.">".$facilityPhoneTypeArray[$i]."&nbsp;&nbsp;");
+
+       }
+}
+
+echo("</td>");
+
+
+
+
+
+
+//echo ("<td><input type ='text' NAME='DiveSupportPhone3Type' VALUE='$DiveSupportPhone3Type'  SIZE='15' MAXLENGTH='15'  tabindex='15' id ='DiveSupportPhone3Type' 
+//   onBlur=\"if(isBlank(this.form.DiveSupportPhone3Type.value)) {alert('DiveSupportPhone3Type cannot be blank');this.form.DiveSupportPhone3Type.style.background='Yellow';}else{this.form.DiveSupportPhone3Type.style.background='White';}\"><br /></td>");
+echo("</tr>");
+
+echo stripslashes("</tr>");
+echo ("</table></td></tr>");
+
+echo("<tr><th valign='top' align ='center' scope='row'>Website</th>
 ");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportPhone3Type' VALUE='$DiveSupportPhone3Type'  SIZE='15' MAXLENGTH='15'  tabindex='15' id ='DiveSupportPhone3Type' 
-   onBlur=\"if(isBlank(this.form.DiveSupportPhone3Type.value)) {alert('DiveSupportPhone3Type cannot be blank');this.form.DiveSupportPhone3Type.style.background='Yellow';}else{this.form.DiveSupportPhone3Type.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportWebsite</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportWebsite' VALUE='$DiveSupportWebsite'  SIZE='150' MAXLENGTH='150'  tabindex='16' id ='DiveSupportWebsite' 
+echo ("<td><input type ='text' READONLY NAME='DiveSupportWebsite' VALUE='$DiveSupportWebsite'  SIZE='100' MAXLENGTH='150'  tabindex='16' id ='DiveSupportWebsite' 
    onBlur=\"if(isBlank(this.form.DiveSupportWebsite.value)) {alert('DiveSupportWebsite cannot be blank');this.form.DiveSupportWebsite.style.background='Yellow';}else{this.form.DiveSupportWebsite.style.background='White';}\"><br /></td>");
 echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportEmail</th>
+<tr><th valign='top' align ='center' scope='row'>Email</th>
 ");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportEmail' VALUE='$DiveSupportEmail'  SIZE='150' MAXLENGTH='150'  tabindex='17' id ='DiveSupportEmail' 
+echo ("<td><input type ='text' READONLY NAME='DiveSupportEmail' VALUE='$DiveSupportEmail'  SIZE='100' MAXLENGTH='150'  tabindex='17' id ='DiveSupportEmail' 
    onBlur=\"if(isBlank(this.form.DiveSupportEmail.value)) {alert('DiveSupportEmail cannot be blank');this.form.DiveSupportEmail.style.background='Yellow';}else{this.form.DiveSupportEmail.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportExactLat</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportExactLat' VALUE='$DiveSupportExactLat'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='18' id ='DiveSupportExactLat' 
+echo stripslashes("</tr>");
+
+echo("<tr><th>Location:</th><td colspan ='5'><table>");
+echo("<tr><th valign='top' align ='left' scope='row'>Latitude</th>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportExactLat' VALUE='$DiveSupportExactLat'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='18' id ='DiveSupportExactLat' 
    onBlur=\"if(isBlank(this.form.DiveSupportExactLat.value)) {alert('DiveSupportExactLat cannot be blank');this.form.DiveSupportExactLat.style.background='Yellow';}else{this.form.DiveSupportExactLat.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportExactLong</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportExactLong' VALUE='$DiveSupportExactLong'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='19' id ='DiveSupportExactLong' 
+
+echo stripslashes("<th valign='top' align ='left' scope='row'>Longitude</th>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportExactLong' VALUE='$DiveSupportExactLong'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='13' id ='DiveSupportExactLong' 
    onBlur=\"if(isBlank(this.form.DiveSupportExactLong.value)) {alert('DiveSupportExactLong cannot be blank');this.form.DiveSupportExactLong.style.background='Yellow';}else{this.form.DiveSupportExactLong.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportHoursMon</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportHoursMon' VALUE='$DiveSupportHoursMon'  SIZE='10' MAXLENGTH='10'  tabindex='20' id ='DiveSupportHoursMon' 
+echo stripslashes("</tr>");
+echo("</table></td></tr>");
+
+echo("<tr><th>Hours of Operation<br>24 hour clock: ####-####</td></th><td colspan='5'><table>");
+echo("<tr><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th><th>Sunday</th><tr>");
+// echo("<tr><th valign='top' align ='left' scope='row'>DiveSupportHoursMon</th>");
+echo("<tr>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportHoursMon' VALUE='$DiveSupportHoursMon'  SIZE='10' MAXLENGTH='10'  tabindex='14' id ='DiveSupportHoursMon' 
    onBlur=\"if(isBlank(this.form.DiveSupportHoursMon.value)) {alert('DiveSupportHoursMon cannot be blank');this.form.DiveSupportHoursMon.style.background='Yellow';}else{this.form.DiveSupportHoursMon.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportHoursTues</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportHoursTues' VALUE='$DiveSupportHoursTues'  SIZE='10' MAXLENGTH='10'  tabindex='21' id ='DiveSupportHoursTues' 
+//echo stripslashes("<th valign='top' align ='left' scope='row'>DiveSupportHoursTues</th>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportHoursTues' VALUE='$DiveSupportHoursTues'  SIZE='10' MAXLENGTH='10'  tabindex='15' id ='DiveSupportHoursTues' 
    onBlur=\"if(isBlank(this.form.DiveSupportHoursTues.value)) {alert('DiveSupportHoursTues cannot be blank');this.form.DiveSupportHoursTues.style.background='Yellow';}else{this.form.DiveSupportHoursTues.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportHoursWed</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportHoursWed' VALUE='$DiveSupportHoursWed'  SIZE='10' MAXLENGTH='10'  tabindex='22' id ='DiveSupportHoursWed' 
+//echo stripslashes("<th valign='top' align ='left' scope='row'>DiveSupportHoursWed</th>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportHoursWed' VALUE='$DiveSupportHoursWed'  SIZE='10' MAXLENGTH='10'  tabindex='16' id ='DiveSupportHoursWed' 
    onBlur=\"if(isBlank(this.form.DiveSupportHoursWed.value)) {alert('DiveSupportHoursWed cannot be blank');this.form.DiveSupportHoursWed.style.background='Yellow';}else{this.form.DiveSupportHoursWed.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportHoursThu</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportHoursThu' VALUE='$DiveSupportHoursThu'  SIZE='10' MAXLENGTH='10'  tabindex='23' id ='DiveSupportHoursThu' 
+//echo stripslashes("<th valign='top' align ='left' scope='row'>DiveSupportHoursThu</th>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportHoursThu' VALUE='$DiveSupportHoursThu'  SIZE='10' MAXLENGTH='10'  tabindex='17' id ='DiveSupportHoursThu' 
    onBlur=\"if(isBlank(this.form.DiveSupportHoursThu.value)) {alert('DiveSupportHoursThu cannot be blank');this.form.DiveSupportHoursThu.style.background='Yellow';}else{this.form.DiveSupportHoursThu.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportHoursFri</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportHoursFri' VALUE='$DiveSupportHoursFri'  SIZE='10' MAXLENGTH='10'  tabindex='24' id ='DiveSupportHoursFri' 
+//echo stripslashes("<th valign='top' align ='left' scope='row'>DiveSupportHoursFri</th>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportHoursFri' VALUE='$DiveSupportHoursFri'  SIZE='10' MAXLENGTH='10'  tabindex='18' id ='DiveSupportHoursFri' 
    onBlur=\"if(isBlank(this.form.DiveSupportHoursFri.value)) {alert('DiveSupportHoursFri cannot be blank');this.form.DiveSupportHoursFri.style.background='Yellow';}else{this.form.DiveSupportHoursFri.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportHoursSat</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportHoursSat' VALUE='$DiveSupportHoursSat'  SIZE='10' MAXLENGTH='10'  tabindex='25' id ='DiveSupportHoursSat' 
+//echo stripslashes("<th valign='top' align ='left' scope='row'>DiveSupportHoursSat</th>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportHoursSat' VALUE='$DiveSupportHoursSat'  SIZE='10' MAXLENGTH='10'  tabindex='19' id ='DiveSupportHoursSat' 
    onBlur=\"if(isBlank(this.form.DiveSupportHoursSat.value)) {alert('DiveSupportHoursSat cannot be blank');this.form.DiveSupportHoursSat.style.background='Yellow';}else{this.form.DiveSupportHoursSat.style.background='White';}\"><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportHoursSun</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportHoursSun' VALUE='$DiveSupportHoursSun'  SIZE='10' MAXLENGTH='10'  tabindex='26' id ='DiveSupportHoursSun' 
+//echo stripslashes("<th valign='top' align ='left' scope='row'>DiveSupportHoursSun</th>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportHoursSun' VALUE='$DiveSupportHoursSun'  SIZE='10' MAXLENGTH='10'  tabindex='20' id ='DiveSupportHoursSun' 
    onBlur=\"if(isBlank(this.form.DiveSupportHoursSun.value)) {alert('DiveSupportHoursSun cannot be blank');this.form.DiveSupportHoursSun.style.background='Yellow';}else{this.form.DiveSupportHoursSun.style.background='White';}\"><br /></td>");
+echo stripslashes("</tr>");
+echo("</table></td></tr>");
+
+echo("<tr><th valign='top' align ='left' scope='row'>DiveSupportServices</th>");
+echo("<td colspan='5'><table><tr>");
+$tabcount=20;
+	$numPossibleElements = count($facilityServicesArray);
+	
+
+	
+if(strlen($DiveSupportServices)!=0)
+ {
+ 	  	for($i=0;$i < $numPossibleElements;$i++)
+ 	  {
+ 	  	$tabcount++;
+ 	  	if($DiveSupportServices[$i]=="1") {$state='checked';}else{$state='';}
+ 	  	echo stripslashes("<td><input type= 'checkbox' DISABLED name='SupportServices[]' value='".$facilityServicesArray[$i]."'tabindex=".$tabcount." ".$state.">".$facilityServicesArray[$i]."</td>");  
+ 	    if($facilityServicesArray[$i] == 'Oxygen Fills'){echo('<tr>');}
+ 	    if($facilityServicesArray[$i] == 'Equipment Sales'){echo('</tr><tr>');}
+ 	    if($facilityServicesArray[$i] == 'Dive Information'){echo('</tr><tr>');}
+ 	    if($facilityServicesArray[$i] == 'Dive Instruction'){echo('</tr><tr><td colspan=6><table><tr><td>');}
+ 	    if($facilityServicesArray[$i] == 'PSI'){echo('</td></tr></table></td></tr><tr>');}
+ 	  }	
+ 	  	  	
+ }
+ 	  
+ else
+ { 
+ 	  	
+ 	  	for($i=0;$i < $numPossibleElements;$i++)
+ 	     {
+ 	     	 
+ 	     	 $tabcount++;
+ 	       if($facilityServicesArray[$i] == '') {$state='checked';} else {$state='';}
+          
+          echo stripslashes("<td><input type= 'checkbox' DISABLED name='SupportServices[]' value='".$facilityServicesArray[$i]."'tabindex=".$tabcount." ".$state.">".$facilityServicesArray[$i]."&nbsp;&nbsp;</td>");
+         if($facilityServicesArray[$i] == 'Oxygen Fills'){echo('<tr>');}
+ 	       if($facilityServicesArray[$i] == 'Equipment Sales'){echo('</tr><tr>');}
+ 	       if($facilityServicesArray[$i] == 'Dive Information'){echo('</tr><tr>');}
+ 	       if($facilityServicesArray[$i] == 'Dive Instruction'){echo('</tr><tr><td colspan=6><table><tr><td>');}
+ 	       if($facilityServicesArray[$i] == 'PSI'){echo('</td></tr></table></td></tr><tr>');}
+       }
+  }
+echo('</tr>');
+ 
+//echo ("<td><input type ='text' NAME='DiveSupportServices' VALUE='$DiveSupportServices'  SIZE='25' MAXLENGTH='25'  tabindex='21' id ='DiveSupportServices' 
+//   onBlur=\"if(isBlank(this.form.DiveSupportServices.value)) {alert('DiveSupportServices cannot be blank');this.form.DiveSupportServices.style.background='Yellow';}else{this.form.DiveSupportServices.style.background='White';}\"><br /></td>");
+
+echo stripslashes("</tr></table></td>");
+echo("<tr><th valign='top' align ='left' scope='row'>Suppliers/Brands</th>");
+echo("<td><TEXTAREA READONLY NAME='DiveSupportSuppliersNote' COLS=100 ROW=3 TABINDEX='28'>$DiveSupportSuppliersNote</TEXTAREA></td>");
 echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportServices</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportServices' VALUE='$DiveSupportServices'  SIZE='25' MAXLENGTH='25'  tabindex='27' id ='DiveSupportServices' 
-   onBlur=\"if(isBlank(this.form.DiveSupportServices.value)) {alert('DiveSupportServices cannot be blank');this.form.DiveSupportServices.style.background='Yellow';}else{this.form.DiveSupportServices.style.background='White';}\"><br /></td>");
+<tr><th valign='top' align ='left' scope='row'>Notes/Comments</th>
+<td><TEXTAREA READONLY NAME='DiveSupportNotes' COLS=100 ROW=3 TABINDEX='29'>$DiveSupportNotes</TEXTAREA></td>");
 echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportSuppliersNote</th>
-<td><TEXTAREA NAME='DiveSupportSuppliersNote' READONLY COLS=100 ROW=3 TABINDEX='28'>$DiveSupportSuppliersNote</TEXTAREA></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportNotes</th>
-<td><TEXTAREA NAME='DiveSupportNotes' READONLY COLS=100 ROW=3 TABINDEX='29'>$DiveSupportNotes</TEXTAREA></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportPaidDate</th>
-<td><input type ='text'READONLY NAME='DiveSupportPaidDate' VALUE='$DiveSupportPaidDate'  SIZE='11' MAXLENGTH='11'  tabindex='30' id ='DiveSupportPaidDate'>");
+<tr><th valign='top' align ='left' scope='row'>Paid Date</th>
+<td><input type ='text' READONLY NAME='DiveSupportPaidDate' VALUE='$DiveSupportPaidDate'  SIZE='11' MAXLENGTH='11'  tabindex='30' id ='DiveSupportPaidDate' 
+   onBlur=\"if(isBlank(this.form.DiveSupportPaidDate.value)) {alert('DiveSupportPaidDate cannot be blank');this.form.DiveSupportPaidDate.style.background='Yellow';}else{this.form.DiveSupportPaidDate.style.background='White';}\">");
 if($Mode=='EDIT')
 {echo '<A HREF="#" onClick="cal.select(document.forms[\'DiveSupportEdit\'].DiveSupportPaidDate,\'anchor\',\'yyyy-MM-dd\');return false;" NAME="anchor" ID="anchor">Calendar</A>';}
 else 
@@ -1174,128 +1424,396 @@ global $DiveSupportPhone1,$DiveSupportPhone1Type,$DiveSupportPhone2,$DiveSupport
 global $DiveSupportPhone3,$DiveSupportPhone3Type,$DiveSupportWebsite,$DiveSupportEmail,$DiveSupportExactLat;
 global $DiveSupportExactLong,$DiveSupportHoursMon,$DiveSupportHoursTues,$DiveSupportHoursWed;
 global $DiveSupportHoursThu,$DiveSupportHoursFri,$DiveSupportHoursSat,$DiveSupportHoursSun;
-global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate;
+global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate,$DiveSupportPCZip;
+
+global $facilityTypeArray,$facilityServicesArray;
+global $siteProvinceArray,$siteCountryArray;
+global $facilityPhoneTypeArray;
+
+
+
 echo stripslashes("
 <FORM NAME='DiveSupportDisplay' action='DiveSupport.php' method='POST'>
-<TABLE  align='center' border='1'><tr><td>
-<TABLE align='center' border='1' cellspacing='5'>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportId</th>
-<td><input type ='text' READONLY NAME='DiveSupportId' VALUE='$DiveSupportId' SIZE='8' MAXLENGTH='8' tabindex ='1' id ='DiveSupportId' READONLY><br /></td>
+<TABLE border='1' align='center'><tr><td>
+<TABLE border='1' align='center' cellspacing='5'>
+
+<tr>
+<td colspan ='2' align='center'>
+<input type ='SUBMIT' NAME='display_button' Value = 'Return'>
+<input type ='SUBMIT' NAME='display_button' Value = 'Edit'>
+<input type ='SUBMIT' NAME='display_button' Value = 'Delete'>
+</td>
 </tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportStatus</th>
+
+
+
+
+<tr><th>Support Facility</th><td colspan='5'><table><th valign='top' align ='left' scope='row'>Id</th>
+<td><input type ='text' NAME='DiveSupportId' VALUE='$DiveSupportId' SIZE='8' MAXLENGTH='8' tabindex ='1' id ='DiveSupportId' READONLY><br /></td>
+
+<th valign='top' align ='left' scope='row'>Status</th>
 "); if($Mode=='EDIT')
-{echo ("<td><input type ='text' style='color: gray' READONLY NAME='DiveSupportStatus' VALUE='$DiveSupportStatus'  SIZE='8' MAXLENGTH='8'  tabindex='2' id ='DiveSupportStatus'><br /></td>");}
+{echo ("<td><input type ='text' style='color: gray' READONLY NAME='DiveSupportStatus' VALUE='$DiveSupportStatus'  SIZE='8' MAXLENGTH='8'  tabindex='2' id ='DiveSupportStatus' 
+   onBlur=\"if(isBlank(this.form.DiveSupportStatus.value)) {alert('DiveSupportStatus cannot be blank');this.form.DiveSupportStatus.style.background='Yellow';}else{this.form.DiveSupportStatus.style.background='White';}\"><br /></td>");}
 else 
-{echo ("<td><input type ='text' READONLY NAME='DiveSupportStatus' VALUE='$DiveSupportStatus'  SIZE='8' MAXLENGTH='8'  tabindex='2' id ='DiveSupportStatus'><br /></td>");}
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportType</th>
+{echo ("<td><input type ='text' READONLY NAME='DiveSupportStatus' VALUE='$DiveSupportStatus'  SIZE='8' MAXLENGTH='8'  tabindex='2' id ='DiveSupportStatus' 
+   onBlur=\"if(isBlank(this.form.DiveSupportStatus.value)) {alert('DiveSupportStatus cannot be blank');this.form.DiveSupportStatus.style.background='Yellow';}else{this.form.DiveSupportStatus.style.background='White';}\"><br /></td>");}
+echo("</table></td></tr>");
+
+
+echo stripslashes("<tr><th valign='top' align ='left' scope='row'>Type</th><td colspan='5'><table><tr>");
+
+
+$tabcount=2;
+	$numPossibleElements = count($facilityTypeArray);
+	
+	
+	
+if(strlen($DiveSupportType)!=0)
+ {
+ 	  	for($i=0;$i < $numPossibleElements;$i++)
+ 	  {
+ 	  	$tabcount++;
+ 	  	if($DiveSupportType[$i]=="1") {$state='checked';}else{$state='';}
+ 	  	echo stripslashes("<td><input type= 'radio' DISABLED name='SupportType[]' value='".$facilityTypeArray[$i]."'tabindex=".$tabcount." ".$state.">".$facilityTypeArray[$i]."</td>");  
+ 	  }	
+ 	  	  	
+ }
+ 	  
+ else
+ { 
+ 	  	
+ 	  	for($i=0;$i < $numPossibleElements;$i++)
+ 	     {
+ 	     	 
+ 	     	 $tabcount++;
+ 	       if($facilityTypeArray[$i] == 'Dive Shop') {$state='checked';} else {$state='';}
+          
+          echo stripslashes("<td><input type= 'radio' DISABLED name='SupportType[]' value='".$facilityTypeArray[$i]."'tabindex=".$tabcount." ".$state.">".$facilityTypeArray[$i]."&nbsp;&nbsp;</td>");
+
+       }
+}
+
+
+//echo ("<td><input type ='text' NAME='DiveSupportType' VALUE='$DiveSupportType'  SIZE='10' MAXLENGTH='10'  tabindex='3' id ='DiveSupportType' 
+//   onBlur=\"if(isBlank(this.form.DiveSupportType.value)) {alert('DiveSupportType cannot be blank');this.form.DiveSupportType.style.background='Yellow';}else{this.form.DiveSupportType.style.background='White';}\"><br /></td>");
+echo stripslashes("</tr>");
+echo("</table></td></tr>");
+
+
+echo("<tr><th valign='top' align ='left' scope='row'>Name</th>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportName' VALUE='$DiveSupportName'  SIZE='100' MAXLENGTH='100'  tabindex='4' id ='DiveSupportName' 
+   onBlur=\"if(isBlank(this.form.DiveSupportName.value)) {alert('DiveSupportName cannot be blank');this.form.DiveSupportName.style.background='Yellow';}else{this.form.DiveSupportName.style.background='White';}\"><br /></td>");
+echo stripslashes("</tr>");
+echo("<tr><th valign='top' align ='left' scope='row'>Address 1</th>");
+
+echo ("<td><input type ='text' READONLY NAME='DiveSupportAddress1' VALUE='$DiveSupportAddress1'  SIZE='100' MAXLENGTH='100'  tabindex='5' id ='DiveSupportAddress1' 
+   onBlur=\"if(isBlank(this.form.DiveSupportAddress1.value)) {alert('DiveSupportAddress1 cannot be blank');this.form.DiveSupportAddress1.style.background='Yellow';}else{this.form.DiveSupportAddress1.style.background='White';}\"><br /></td>");
+echo stripslashes("</tr>");
+echo("<tr><th valign='top' align ='left' scope='row'>Address 2</th>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportAddress2' VALUE='$DiveSupportAddress2'  SIZE='100' MAXLENGTH='100'  tabindex='6' id ='DiveSupportAddress2' 
+   onBlur=\"if(isBlank(this.form.DiveSupportAddress2.value)) {alert('DiveSupportAddress2 cannot be blank');this.form.DiveSupportAddress2.style.background='Yellow';}else{this.form.DiveSupportAddress2.style.background='White';}\"><br /></td>");
+echo stripslashes("</tr>");
+echo("<tr><th valign='top' align ='left' scope='row'>City</th>");
+echo("<td colspan='5'><table><tr>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportCity' VALUE='$DiveSupportCity'  SIZE='25' MAXLENGTH='25'  tabindex='7' id ='DiveSupportCity' 
+   onBlur=\"if(isBlank(this.form.DiveSupportCity.value)) {alert('DiveSupportCity cannot be blank');this.form.DiveSupportCity.style.background='Yellow';}else{this.form.DiveSupportCity.style.background='White';}\"><br /></td>");
+echo stripslashes("<th valign='top' align ='left' scope='row'>Province</th>");
+
+
+
+$array_length = count($siteProvinceArray);
+echo('<td>');
+echo('<select DISABLED name="DiveSiteProvince" tabindex=7 id="DiveSiteProvince" VALUE="$DiveSiteProvince">');
+for ($i=0;$i<$array_length;$i++)
+    {
+    	if($Mode=='ADD')
+    	 {
+           if($siteProvinceArray == 'Alberta'){$selopt="selected";}else{$selopt="";}  
+       }
+       else
+       {
+       	   if($DiveSiteProvince == $siteProvinceArray[$i]){$selopt="selected";}else{$selopt="";}  
+       }      	
+echo ('<option value="'.$siteProvinceArray[$i].'" '.$selopt.'>'.$siteProvinceArray[$i].'</option>');
+    }
+echo('</select>');
+echo('</td>');
+
+
+
+
+//echo ("<td><input type ='text' NAME='DiveSupportProvince' VALUE='$DiveSupportProvince'  SIZE='25' MAXLENGTH='25'  tabindex='8' id ='DiveSupportProvince' 
+//   onBlur=\"if(isBlank(this.form.DiveSupportProvince.value)) {alert('DiveSupportProvince cannot be blank');this.form.DiveSupportProvince.style.background='Yellow';}else{this.form.DiveSupportProvince.style.background='White';}\"><br /></td>");
+echo stripslashes("<th valign='top' align ='left' scope='row'>Country</th>");
+
+$array_length = count($siteCountryArray);
+echo('<td>');
+echo('<select DISABLED name="DiveSiteCountry" tabindex=8 id="DiveSiteProvince" VALUE="$DiveSiteCountry">');
+for ($i=0;$i<$array_length;$i++)
+    {
+    	if($Mode=='ADD')
+    	 {
+           if($siteCountryArray == 'Alberta'){$selopt="selected";}else{$selopt="";}  
+       }
+       else
+       {
+       	   if($DiveSiteCountry == $siteCountryArray[$i]){$selopt="selected";}else{$selopt="";}  
+       }      	
+echo ('<option value="'.$siteCountryArray[$i].'" '.$selopt.'>'.$siteCountryArray[$i].'</option>');
+    }
+echo('</select>');
+echo('</td>');
+
+echo("<th valign='top' align ='left' scope='row'>PC/Zip:</th>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportPCZip' VALUE='$DiveSupportPCZip'  SIZE='10' MAXLENGTH='10'  tabindex='9' id ='DiveSupportPCZip' 
+   onBlur=\"if(isBlank(this.form.DiveSupportPCZip.value)) {alert('DiveSupportPCZip cannot be blank');this.form.DiveSupportPCZip1.style.background='Yellow';}else{this.form.DiveSupportPCZip.style.background='White';}\"><br /></td>");
+
+
+
+//echo ("<td><input type ='text' NAME='DiveSupportCountry' VALUE='$DiveSupportCountry'  SIZE='25' MAXLENGTH='25'  tabindex='9' id ='DiveSupportCountry' 
+//   onBlur=\"if(isBlank(this.form.DiveSupportCountry.value)) {alert('DiveSupportCountry cannot be blank');this.form.DiveSupportCountry.style.background='Yellow';}else{this.form.DiveSupportCountry.style.background='White';}\"><br /></td>");
+
+echo stripslashes("</tr>");
+echo("</table></td>");
+
+
+echo("<tr><th>Phones:<br>FORMAT: ###-###-####</th><td colspan ='5'><table>");
+echo("<tr><th valign='top' align ='left' scope='row'>Phone 1</th>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportPhone1' VALUE='$DiveSupportPhone1'  SIZE='15' MAXLENGTH='15'  tabindex='10' id ='DiveSupportPhone1' 
+   onBlur=\"if(isBlank(this.form.DiveSupportPhone1.value)) {alert('DiveSupportPhone1 cannot be blank');this.form.DiveSupportPhone1.style.background='Yellow';}else{this.form.DiveSupportPhone1.style.background='White';}\"><br /></td>");
+
+$tabcount=10;
+	$numPossibleElements = count($facilityPhoneTypeArray);
+	
+	
+echo("<td>");	
+if(strlen($DiveSupportPhone1Type)!=0)
+ {
+ 	  	for($i=0;$i < $numPossibleElements;$i++)
+ 	  {
+ 	  	$tabcount++;
+ 	  	if($DiveSupportPhone1Type[$i]=="1") {$state='checked';}else{$state='';}
+ 	  	echo stripslashes("<input type= 'radio' DISABLED name='SupportPhone1Type[]' value='".$facilityPhoneTypeArray[$i]."'tabindex=".$tabcount." ".$state.">".$facilityPhoneTypeArray[$i]."&nbsp;&nbsp;");  
+ 	  }	
+ 	  	  	
+ }
+ 	  
+ else
+ { 
+ 	  	
+ 	  	for($i=0;$i < $numPossibleElements;$i++)
+ 	     {
+ 	     	 
+ 	     	 $tabcount++;
+ 	       if($facilityPhoneTypeArray[$i] == 'Landline') {$state='checked';} else {$state='';}
+          
+          echo stripslashes("<input type= 'radio' DISABLED name='SupportPhone1Type[]' value='".$facilityPhoneTypeArray[$i]."'tabindex=".$tabcount." ".$state.">".$facilityPhoneTypeArray[$i]."&nbsp;&nbsp;");
+
+       }
+}
+
+echo("</td>");
+
+
+
+//echo ("<td><input type ='text' NAME='DiveSupportPhone1Type' VALUE='$DiveSupportPhone1Type'  SIZE='15' MAXLENGTH='15'  tabindex='11' id ='DiveSupportPhone1Type' 
+//   onBlur=\"if(isBlank(this.form.DiveSupportPhone1Type.value)) {alert('DiveSupportPhone1Type cannot be blank');this.form.DiveSupportPhone1Type.style.background='Yellow';}else{this.form.DiveSupportPhone1Type.style.background='White';}\"><br /></td>");
+
+echo("</tr>");
+echo("<tr>");
+echo stripslashes("<th valign='top' align ='left' scope='row'>Phone2</th>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportPhone2' VALUE='$DiveSupportPhone2'  SIZE='15' MAXLENGTH='15'  tabindex='12' id ='DiveSupportPhone2' 
+   onBlur=\"if(isBlank(this.form.DiveSupportPhone2.value)) {alert('DiveSupportPhone2 cannot be blank');this.form.DiveSupportPhone2.style.background='Yellow';}else{this.form.DiveSupportPhone2.style.background='White';}\"><br /></td>");
+
+$tabcount=12;
+	$numPossibleElements = count($facilityPhoneTypeArray);
+	
+	
+echo("<td>");	
+if(strlen($DiveSupportPhone2Type)!=0)
+ {
+ 	  	for($i=0;$i < $numPossibleElements;$i++)
+ 	  {
+ 	  	$tabcount++;
+ 	  	if($DiveSupportPhone2Type[$i]=="1") {$state='checked';}else{$state='';}
+ 	  	echo stripslashes("<input type= 'radio' DISABLED name='SupportPhone2Type[]' value='".$facilityPhoneTypeArray[$i]."'tabindex=".$tabcount." ".$state.">".$facilityPhoneTypeArray[$i]."&nbsp;&nbsp;");  
+ 	  }	
+ 	  	  	
+ }
+ 	  
+ else
+ { 
+ 	  	
+ 	  	for($i=0;$i < $numPossibleElements;$i++)
+ 	     {
+ 	     	 
+ 	     	 $tabcount++;
+ 	       if($facilityPhoneTypeArray[$i] == 'Cell-text') {$state='checked';} else {$state='';}
+          
+          echo stripslashes("<input type= 'radio' DISABLED name='SupportPhone2Type[]' value='".$facilityPhoneTypeArray[$i]."'tabindex=".$tabcount." ".$state.">".$facilityPhoneTypeArray[$i]."&nbsp;&nbsp;");
+
+       }
+}
+
+echo("</td>");
+
+//echo ("<td><input type ='text' NAME='DiveSupportPhone2Type' VALUE='$DiveSupportPhone2Type'  SIZE='15' MAXLENGTH='15'  tabindex='13' id ='DiveSupportPhone2Type' 
+//   onBlur=\"if(isBlank(this.form.DiveSupportPhone2Type.value)) {alert('DiveSupportPhone2Type cannot be blank');this.form.DiveSupportPhone2Type.style.background='Yellow';}else{this.form.DiveSupportPhone2Type.style.background='White';}\"><br /></td>");
+echo("</tr>");
+
+echo("<tr>");
+echo stripslashes("<th valign='top' align ='left' scope='row'>Phone3</th>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportPhone3' VALUE='$DiveSupportPhone3'  SIZE='15' MAXLENGTH='15'  tabindex='14' id ='DiveSupportPhone3' 
+   onBlur=\"if(isBlank(this.form.DiveSupportPhone3.value)) {alert('DiveSupportPhone3 cannot be blank');this.form.DiveSupportPhone3.style.background='Yellow';}else{this.form.DiveSupportPhone3.style.background='White';}\"><br /></td>");
+$tabcount=14;
+	$numPossibleElements = count($facilityPhoneTypeArray);
+	
+	
+echo("<td>");	
+if(strlen($DiveSupportPhone3Type)!=0)
+ {
+ 	  	for($i=0;$i < $numPossibleElements;$i++)
+ 	  {
+ 	  	$tabcount++;
+ 	  	if($DiveSupportPhone3Type[$i]=="1") {$state='checked';}else{$state='';}
+ 	  	echo stripslashes("<input type= 'radio' DISABLED name='SupportPhone3Type[]' value='".$facilityPhoneTypeArray[$i]."'tabindex=".$tabcount." ".$state.">".$facilityPhoneTypeArray[$i]."&nbsp;&nbsp;");  
+ 	  }	
+ 	  	  	
+ }
+ 	  
+ else
+ { 
+ 	  	
+ 	  	for($i=0;$i < $numPossibleElements;$i++)
+ 	     {
+ 	     	 
+ 	     	 $tabcount++;
+ 	       if($facilityPhoneTypeArray[$i] == 'Cell') {$state='checked';} else {$state='';}
+          
+          echo stripslashes("<input type= 'radio' DISABLED name='SupportPhone3Type[]' value='".$facilityPhoneTypeArray[$i]."'tabindex=".$tabcount." ".$state.">".$facilityPhoneTypeArray[$i]."&nbsp;&nbsp;");
+
+       }
+}
+
+echo("</td>");
+
+
+
+
+
+
+//echo ("<td><input type ='text' NAME='DiveSupportPhone3Type' VALUE='$DiveSupportPhone3Type'  SIZE='15' MAXLENGTH='15'  tabindex='15' id ='DiveSupportPhone3Type' 
+//   onBlur=\"if(isBlank(this.form.DiveSupportPhone3Type.value)) {alert('DiveSupportPhone3Type cannot be blank');this.form.DiveSupportPhone3Type.style.background='Yellow';}else{this.form.DiveSupportPhone3Type.style.background='White';}\"><br /></td>");
+echo("</tr>");
+
+echo stripslashes("</tr>");
+echo ("</table></td></tr>");
+
+echo("<tr><th valign='top' align ='center' scope='row'>Website</th>
 ");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportType' VALUE='$DiveSupportType'  SIZE='10' MAXLENGTH='10'  tabindex='3' id ='DiveSupportType'><br /></td>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportWebsite' VALUE='$DiveSupportWebsite'  SIZE='100' MAXLENGTH='150'  tabindex='16' id ='DiveSupportWebsite' 
+   onBlur=\"if(isBlank(this.form.DiveSupportWebsite.value)) {alert('DiveSupportWebsite cannot be blank');this.form.DiveSupportWebsite.style.background='Yellow';}else{this.form.DiveSupportWebsite.style.background='White';}\"><br /></td>");
 echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportName</th>
+<tr><th valign='top' align ='center' scope='row'>Email</th>
 ");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportName' VALUE='$DiveSupportName'  SIZE='100' MAXLENGTH='100'  tabindex='4' id ='DiveSupportName'><br /></td>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportEmail' VALUE='$DiveSupportEmail'  SIZE='100' MAXLENGTH='150'  tabindex='17' id ='DiveSupportEmail' 
+   onBlur=\"if(isBlank(this.form.DiveSupportEmail.value)) {alert('DiveSupportEmail cannot be blank');this.form.DiveSupportEmail.style.background='Yellow';}else{this.form.DiveSupportEmail.style.background='White';}\"><br /></td>");
+echo stripslashes("</tr>");
+
+echo("<tr><th>Location:</th><td colspan ='5'><table>");
+echo("<tr><th valign='top' align ='left' scope='row'>Latitude</th>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportExactLat' VALUE='$DiveSupportExactLat'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='18' id ='DiveSupportExactLat' 
+   onBlur=\"if(isBlank(this.form.DiveSupportExactLat.value)) {alert('DiveSupportExactLat cannot be blank');this.form.DiveSupportExactLat.style.background='Yellow';}else{this.form.DiveSupportExactLat.style.background='White';}\"><br /></td>");
+
+echo stripslashes("<th valign='top' align ='left' scope='row'>Longitude</th>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportExactLong' VALUE='$DiveSupportExactLong'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='13' id ='DiveSupportExactLong' 
+   onBlur=\"if(isBlank(this.form.DiveSupportExactLong.value)) {alert('DiveSupportExactLong cannot be blank');this.form.DiveSupportExactLong.style.background='Yellow';}else{this.form.DiveSupportExactLong.style.background='White';}\"><br /></td>");
+echo stripslashes("</tr>");
+echo("</table></td></tr>");
+
+echo("<tr><th>Hours of Operation<br>24 hour clock: ####-####</td></th><td colspan='5'><table>");
+echo("<tr><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th><th>Sunday</th><tr>");
+// echo("<tr><th valign='top' align ='left' scope='row'>DiveSupportHoursMon</th>");
+echo("<tr>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportHoursMon' VALUE='$DiveSupportHoursMon'  SIZE='10' MAXLENGTH='10'  tabindex='14' id ='DiveSupportHoursMon' 
+   onBlur=\"if(isBlank(this.form.DiveSupportHoursMon.value)) {alert('DiveSupportHoursMon cannot be blank');this.form.DiveSupportHoursMon.style.background='Yellow';}else{this.form.DiveSupportHoursMon.style.background='White';}\"><br /></td>");
+//echo stripslashes("<th valign='top' align ='left' scope='row'>DiveSupportHoursTues</th>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportHoursTues' VALUE='$DiveSupportHoursTues'  SIZE='10' MAXLENGTH='10'  tabindex='15' id ='DiveSupportHoursTues' 
+   onBlur=\"if(isBlank(this.form.DiveSupportHoursTues.value)) {alert('DiveSupportHoursTues cannot be blank');this.form.DiveSupportHoursTues.style.background='Yellow';}else{this.form.DiveSupportHoursTues.style.background='White';}\"><br /></td>");
+//echo stripslashes("<th valign='top' align ='left' scope='row'>DiveSupportHoursWed</th>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportHoursWed' VALUE='$DiveSupportHoursWed'  SIZE='10' MAXLENGTH='10'  tabindex='16' id ='DiveSupportHoursWed' 
+   onBlur=\"if(isBlank(this.form.DiveSupportHoursWed.value)) {alert('DiveSupportHoursWed cannot be blank');this.form.DiveSupportHoursWed.style.background='Yellow';}else{this.form.DiveSupportHoursWed.style.background='White';}\"><br /></td>");
+//echo stripslashes("<th valign='top' align ='left' scope='row'>DiveSupportHoursThu</th>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportHoursThu' VALUE='$DiveSupportHoursThu'  SIZE='10' MAXLENGTH='10'  tabindex='17' id ='DiveSupportHoursThu' 
+   onBlur=\"if(isBlank(this.form.DiveSupportHoursThu.value)) {alert('DiveSupportHoursThu cannot be blank');this.form.DiveSupportHoursThu.style.background='Yellow';}else{this.form.DiveSupportHoursThu.style.background='White';}\"><br /></td>");
+//echo stripslashes("<th valign='top' align ='left' scope='row'>DiveSupportHoursFri</th>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportHoursFri' VALUE='$DiveSupportHoursFri'  SIZE='10' MAXLENGTH='10'  tabindex='18' id ='DiveSupportHoursFri' 
+   onBlur=\"if(isBlank(this.form.DiveSupportHoursFri.value)) {alert('DiveSupportHoursFri cannot be blank');this.form.DiveSupportHoursFri.style.background='Yellow';}else{this.form.DiveSupportHoursFri.style.background='White';}\"><br /></td>");
+//echo stripslashes("<th valign='top' align ='left' scope='row'>DiveSupportHoursSat</th>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportHoursSat' VALUE='$DiveSupportHoursSat'  SIZE='10' MAXLENGTH='10'  tabindex='19' id ='DiveSupportHoursSat' 
+   onBlur=\"if(isBlank(this.form.DiveSupportHoursSat.value)) {alert('DiveSupportHoursSat cannot be blank');this.form.DiveSupportHoursSat.style.background='Yellow';}else{this.form.DiveSupportHoursSat.style.background='White';}\"><br /></td>");
+//echo stripslashes("<th valign='top' align ='left' scope='row'>DiveSupportHoursSun</th>");
+echo ("<td><input type ='text' READONLY NAME='DiveSupportHoursSun' VALUE='$DiveSupportHoursSun'  SIZE='10' MAXLENGTH='10'  tabindex='20' id ='DiveSupportHoursSun' 
+   onBlur=\"if(isBlank(this.form.DiveSupportHoursSun.value)) {alert('DiveSupportHoursSun cannot be blank');this.form.DiveSupportHoursSun.style.background='Yellow';}else{this.form.DiveSupportHoursSun.style.background='White';}\"><br /></td>");
+echo stripslashes("</tr>");
+echo("</table></td></tr>");
+
+echo("<tr><th valign='top' align ='left' scope='row'>DiveSupportServices</th>");
+echo("<td colspan='5'><table><tr>");
+$tabcount=20;
+	$numPossibleElements = count($facilityServicesArray);
+	
+
+	
+if(strlen($DiveSupportServices)!=0)
+ {
+ 	  	for($i=0;$i < $numPossibleElements;$i++)
+ 	  {
+ 	  	$tabcount++;
+ 	  	if($DiveSupportServices[$i]=="1") {$state='checked';}else{$state='';}
+ 	  	echo stripslashes("<td><input type= 'checkbox' DISABLED name='SupportServices[]' value='".$facilityServicesArray[$i]."'tabindex=".$tabcount." ".$state.">".$facilityServicesArray[$i]."</td>");  
+ 	    if($facilityServicesArray[$i] == 'Oxygen Fills'){echo('<tr>');}
+ 	    if($facilityServicesArray[$i] == 'Equipment Sales'){echo('</tr><tr>');}
+ 	    if($facilityServicesArray[$i] == 'Dive Information'){echo('</tr><tr>');}
+ 	    if($facilityServicesArray[$i] == 'Dive Instruction'){echo('</tr><tr><td colspan=6><table><tr><td>');}
+ 	    if($facilityServicesArray[$i] == 'PSI'){echo('</td></tr></table></td></tr><tr>');}
+ 	  }	
+ 	  	  	
+ }
+ 	  
+ else
+ { 
+ 	  	
+ 	  	for($i=0;$i < $numPossibleElements;$i++)
+ 	     {
+ 	     	 
+ 	     	 $tabcount++;
+ 	       if($facilityServicesArray[$i] == '') {$state='checked';} else {$state='';}
+          
+          echo stripslashes("<td><input type= 'checkbox' DISABLED name='SupportServices[]' value='".$facilityServicesArray[$i]."'tabindex=".$tabcount." ".$state.">".$facilityServicesArray[$i]."&nbsp;&nbsp;</td>");
+         if($facilityServicesArray[$i] == 'Oxygen Fills'){echo('<tr>');}
+ 	       if($facilityServicesArray[$i] == 'Equipment Sales'){echo('</tr><tr>');}
+ 	       if($facilityServicesArray[$i] == 'Dive Information'){echo('</tr><tr>');}
+ 	       if($facilityServicesArray[$i] == 'Dive Instruction'){echo('</tr><tr><td colspan=6><table><tr><td>');}
+ 	       if($facilityServicesArray[$i] == 'PSI'){echo('</td></tr></table></td></tr><tr>');}
+       }
+  }
+echo('</tr>');
+ 
+//echo ("<td><input type ='text' NAME='DiveSupportServices' VALUE='$DiveSupportServices'  SIZE='25' MAXLENGTH='25'  tabindex='21' id ='DiveSupportServices' 
+//   onBlur=\"if(isBlank(this.form.DiveSupportServices.value)) {alert('DiveSupportServices cannot be blank');this.form.DiveSupportServices.style.background='Yellow';}else{this.form.DiveSupportServices.style.background='White';}\"><br /></td>");
+
+echo stripslashes("</tr></table></td>");
+echo("<tr><th valign='top' align ='left' scope='row'>Suppliers/Brands</th>");
+echo("<td><TEXTAREA READONLY NAME='DiveSupportSuppliersNote' COLS=100 ROW=3 TABINDEX='28'>$DiveSupportSuppliersNote</TEXTAREA></td>");
 echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportAddress1</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportAddress1' VALUE='$DiveSupportAddress1'  SIZE='100' MAXLENGTH='100'  tabindex='5' id ='DiveSupportAddress1'><br /></td>");
+<tr><th valign='top' align ='left' scope='row'>Notes/Comments</th>
+<td><TEXTAREA READONLY NAME='DiveSupportNotes' COLS=100 ROW=3 TABINDEX='29'>$DiveSupportNotes</TEXTAREA></td>");
 echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportAddress2</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportAddress2' VALUE='$DiveSupportAddress2'  SIZE='100' MAXLENGTH='100'  tabindex='6' id ='DiveSupportAddress2'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportCity</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportCity' VALUE='$DiveSupportCity'  SIZE='25' MAXLENGTH='25'  tabindex='7' id ='DiveSupportCity'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportProvince</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportProvince' VALUE='$DiveSupportProvince'  SIZE='25' MAXLENGTH='25'  tabindex='8' id ='DiveSupportProvince'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportCountry</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportCountry' VALUE='$DiveSupportCountry'  SIZE='25' MAXLENGTH='25'  tabindex='9' id ='DiveSupportCountry'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportPhone1</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportPhone1' VALUE='$DiveSupportPhone1'  SIZE='15' MAXLENGTH='15'  tabindex='10' id ='DiveSupportPhone1'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportPhone1Type</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportPhone1Type' VALUE='$DiveSupportPhone1Type'  SIZE='15' MAXLENGTH='15'  tabindex='11' id ='DiveSupportPhone1Type'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportPhone2</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportPhone2' VALUE='$DiveSupportPhone2'  SIZE='15' MAXLENGTH='15'  tabindex='12' id ='DiveSupportPhone2'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportPhone2Type</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportPhone2Type' VALUE='$DiveSupportPhone2Type'  SIZE='15' MAXLENGTH='15'  tabindex='13' id ='DiveSupportPhone2Type'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportPhone3</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportPhone3' VALUE='$DiveSupportPhone3'  SIZE='15' MAXLENGTH='15'  tabindex='14' id ='DiveSupportPhone3'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportPhone3Type</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportPhone3Type' VALUE='$DiveSupportPhone3Type'  SIZE='15' MAXLENGTH='15'  tabindex='15' id ='DiveSupportPhone3Type'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportWebsite</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportWebsite' VALUE='$DiveSupportWebsite'  SIZE='150' MAXLENGTH='150'  tabindex='16' id ='DiveSupportWebsite'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportEmail</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportEmail' VALUE='$DiveSupportEmail'  SIZE='150' MAXLENGTH='150'  tabindex='17' id ='DiveSupportEmail'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportExactLat</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportExactLat' VALUE='$DiveSupportExactLat'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='18' id ='DiveSupportExactLat'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportExactLong</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportExactLong' VALUE='$DiveSupportExactLong'  SIZE='11,7' MAXLENGTH='11,7'  tabindex='19' id ='DiveSupportExactLong'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportHoursMon</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportHoursMon' VALUE='$DiveSupportHoursMon'  SIZE='10' MAXLENGTH='10'  tabindex='20' id ='DiveSupportHoursMon'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportHoursTues</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportHoursTues' VALUE='$DiveSupportHoursTues'  SIZE='10' MAXLENGTH='10'  tabindex='21' id ='DiveSupportHoursTues'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportHoursWed</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportHoursWed' VALUE='$DiveSupportHoursWed'  SIZE='10' MAXLENGTH='10'  tabindex='22' id ='DiveSupportHoursWed'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportHoursThu</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportHoursThu' VALUE='$DiveSupportHoursThu'  SIZE='10' MAXLENGTH='10'  tabindex='23' id ='DiveSupportHoursThu'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportHoursFri</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportHoursFri' VALUE='$DiveSupportHoursFri'  SIZE='10' MAXLENGTH='10'  tabindex='24' id ='DiveSupportHoursFri'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportHoursSat</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportHoursSat' VALUE='$DiveSupportHoursSat'  SIZE='10' MAXLENGTH='10'  tabindex='25' id ='DiveSupportHoursSat'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportHoursSun</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportHoursSun' VALUE='$DiveSupportHoursSun'  SIZE='10' MAXLENGTH='10'  tabindex='26' id ='DiveSupportHoursSun'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportServices</th>
-");
-echo ("<td><input type ='text'READONLY NAME='DiveSupportServices' VALUE='$DiveSupportServices'  SIZE='25' MAXLENGTH='25'  tabindex='27' id ='DiveSupportServices'><br /></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportSuppliersNote</th>
-<td><TEXTAREA NAME='DiveSupportSuppliersNote' READONLY COLS=100 ROW=3 TABINDEX='28'>$DiveSupportSuppliersNote</TEXTAREA></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportNotes</th>
-<td><TEXTAREA NAME='DiveSupportNotes' READONLY COLS=100 ROW=3 TABINDEX='29'>$DiveSupportNotes</TEXTAREA></td>");
-echo stripslashes("</tr>
-<tr><th align ='left' valign='top' scope='row'>DiveSupportPaidDate</th>
-<td><input type ='text'READONLY NAME='DiveSupportPaidDate' VALUE='$DiveSupportPaidDate'  SIZE='11' MAXLENGTH='11'  tabindex='30' id ='DiveSupportPaidDate'>");
+<tr><th valign='top' align ='left' scope='row'>Paid Date</th>
+<td><input type ='text' READONLY NAME='DiveSupportPaidDate' VALUE='$DiveSupportPaidDate'  SIZE='11' MAXLENGTH='11'  tabindex='30' id ='DiveSupportPaidDate' 
+   onBlur=\"if(isBlank(this.form.DiveSupportPaidDate.value)) {alert('DiveSupportPaidDate cannot be blank');this.form.DiveSupportPaidDate.style.background='Yellow';}else{this.form.DiveSupportPaidDate.style.background='White';}\">");
 if($Mode=='EDIT')
 {echo '<A HREF="#" onClick="cal.select(document.forms[\'DiveSupportEdit\'].DiveSupportPaidDate,\'anchor\',\'yyyy-MM-dd\');return false;" NAME="anchor" ID="anchor">Calendar</A>';}
 else 
@@ -1324,7 +1842,7 @@ global $DiveSupportPhone1,$DiveSupportPhone1Type,$DiveSupportPhone2,$DiveSupport
 global $DiveSupportPhone3,$DiveSupportPhone3Type,$DiveSupportWebsite,$DiveSupportEmail,$DiveSupportExactLat;
 global $DiveSupportExactLong,$DiveSupportHoursMon,$DiveSupportHoursTues,$DiveSupportHoursWed;
 global $DiveSupportHoursThu,$DiveSupportHoursFri,$DiveSupportHoursSat,$DiveSupportHoursSun;
-global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate;
+global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate,$DiveSupportPCZip;
 $DiveSupportId='TBD';
 $DiveSupportStatus='';
 $DiveSupportType='';
@@ -1355,6 +1873,7 @@ $DiveSupportServices='';
 $DiveSupportSuppliersNote='';
 $DiveSupportNotes='';
 $DiveSupportPaidDate='';
+$DiveSupportPCZip='';
 return;
 }
 #----------------------------Get Next Record in Database -----------------------------------
@@ -1368,7 +1887,7 @@ global $DiveSupportPhone1,$DiveSupportPhone1Type,$DiveSupportPhone2,$DiveSupport
 global $DiveSupportPhone3,$DiveSupportPhone3Type,$DiveSupportWebsite,$DiveSupportEmail,$DiveSupportExactLat;
 global $DiveSupportExactLong,$DiveSupportHoursMon,$DiveSupportHoursTues,$DiveSupportHoursWed;
 global $DiveSupportHoursThu,$DiveSupportHoursFri,$DiveSupportHoursSat,$DiveSupportHoursSun;
-global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate;
+global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate,$DiveSupportPCZip;
 if($NumDiveSupportRecords==0)
 {InitializeVariables();}
 else
@@ -1411,6 +1930,7 @@ $DiveSupportServices=$rowdata[26];
 $DiveSupportSuppliersNote=$rowdata[27];
 $DiveSupportNotes=$rowdata[28];
 $DiveSupportPaidDate=$rowdata[29];
+$DiveSupportPCZip=$rowdata[30];
 }
 else
 {
@@ -1450,6 +1970,7 @@ $DiveSupportServices=$rowdata[26];
 $DiveSupportSuppliersNote=$rowdata[27];
 $DiveSupportNotes=$rowdata[28];
 $DiveSupportPaidDate=$rowdata[29];
+$DiveSupportPCZip=$rowdata[30];
 }
 else
 {
@@ -1472,7 +1993,7 @@ global $DiveSupportPhone1,$DiveSupportPhone1Type,$DiveSupportPhone2,$DiveSupport
 global $DiveSupportPhone3,$DiveSupportPhone3Type,$DiveSupportWebsite,$DiveSupportEmail,$DiveSupportExactLat;
 global $DiveSupportExactLong,$DiveSupportHoursMon,$DiveSupportHoursTues,$DiveSupportHoursWed;
 global $DiveSupportHoursThu,$DiveSupportHoursFri,$DiveSupportHoursSat,$DiveSupportHoursSun;
-global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate;
+global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate,$DiveSupportPCZip;
 if($NumDiveSupportRecords==0)
 {InitializeVariables();}
 else
@@ -1517,6 +2038,7 @@ $DiveSupportServices=$rowdata[26];
 $DiveSupportSuppliersNote=$rowdata[27];
 $DiveSupportNotes=$rowdata[28];
 $DiveSupportPaidDate=$rowdata[29];
+$DiveSupportPCZip=$rowdata[30];
 }
 }
 else
@@ -1559,6 +2081,7 @@ $DiveSupportServices=$rowdata[26];
 $DiveSupportSuppliersNote=$rowdata[27];
 $DiveSupportNotes=$rowdata[28];
 $DiveSupportPaidDate=$rowdata[29];
+$DiveSupportPCZip=$rowdata[30];
 }
 }
 else
@@ -1582,7 +2105,7 @@ global $DiveSupportPhone1,$DiveSupportPhone1Type,$DiveSupportPhone2,$DiveSupport
 global $DiveSupportPhone3,$DiveSupportPhone3Type,$DiveSupportWebsite,$DiveSupportEmail,$DiveSupportExactLat;
 global $DiveSupportExactLong,$DiveSupportHoursMon,$DiveSupportHoursTues,$DiveSupportHoursWed;
 global $DiveSupportHoursThu,$DiveSupportHoursFri,$DiveSupportHoursSat,$DiveSupportHoursSun;
-global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate;
+global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate,$DiveSupportPCZip;
 $connection = mysql_connect($serverhost,$user,$password) or die('ERROR!!  Cannot connect to MySql');
 $rs = mysql_select_db($db,$connection)    or die('ERROR!! Cannot connect to divesites database');
 $DiveSupportId=$_SESSION['DiveSupportId'];
@@ -1615,7 +2138,8 @@ $sql=$sql."DiveSupportHoursSun='".strip_tags(addslashes($DiveSupportHoursSun))."
 $sql=$sql."DiveSupportServices='".strip_tags(addslashes($DiveSupportServices))."',";
 $sql=$sql."DiveSupportSuppliersNote='".strip_tags(addslashes($DiveSupportSuppliersNote))."',";
 $sql=$sql."DiveSupportNotes='".strip_tags(addslashes($DiveSupportNotes))."',";
-$sql=$sql."DiveSupportPaidDate='".strip_tags(addslashes($DiveSupportPaidDate))."' where DiveSupportId='".$DiveSupportId."'"; 
+$sql=$sql."DiveSupportPaidDate='".strip_tags(addslashes($DiveSupportPaidDate))."',";
+$sql=$sql."DiveSupportPCZip='".strip_tags(addslashes($DiveSupportPCZip))."' where DiveSupportId='".$DiveSupportId."'"; 
 $result = mysql_query($sql,$connection) or die("ERROR!! DiveSupport DATA failure");
 PutVariablesIntoSession();
 mysql_close($connection);
@@ -1632,7 +2156,7 @@ global $DiveSupportPhone1,$DiveSupportPhone1Type,$DiveSupportPhone2,$DiveSupport
 global $DiveSupportPhone3,$DiveSupportPhone3Type,$DiveSupportWebsite,$DiveSupportEmail,$DiveSupportExactLat;
 global $DiveSupportExactLong,$DiveSupportHoursMon,$DiveSupportHoursTues,$DiveSupportHoursWed;
 global $DiveSupportHoursThu,$DiveSupportHoursFri,$DiveSupportHoursSat,$DiveSupportHoursSun;
-global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate;
+global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate,$DiveSupportPCZip;
 OutputMessage('NumDiveSupportRecords: '.$NumDiveSupportRecords);
 OutputMessage('DiveSupportId: '.$DiveSupportId);
 OutputMessage('DiveSupportStatus: '.$DiveSupportStatus);
@@ -1664,6 +2188,7 @@ OutputMessage('DiveSupportServices: '.$DiveSupportServices);
 OutputMessage('DiveSupportSuppliersNote: '.$DiveSupportSuppliersNote);
 OutputMessage('DiveSupportNotes: '.$DiveSupportNotes);
 OutputMessage('DiveSupportPaidDate: '.$DiveSupportPaidDate);
+OutputMessage('DiveSupportPCZip: '.$DiveSupportPCZip);
 return;
 }
 #-----------------------------Database Add Function---------------------------------------
@@ -1677,7 +2202,7 @@ global $DiveSupportPhone1,$DiveSupportPhone1Type,$DiveSupportPhone2,$DiveSupport
 global $DiveSupportPhone3,$DiveSupportPhone3Type,$DiveSupportWebsite,$DiveSupportEmail,$DiveSupportExactLat;
 global $DiveSupportExactLong,$DiveSupportHoursMon,$DiveSupportHoursTues,$DiveSupportHoursWed;
 global $DiveSupportHoursThu,$DiveSupportHoursFri,$DiveSupportHoursSat,$DiveSupportHoursSun;
-global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate;
+global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate,$DiveSupportPCZip;
 $connection = mysql_connect($serverhost,$user,$password) or die('ERROR!!  Cannot connect to MySql');
 $rs = mysql_select_db($db,$connection)    or die('ERROR!! Cannot connect to divesites database');
 $sql="insert into DiveSupport(DiveSupportStatus,DiveSupportType,DiveSupportName,DiveSupportAddress1,DiveSupportAddress2,DiveSupportCity,DiveSupportProvince,DiveSupportCountry,DiveSupportPhone1,DiveSupportPhone1Type,DiveSupportPhone2,DiveSupportPhone2Type,DiveSupportPhone3,DiveSupportPhone3Type,DiveSupportWebsite,DiveSupportEmail,DiveSupportExactLat,DiveSupportExactLong,DiveSupportHoursMon,DiveSupportHoursTues,DiveSupportHoursWed,DiveSupportHoursThu,DiveSupportHoursFri,DiveSupportHoursSat,DiveSupportHoursSun,DiveSupportServices,DiveSupportSuppliersNote,DiveSupportNotes,DiveSupportPaidDate) values (";
@@ -1709,7 +2234,8 @@ $sql=$sql."'".strip_tags(addslashes($DiveSupportHoursSun))."',";
 $sql=$sql."'".strip_tags(addslashes($DiveSupportServices))."',";
 $sql=$sql."'".strip_tags(addslashes($DiveSupportSuppliersNote))."',";
 $sql=$sql."'".strip_tags(addslashes($DiveSupportNotes))."',";
-$sql=$sql."'".strip_tags(addslashes($DiveSupportPaidDate))."')";
+$sql=$sql."'".strip_tags(addslashes($DiveSupportPaidDate))."',";
+$sql=$sql."'".strip_tags(addslashes($DiveSupportPCZip))."')";
 $result = mysql_query($sql,$connection) or die("ERROR!! DiveSupport ADD failure");
 $DiveSupportId=mysql_insert_id($connection);
 PutVariablesIntoSession();
@@ -1727,7 +2253,7 @@ global $DiveSupportPhone1,$DiveSupportPhone1Type,$DiveSupportPhone2,$DiveSupport
 global $DiveSupportPhone3,$DiveSupportPhone3Type,$DiveSupportWebsite,$DiveSupportEmail,$DiveSupportExactLat;
 global $DiveSupportExactLong,$DiveSupportHoursMon,$DiveSupportHoursTues,$DiveSupportHoursWed;
 global $DiveSupportHoursThu,$DiveSupportHoursFri,$DiveSupportHoursSat,$DiveSupportHoursSun;
-global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate;
+global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate,$DiveSupportPCZip;
 $connection = mysql_connect($serverhost,$user,$password) or die('ERROR!!  Cannot connect to MySql');
 $rs = mysql_select_db($db,$connection)    or die('ERROR!! Cannot connect to divesites database');
 $sql="delete from DiveSupport where DiveSupportId='".$DiveSupportId."'";
@@ -1746,7 +2272,7 @@ global $DiveSupportPhone1,$DiveSupportPhone1Type,$DiveSupportPhone2,$DiveSupport
 global $DiveSupportPhone3,$DiveSupportPhone3Type,$DiveSupportWebsite,$DiveSupportEmail,$DiveSupportExactLat;
 global $DiveSupportExactLong,$DiveSupportHoursMon,$DiveSupportHoursTues,$DiveSupportHoursWed;
 global $DiveSupportHoursThu,$DiveSupportHoursFri,$DiveSupportHoursSat,$DiveSupportHoursSun;
-global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate;
+global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate,$DiveSupportPCZip;
 $connection = mysql_connect($serverhost,$user,$password) or die('ERROR!!  Cannot connect to MySql');
 $rs = mysql_select_db($db,$connection)    or die('ERROR!! Cannot connect to divesites database');
 $sql="select * from DiveSupport order by DiveSupportStatus";
@@ -1797,7 +2323,9 @@ echo "<td align='center' ><b>DiveSupportHoursSun</b></td>";
 echo "<td align='center' ><b>DiveSupportServices</b></td>";
 echo "<td align='center' ><b>DiveSupportSuppliersNote</b></td>";
 echo "<td align='center' ><b>DiveSupportNotes</b></td>";
+
 echo "<td align='center' ><b>DiveSupportPaidDate</b></td>";
+echo "<td align='center' ><b>DiveSupportPCZip</b></td>";
 echo '</tr>';
  for($i=1;$i<=$NumDiveSupportRecords;$i++)
 {
@@ -1833,6 +2361,7 @@ echo "<td align='left'>".$rowdata[26]."&nbsp; </td>";
 echo "<td align='left'>".$rowdata[27]."&nbsp; </td>";
 echo "<td align='left'>".$rowdata[28]."&nbsp; </td>";
 echo "<td align='left'>".$rowdata[29]."&nbsp; </td>";
+echo "<td align='left'>".$rowdata[30]."&nbsp; </td>";
 echo "</tr>";
 }
 echo "<tr><td colspan='30' align='center'><input type ='SUBMIT' NAME='display_button' Value = 'Back to Main'></td></tr>";
@@ -1857,69 +2386,82 @@ echo"<table align='center' border = '1' cellspacing ='3'>";
 echo "<input type='hidden' name='check' id='check'>";
 echo "<tr>";
 echo "<td align='center' ><b>DiveSupportId</b></td>";
+
 echo "<td align='center' ><b>DiveSupportStatus</b></td>";
-echo "<td align='center' ><b>DiveSupportType</b></td>";
+
+//echo "<td align='center' ><b>DiveSupportType</b></td>";
+
 echo "<td align='center' ><b>DiveSupportName</b></td>";
-echo "<td align='center' ><b>DiveSupportAddress1</b></td>";
-echo "<td align='center' ><b>DiveSupportAddress2</b></td>";
-echo "<td align='center' ><b>DiveSupportCity</b></td>";
-echo "<td align='center' ><b>DiveSupportProvince</b></td>";
-echo "<td align='center' ><b>DiveSupportCountry</b></td>";
-echo "<td align='center' ><b>DiveSupportPhone1</b></td>";
-echo "<td align='center' ><b>DiveSupportPhone1Type</b></td>";
-echo "<td align='center' ><b>DiveSupportPhone2</b></td>";
-echo "<td align='center' ><b>DiveSupportPhone2Type</b></td>";
-echo "<td align='center' ><b>DiveSupportPhone3</b></td>";
-echo "<td align='center' ><b>DiveSupportPhone3Type</b></td>";
-echo "<td align='center' ><b>DiveSupportWebsite</b></td>";
-echo "<td align='center' ><b>DiveSupportEmail</b></td>";
-echo "<td align='center' ><b>DiveSupportExactLat</b></td>";
-echo "<td align='center' ><b>DiveSupportExactLong</b></td>";
-echo "<td align='center' ><b>DiveSupportHoursMon</b></td>";
-echo "<td align='center' ><b>DiveSupportHoursTues</b></td>";
-echo "<td align='center' ><b>DiveSupportHoursWed</b></td>";
-echo "<td align='center' ><b>DiveSupportHoursThu</b></td>";
-echo "<td align='center' ><b>DiveSupportHoursFri</b></td>";
-echo "<td align='center' ><b>DiveSupportHoursSat</b></td>";
-echo "<td align='center' ><b>DiveSupportHoursSun</b></td>";
-echo "<td align='center' ><b>DiveSupportServices</b></td>";
-echo "<td align='center' ><b>DiveSupportSuppliersNote</b></td>";
-echo "<td align='center' ><b>DiveSupportNotes</b></td>";
+
+echo "<td align='center' ><b>Address</b></td>";
+//echo "<td align='center' ><b>DiveSupportAddress2</b></td>";
+//echo "<td align='center' ><b>DiveSupportCity</b></td>";
+//echo "<td align='center' ><b>DiveSupportProvince</b></td>";
+//echo "<td align='center' ><b>DiveSupportCountry</b></td>";
+
+echo "<td align='center' ><b>Phones</b></td>";
+//echo "<td align='center' ><b>DiveSupportPhone1Type</b></td>";
+//echo "<td align='center' ><b>DiveSupportPhone2</b></td>";
+//echo "<td align='center' ><b>DiveSupportPhone2Type</b></td>";
+//echo "<td align='center' ><b>DiveSupportPhone3</b></td>";
+//echo "<td align='center' ><b>DiveSupportPhone3Type</b></td>";
+//echo "<td align='center' ><b>DiveSupportWebsite</b></td>";
+//echo "<td align='center' ><b>DiveSupportEmail</b></td>";
+//echo "<td align='center' ><b>DiveSupportExactLat</b></td>";
+//echo "<td align='center' ><b>DiveSupportExactLong</b></td>";
+//echo "<td align='center' ><b>DiveSupportHoursMon</b></td>";
+//echo "<td align='center' ><b>DiveSupportHoursTues</b></td>";
+//echo "<td align='center' ><b>DiveSupportHoursWed</b></td>";
+//echo "<td align='center' ><b>DiveSupportHoursThu</b></td>";
+//echo "<td align='center' ><b>DiveSupportHoursFri</b></td>";
+//echo "<td align='center' ><b>DiveSupportHoursSat</b></td>";
+//echo "<td align='center' ><b>DiveSupportHoursSun</b></td>";
+//echo "<td align='center' ><b>DiveSupportServices</b></td>";
+//echo "<td align='center' ><b>DiveSupportSuppliersNote</b></td>";
+//echo "<td align='center' ><b>DiveSupportNotes</b></td>";
+
 echo "<td align='center' ><b>DiveSupportPaidDate</b></td>";
+
 echo '</tr>';
  for($i=1;$i<=$NumDiveSupportRecords;$i++)
 {
 $rowdata=mysql_fetch_row($result);
 echo "<tr>";
 echo "<td align='center'><input type=radio id='SelectRecord' NAME='SelectRecord' VALUE='".$rowdata[0]."' onClick=\"document.forms.ListMenu.display_button.value = 'Display';document.forms.ListMenu.check.value = 'Display';document.forms.ListMenu.submit();\" >&nbsp; </td>";
+
 echo "<td align='left'>".$rowdata[1]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[2]."&nbsp; </td>";
+
+//echo "<td align='left'>".$rowdata[2]."&nbsp; </td>";
+
 echo "<td align='left'>".$rowdata[3]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[4]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[5]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[6]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[7]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[8]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[9]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[10]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[11]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[12]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[13]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[14]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[15]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[16]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[17]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[18]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[19]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[20]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[21]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[22]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[23]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[24]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[25]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[26]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[27]."&nbsp; </td>";
-echo "<td align='left'>".$rowdata[28]."&nbsp; </td>";
+
+echo "<td align='left'>".$rowdata[4]."&nbsp; <br>".$rowdata[5]."<br>".$rowdata[6]."<br>".$rowdata[7]."<br>".$rowdata[8].'<br>'.$rowdata[30];
+//echo "<td align='left'>".$rowdata[5]."&nbsp; <br>";
+//echo "<td align='left'>".$rowdata[6]."&nbsp; <br>";
+//echo "<td align='left'>".$rowdata[7]."&nbsp; <br>";
+//echo "<td align='left'>".$rowdata[8]."&nbsp; </td>";
+
+echo "<td align='left'>".$rowdata[9]."&nbsp; <br>".$rowdata[11]."<br>".$rowdata[13];
+//echo "<td align='left'>".$rowdata[10]."&nbsp; </td>";
+//echo "<td align='left'>".$rowdata[11]."&nbsp; <br>";
+//echo "<td align='left'>".$rowdata[12]."&nbsp; </td>";
+//echo "<td align='left'>".$rowdata[13]."&nbsp; </td>";
+//echo "<td align='left'>".$rowdata[14]."&nbsp; </td>";
+//echo "<td align='left'>".$rowdata[15]."&nbsp; </td>";
+//echo "<td align='left'>".$rowdata[16]."&nbsp; </td>";
+//echo "<td align='left'>".$rowdata[17]."&nbsp; </td>";
+//echo "<td align='left'>".$rowdata[18]."&nbsp; </td>";
+//echo "<td align='left'>".$rowdata[19]."&nbsp; </td>";
+//echo "<td align='left'>".$rowdata[20]."&nbsp; </td>";
+//echo "<td align='left'>".$rowdata[21]."&nbsp; </td>";
+//echo "<td align='left'>".$rowdata[22]."&nbsp; </td>";
+//echo "<td align='left'>".$rowdata[23]."&nbsp; </td>";
+//echo "<td align='left'>".$rowdata[24]."&nbsp; </td>";
+//echo "<td align='left'>".$rowdata[25]."&nbsp; </td>";
+//echo "<td align='left'>".$rowdata[26]."&nbsp; </td>";
+//echo "<td align='left'>".$rowdata[27]."&nbsp; </td>";
+//echo "<td align='left'>".$rowdata[28]."&nbsp; </td>";
+
 echo "<td align='left'>".$rowdata[29]."&nbsp; </td>";
 echo "</tr>";
 }
@@ -1942,7 +2484,7 @@ global $DiveSupportPhone1,$DiveSupportPhone1Type,$DiveSupportPhone2,$DiveSupport
 global $DiveSupportPhone3,$DiveSupportPhone3Type,$DiveSupportWebsite,$DiveSupportEmail,$DiveSupportExactLat;
 global $DiveSupportExactLong,$DiveSupportHoursMon,$DiveSupportHoursTues,$DiveSupportHoursWed;
 global $DiveSupportHoursThu,$DiveSupportHoursFri,$DiveSupportHoursSat,$DiveSupportHoursSun;
-global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate;
+global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate,$DiveSupportPCZip;
 $connection = mysql_connect($serverhost,$user,$password) or die('ERROR!!  Cannot connect to MySql');
 $rs = mysql_select_db($db,$connection)    or die('ERROR!! Cannot connect to divesites database');
 $sql="select * from DiveSupport order by DiveSupportStatus";
@@ -1968,10 +2510,13 @@ global $DiveSupportPhone1,$DiveSupportPhone1Type,$DiveSupportPhone2,$DiveSupport
 global $DiveSupportPhone3,$DiveSupportPhone3Type,$DiveSupportWebsite,$DiveSupportEmail,$DiveSupportExactLat;
 global $DiveSupportExactLong,$DiveSupportHoursMon,$DiveSupportHoursTues,$DiveSupportHoursWed;
 global $DiveSupportHoursThu,$DiveSupportHoursFri,$DiveSupportHoursSat,$DiveSupportHoursSun;
-global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate;
+global $DiveSupportServices,$DiveSupportSuppliersNote,$DiveSupportNotes,$DiveSupportPaidDate,$DiveSupportPCZip;
 $connection = mysql_connect($serverhost,$user,$password) or die('ERROR!!  Cannot connect to MySql');
 $rs = mysql_select_db($db,$connection)    or die('ERROR!! Cannot connect to divesites database');
-$sql="select * from DiveSupport where(DiveSupportStatus ='".strip_tags(addslashes($DiveSupportStatus))."') order by DiveSupportStatus";
+//$sql="select * from DiveSupport where(DiveSupportStatus ='".strip_tags(addslashes($DiveSupportStatus))."') order by DiveSupportStatus";
+
+$sql="select * from DiveSupport where(DiveSupportName ='".strip_tags(addslashes($DiveSupportName))."') order by DiveSupportName";
+
 $result = mysql_query($sql,$connection) or die("ERROR!! DiveSupport Select * failure");
 $NumDiveSupportRecordsDesired = mysql_num_rows($result);
 mysql_close($connection);
@@ -2240,6 +2785,9 @@ document.onkeypress = stopRKey;
 echo "<body bgcolor ='".$BackgroundColor."'>";
 
 
+echo "<body bgcolor ='".$BackgroundColor."' onLoad=\"parent.showframe.location.href='EmptyFrame.php';parent.navframe.location.href='DiveSitesSystemNavFrame.php';\">";
+
+
   CurrentNumberRecords();
  
   if ($_POST)
@@ -2309,13 +2857,8 @@ echo "<body bgcolor ='".$BackgroundColor."'>";
                
   
            case 'Submit Add':
-               GetPostVariables();
                
-               AddForm();
-               
-               exit();
-               
-               
+               GetPostVariables();                        
                
                if(ValidUniqueCode())
                  {  

@@ -2,7 +2,7 @@
 
 
  require_once("SystemFunctions.php");
- $Table="DiveSupport";$Columns = 2;
+ $Table="DiveSiteCourses";$Columns = 2;
      
 
       
